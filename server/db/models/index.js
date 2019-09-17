@@ -18,5 +18,5 @@ const OrderItem = require('./orderItem')
 module.exports = {
   User,
   Item,
-  OrderItem
+  OrderDetails
 }

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const OrderItem = ('orderitem', {
+const OrderDetails = ('orderitem', {
   priceAtPurchase: Sequelize.DECIMAL(10, 2)
 })
 
-module.exports= OrderItem
+module.exports= OrderDetails
