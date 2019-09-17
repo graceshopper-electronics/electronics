@@ -10,10 +10,10 @@ const Review = db.define('review', {
   },
   content: {
     type: Sequelize.TEXT,
-    allowNull: false
-    // validate: {
-    //   isEmpty: false
-    // }
+    allowNull: false,
+    validate: {
+      isEmpty: false
+    }
   }
 })
 
