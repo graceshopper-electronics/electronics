@@ -4,7 +4,7 @@ var faker = require('faker')
 
 let itemSeed = []
 let userSeed = []
-
+let orderSeed = []
 // const userSeed = new Array(10)
 // const orderSeed = new Array(10)
 // const reviewSeed = new Array(10)
@@ -26,6 +26,13 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
+for (let i = 0; i < 7; i++) {
+  orderSeed.push({
+    submissionDate: faker.date.past(),
+    status: 'inCart'
+  })
+}
+
 const seed = async () => {
   try {
     await db.sync({force: true})
@@ -33,7 +40,7 @@ const seed = async () => {
     await User.bulkCreate(userSeed)
     // const firstUser = await User.create(userSeed[0])
 
-    // await Order.bulkCreate(orderSeed)
+    await Order.bulkCreate(orderSeed)
     // const firstReview = await Review.create(reviewSeed[0])
 
     // await firstReview.setUser(firstUser)
