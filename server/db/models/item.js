@@ -3,7 +3,10 @@ const db = require('../db')
 
 const Item = db.define('item', {
   name: Sequelize.STRING,
-  price: Sequelize.REAL,
+  price: {
+    type: Sequelize.DECIMAL(10, 2), //check if this works after seeding the file
+    allowNull: false
+  },
   inventory: Sequelize.INTEGER,
   category: {
     type: Sequelize.STRING,
