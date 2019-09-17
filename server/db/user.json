@@ -1,6 +1,6 @@
 ﻿[
-  {"email": "bob@gmail.com", "password\r": 12345},
-  {"email": "chris@gmail.com", "password\r": 11111},
-  {"email": "zach@gmail.com", "password\r": 22222},
-  {"email": "andre@aol.com", "password\r": 33333}
+  {"email": "bob@gmail.com", "password": "12345"},
+  {"email": "chris@gmail.com", "password": "11111"},
+  {"email": "zach@gmail.com", "password": "22222"},
+  {"email": "andre@aol.com", "password": "33333"}
 ]

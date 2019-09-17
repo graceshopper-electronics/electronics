@@ -5,7 +5,7 @@
     "inventory": 5,
     "category": "PC",
     "photo": "pending",
-    "description\r": "good device\r"
+    "description": "good device\r"
   },
   {
     "name": "samsung",
@@ -13,7 +13,7 @@
     "inventory": 10,
     "category": "TV",
     "photo": "pending",
-    "description\r": "nice\r"
+    "description": "nice\r"
   },
   {
     "name": "lenovo",
@@ -21,7 +21,7 @@
     "inventory": 20,
     "category": "PC",
     "photo": "",
-    "description\r": "very nice\r"
+    "description": "very nice\r"
   },
   {
     "name": "alienware",
@@ -29,6 +29,6 @@
     "inventory": 30,
     "category": "PC",
     "photo": "",
-    "description\r": "gaming"
+    "description": "gaming"
   }
 ]
