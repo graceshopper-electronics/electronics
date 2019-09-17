@@ -2,21 +2,19 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Review = db.define('review', {
-  userId: Sequelize.INTEGER,
-  itemId: Sequelize.INTEGER,
   submissionDate: {
     type: Sequelize.DATE,
     validate: {
-      isDate: true,
+      isDate: true
     }
   },
   content: {
     type: Sequelize.TEXT,
-    allowNull: false,
-    validate: {
-      isEmpty: false
-    }
+    allowNull: false
+    // validate: {
+    //   isEmpty: false
+    // }
   }
 })
 
-module.exports = Review;
+module.exports = Review
