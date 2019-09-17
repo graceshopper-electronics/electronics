@@ -8,12 +8,6 @@ const Item = db.define('item', {
     allowNull: false
   },
   inventory: Sequelize.INTEGER,
-  category: {
-    type: Sequelize.STRING,
-    validate: {
-      isIn: [['TV', 'PC']]
-    }
-  },
   photo: {
     type: Sequelize.TEXT,
     default: 'smiley face'
