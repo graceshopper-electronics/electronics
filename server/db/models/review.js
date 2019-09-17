@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Order = db.define('order', {
+const Review = db.define('review', {
   userId: Sequelize.INTEGER,
   itemId: Sequelize.INTEGER,
   submissionDate: {
@@ -10,11 +10,13 @@ const Order = db.define('order', {
       isDate: true,
     }
   },
-  status: {
-    type: Sequelize.STRING,
-    values: ['inCart', 'processing', 'shipped', 'delivered'],
-    defaultValue: 'inCart',
+  content: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      isEmpty: false
+    }
   }
 })
 
-module.exports = Order;
+module.exports = Review;
