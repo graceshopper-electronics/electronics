@@ -13,22 +13,27 @@ class OrderHistory extends Component {
     this.state = defaultState
   }
 
-  componentDidMount() {
-    console.log('here it is')
-    this.props.getHistory()
-    console.log(this.state)
+  async componentDidMount() {
+    console.log('this is a test')
+    const orderHistory = await this.props.getHistory()
+    this.setState(orderHistory)
+    console.log(this.state, this.props, orderHistory)
   }
   render() {
-    const displayOrders = this.props.orderHistory.filter(
-      order => order.status !== 'inCart'
-    )
-    displayOrders.sort(function(a, b) {
-      a = new Date(a.submissionDate)
-      b = new Date(b.subissionDate)
-      return a > b ? -1 : a < b ? 1 : 0
-    })
+    let displayOrders = []
+    if (this.props.orderHistory) {
+      let displayOrders = this.props.orderHistory.filter(
+        order => order.status !== 'inCart'
+      )
+      displayOrders.sort(function(a, b) {
+        a = new Date(a.submissionDate)
+        b = new Date(b.subissionDate)
+        return a > b ? -1 : a < b ? 1 : 0
+      })
+    }
     return (
       <div id="orderhistory">
+        <hi>Your Order History</hi>
         {displayOrders.length ? (
           <div>
             <h2>No Order History Found!</h2>
