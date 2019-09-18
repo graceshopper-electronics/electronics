@@ -6,11 +6,9 @@ import Reviews from './reviews'
 class Singleitem extends Component {
   render() {
     let itemId = this.props.match.params.itemId
-    console.log('ITEMID', itemId)
     let allItems = this.props.items
-    console.log(allItems)
     let itemObj = allItems.filter(el => el.id === Number(itemId))[0]
-    console.log(itemObj)
+
     return (
       <div>
         <h3>{itemObj.name}</h3>
