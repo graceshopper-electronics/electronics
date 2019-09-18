@@ -5,6 +5,7 @@
  */
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
+export {default as OrderHistory} from './orderHistory'
 export {Login, Signup} from './auth-form'
 export {default as Allitems} from './allitems'
 export {default as Singleitem} from './singleitem'
