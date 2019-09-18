@@ -65,3 +65,23 @@ form div {
 .search-button:hover {
   background-color: rgba(199, 154, 6, 0.973);
 }
+
+.wrap {
+  display: table;
+}
+
+.wrap .itemPhoto {
+  padding: 10px;
+  display: table-cell;
+  vertical-align: left;
+}
+
+ul {
+  list-style-type: none;
+  background-position: left center;
+  background-repeat: no-repeat;
+  height: 105px;
+  width: 621px;
+  vertical-align: middle;
+  display: table-cell;
+}
