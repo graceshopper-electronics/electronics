@@ -10,7 +10,8 @@ const Item = db.define('item', {
   inventory: Sequelize.INTEGER,
   photo: {
     type: Sequelize.TEXT,
-    default: 'smiley face'
+    default:
+      'https://cdn2.iconfinder.com/data/iconsets/previews/medium-2x/electronics-consumer-electronics-electronics-store.png'
   },
   description: Sequelize.TEXT
 })
