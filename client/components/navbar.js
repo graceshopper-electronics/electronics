@@ -19,7 +19,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Link to="/" className="link">
       Account
     </Link>
-    <Link to="/" className="link">
+    <Link to="/orders/history" className="link">
       Orders
     </Link>
     <Link to="/" className="link">

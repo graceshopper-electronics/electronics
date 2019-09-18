@@ -26,10 +26,12 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
+const statusArray = ['inCart', 'processing', 'shipped', 'delivered']
+
 for (let i = 0; i < 7; i++) {
   orderSeed.push({
     submissionDate: faker.date.past(),
-    status: 'inCart'
+    status: statusArray[Math.floor(Math.random() * statusArray.length)]
   })
 }
 
