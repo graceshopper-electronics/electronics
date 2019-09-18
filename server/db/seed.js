@@ -1,4 +1,4 @@
-const {Item, User, Order, Review} = require('./models/index.js')
+const {Item, User, Order, Review, OrderDetails} = require('./models/index.js')
 const db = require('./db.js')
 var faker = require('faker')
 
@@ -22,16 +22,32 @@ for (let i = 0; i < 10; i++) {
 for (let i = 0; i < 10; i++) {
   userSeed.push({
     email: faker.internet.email(),
-    password: faker.internet.password()
+    password: '123'
   })
 }
 
 for (let i = 0; i < 7; i++) {
   orderSeed.push({
     submissionDate: faker.date.past(),
-    status: 'inCart'
+    status: 'inCart',
+    userId: 2
   })
 }
+
+const orderDetails = [
+  {
+    orderId: 1,
+    itemId: 2
+  },
+  {
+    orderId: 1,
+    itemId: 1
+  },
+  {
+    orderId: 2,
+    itemId: 1
+  }
+]
 
 const seed = async () => {
   try {
@@ -42,7 +58,7 @@ const seed = async () => {
 
     await Order.bulkCreate(orderSeed)
     // const firstReview = await Review.create(reviewSeed[0])
-
+    await OrderDetails.bulkCreate(orderDetails)
     // await firstReview.setUser(firstUser)
   } catch (err) {
     console.log('Error seeding bulk file', err)
