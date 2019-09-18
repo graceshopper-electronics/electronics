@@ -10,6 +10,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <div className="title link">
       <p>#TeamApple</p>
     </div>
+    <div>
+      <p>
+        <Link to="/items">All items</Link>
+      </p>
+    </div>
     <div className="link">
       <input className="search" type="text" />
       <button className="search-button">

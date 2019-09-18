@@ -4,11 +4,9 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import orderHistory from './orderHistory'
+import items from './items'
 
-const reducer = combineReducers({
-  user,
-  orderHistory
-})
+const reducer = combineReducers({user, items, orderHistory})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

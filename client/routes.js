@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, OrderHistory} from './components'
+import {Login, Signup, UserHome, Allitems, OrderHistory} from './components'
 import {me} from './store'
+import {fetchItemsThunk} from './store/items'
 
 /**
  * COMPONENT
@@ -22,6 +23,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/orders/history" component={OrderHistory} />
+        <Route path="/items" component={Allitems} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -50,6 +52,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+      dispatch(fetchItemsThunk())
     }
   }
 }
