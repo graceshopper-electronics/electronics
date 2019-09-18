@@ -1,5 +1,8 @@
 body {
   font-family: sans-serif;
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
 }
 
 a {
@@ -12,10 +15,53 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
 }
 
 form div {
-  margin: 1em;
   display: inline-block;
+}
+
+.flex-display {
+  display: flex;
+}
+
+.link {
+  color: white;
+  font-size: 26px;
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: rgb(138, 138, 138);
+}
+
+.nav {
+  margin: 0px;
+  display: flex;
+  height: 80px;
+  width: 100vw;
+  background-color: rgb(73, 73, 73);
+  color: white;
+  align-items: center;
+}
+
+.search {
+  font-size: 29px;
+  border-style: none;
+}
+
+.search:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.search-button {
+  background-color: rgba(233, 180, 8, 0.973);
+  border-style: none;
+  color: rgb(73, 73, 73);
+}
+
+.search-button:hover {
+  background-color: rgba(199, 154, 6, 0.973);
 }
