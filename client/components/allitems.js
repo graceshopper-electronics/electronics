@@ -1,21 +1,29 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {fetchItemsThunk} from '../store/items'
+
 /**
  * COMPONENT
  */
 
 class Allitems extends Component {
-  componentDidMount() {
-    console.log(this.props)
-  }
-
   render() {
-    console.log(this)
+    const items = this.props.items
     return (
       <div>
         <h3>Welcome, to all items</h3>
+        <div>
+          {items.map(item => (
+            <div key={item.id} className="wrap">
+              <img src={item.photo} className="itemPhoto" />
+              <ul>
+                <li>Price: {item.price}</li>
+                <li>Name:{item.name}</li>
+                <li>Inventory: {item.inventory}</li>
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
@@ -27,12 +35,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchItems: () => dispatch(fetchItemsThunk())
-  }
-}
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Allitems)
-)
+export default withRouter(connect(mapStateToProps)(Allitems))
