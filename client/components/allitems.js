@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-
-/**
- * COMPONENT
- */
+import {withRouter, Link} from 'react-router-dom'
 
 class Allitems extends Component {
   render() {
@@ -15,7 +11,9 @@ class Allitems extends Component {
         <div>
           {items.map(item => (
             <div key={item.id} className="wrap">
-              <img src={item.photo} className="itemPhoto" />
+              <Link to={`/items/${item.id}`}>
+                <img src={item.photo} className="itemPhoto" />
+              </Link>
               <ul>
                 <li>Price: {item.price}</li>
                 <li>Name:{item.name}</li>
