@@ -14,7 +14,9 @@ class OrderHistory extends Component {
   }
 
   componentDidMount() {
-    this.props.getOrderHistory()
+    console.log('here it is')
+    this.props.getHistory()
+    console.log(this.state)
   }
   render() {
     const displayOrders = this.props.orderHistory.filter(
@@ -32,9 +34,21 @@ class OrderHistory extends Component {
             <h2>No Order History Found!</h2>
           </div>
         ) : (
-          <div>{displayOrders.map(order => <div id="singleOrder" />)}</div>
+          <div>
+            {displayOrders.map(order => (
+              <div id="singleOrder">
+                <div />)}
+              </div>
+            ))}
+          </div>
         )}
       </div>
     )
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  getHistory: () => dispatch(fetchOrderHistory())
+})
+
+export default connect(null, mapDispatchToProps)(OrderHistory)
