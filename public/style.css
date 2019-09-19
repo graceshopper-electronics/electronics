@@ -27,7 +27,7 @@ form div {
 
 .link {
   color: white;
-  font-size: 26px;
+  font-size: 20px;
   margin-left: auto;
   margin-right: auto;
   text-decoration: none;
@@ -83,4 +83,14 @@ ul {
   width: 621px;
   vertical-align: middle;
   display: table-cell;
+}
+
+img {
+  max-height: 225px;
+  max-width: 225px;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

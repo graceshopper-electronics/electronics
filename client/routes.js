@@ -12,6 +12,7 @@ import {
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
+import {fetchOrderHistory} from './store/orderHistory'
 
 /**
  * COMPONENT
@@ -36,6 +37,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/orders/history" component={OrderHistory} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -61,6 +63,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
       dispatch(fetchItemsThunk())
+      dispatch(fetchOrderHistory())
     }
   }
 }

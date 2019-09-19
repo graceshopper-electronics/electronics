@@ -24,7 +24,7 @@ for (let i = 0; i < 10; i++) {
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
     inventory: 10,
-    photo: faker.image.technics(100, 100, true),
+    //photo: faker.image.technics(70, 70, true),
     description: faker.lorem.sentence(),
     categoryId: Math.floor(Math.random() * 4) + 1
   })
@@ -43,7 +43,7 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
-const statusArray = ['inCart', 'processing', 'shipped', 'delivered']
+const statusArray = ['inCart', 'Processing', 'Shipped', 'Delivered']
 
 for (let i = 0; i < 6; i++) {
   orderSeed.push({

@@ -10,17 +10,16 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <div className="title link">
       <p>#TeamApple</p>
     </div>
-    <div>
-      <p>
-        <Link to="/items">All items</Link>
-      </p>
-    </div>
+    <div />
     <div className="link">
       <input className="search" type="text" />
       <button className="search-button">
         <div className="fa fa-search fa-3x" />
       </button>
     </div>
+    <Link to="/items" className="link">
+      Products
+    </Link>
     <Link to="/" className="link">
       Account
     </Link>
