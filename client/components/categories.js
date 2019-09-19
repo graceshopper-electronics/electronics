@@ -5,13 +5,15 @@ import {withRouter, Link} from 'react-router-dom'
 class Categories extends Component {
   render() {
     const list = this.props.categories
-    console.log(this.props)
     return (
       <div>
         <h3>Categories</h3>
         <div>
           {list.map(ctg => (
             <Link to={`/categories/${ctg.id}`} key={ctg.id}>
+              <li>
+                <img src={ctg.photo} />
+              </li>
               <li>{ctg.name}</li>
             </Link>
           ))}

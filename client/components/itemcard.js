@@ -16,6 +16,4 @@ const ItemCard = props => {
   )
 }
 
-//eod
-
 export default ItemCard

@@ -14,25 +14,56 @@ let userSeed = []
 let orderSeed = []
 let orderDetailSeed = []
 let reviewSeed = []
-let categorySeed = []
-// const userSeed = new Array(10)
-// const orderSeed = new Array(10)
-// const reviewSeed = new Array(10)
+let categorySeed = [
+  {
+    name: 'TVs',
+    photo: 'https://www.lg.com/us/experience-tvs/oled-tv/i/bg-shopoled.jpg'
+  },
+  {
+    name: 'Mobile phones',
+    photo:
+      'https://cdn.vox-cdn.com/thumbor/vFbxezqB4fgK1-VirclQI8roaD8=/0x0:2040x1360/1200x675/filters:focal(1398x346:1724x672)/cdn.vox-cdn.com/uploads/chorus_image/image/65253817/akrales_190912_3656_0027.0.jpg'
+  },
+  {
+    name: 'Audio',
+    photo:
+      'https://speaker.ninja/wp-content/uploads/2017/09/What-Causes-Popping-and-Crackling-Sounds-in-Your-Speakers-featured.jpg'
+  },
+  {
+    name: 'Photography',
+    photo:
+      'https://cdn.thewirecutter.com/wp-content/uploads/2018/04/canon-dslrs-march-2018-2x1-lowres3496.jpg'
+  },
+  {
+    name: 'Games',
+    photo:
+      'https://d3atagt0rnqk7k.cloudfront.net/wp-content/uploads/2016/09/12150402/best-single-multiplayer-video-games-to-pair-with-cannabis.jpg'
+  },
+  {
+    name: 'Office',
+    photo:
+      'https://www.tds-office.com/wp-content/uploads/2018/10/office-electronics-printers-copiers.jpg'
+  },
+  {
+    name: 'Computers',
+    photo:
+      'http://hpsuppliesfirstclass.com/newsletter/images/i_essential_01_big_image_tcm245_2268831_tcm245_2193389_tcm245-2268831.jpg'
+  },
+  {
+    name: 'Accessories',
+    photo:
+      'http://electronicgalaxyandmore.com/wp-content/uploads/2016/01/Computer-Accessories.jpg'
+  }
+]
 
 for (let i = 0; i < 10; i++) {
   itemSeed.push({
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
     inventory: 10,
-    //photo: faker.image.technics(70, 70, true),
+    photo: faker.image.technics(70, 70, true),
     description: faker.lorem.sentence(),
     categoryId: Math.floor(Math.random() * 4) + 1
-  })
-}
-
-for (let i = 0; i < 4; i++) {
-  categorySeed.push({
-    name: faker.commerce.department()
   })
 }
 
