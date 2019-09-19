@@ -10,7 +10,7 @@ const Order = db.define('order', {
   },
   status: {
     type: Sequelize.STRING,
-    values: ['inCart', 'processing', 'shipped', 'delivered'],
+    values: ['inCart', 'Processing', 'Shipped', 'Delivered'],
     defaultValue: 'inCart'
   }
 })

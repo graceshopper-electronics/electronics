@@ -8,7 +8,7 @@ import {auth} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
+  console.log(props)
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -18,6 +18,7 @@ const AuthForm = props => {
           </label>
           <input name="email" type="text" />
         </div>
+        <br />
         <div>
           <label htmlFor="password">
             <small>Password</small>

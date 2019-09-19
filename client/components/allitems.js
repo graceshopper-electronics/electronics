@@ -11,7 +11,7 @@ class Allitems extends Component {
     const items = this.props.items
     return (
       <div>
-        <h3>Welcome, to all items</h3>
+        <h3>Welcome to all items</h3>
         <div>
           {items.map(item => (
             <div key={item.id} className="wrap">
@@ -19,7 +19,7 @@ class Allitems extends Component {
               <ul>
                 <li>Price: {item.price}</li>
                 <li>Name:{item.name}</li>
-                <li>Inventory: {item.inventory}</li>
+                <li>Left in Stock: {item.inventory}</li>
               </ul>
             </div>
           ))}

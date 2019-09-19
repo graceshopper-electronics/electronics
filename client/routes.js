@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Allitems, OrderHistory} from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
+import {fetchOrderHistory} from './store/orderHistory'
 
 /**
  * COMPONENT
@@ -22,12 +23,12 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/orders/history" component={OrderHistory} />
         <Route path="/items" component={Allitems} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/orders/history" component={OrderHistory} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -53,6 +54,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
       dispatch(fetchItemsThunk())
+      dispatch(fetchOrderHistory())
     }
   }
 }
