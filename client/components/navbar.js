@@ -21,10 +21,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div className="fa fa-search fa-3x" />
       </button>
     </div>
+    <Link to="/items" className="link">
+      Products
+    </Link>
     <Link to="/" className="link">
       Account
     </Link>
-    <Link to="/" className="link">
+    <Link to="/orders/history" className="link">
       Orders
     </Link>
     <Link to="/cart" className="link">

@@ -2,10 +2,19 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, Allitems, ViewCart} from './components'
+import {fetchCartItems} from './store/cart'
+import {
+  Login,
+  Signup,
+  UserHome,
+  Allitems,
+  Singleitem,
+  OrderHistory,
+  ViewCart
+} from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
-import {fetchCartItems} from './store/cart'
+import {fetchOrderHistory} from './store/orderHistory'
 
 /**
  * COMPONENT
@@ -23,12 +32,15 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/items/:itemId" component={Singleitem} />
         <Route path="/items" component={Allitems} />
         <Route path="/cart" component={ViewCart} />
+        <Route path="/orders/history" component={OrderHistory} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/orders/history" component={OrderHistory} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -55,6 +67,7 @@ const mapDispatch = dispatch => {
       dispatch(me())
       dispatch(fetchItemsThunk())
       dispatch(fetchCartItems())
+      dispatch(fetchOrderHistory())
     }
   }
 }
