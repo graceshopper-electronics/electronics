@@ -39,7 +39,7 @@ for (let i = 0; i < 4; i++) {
 for (let i = 0; i < 10; i++) {
   userSeed.push({
     email: faker.internet.email(),
-    password: faker.internet.password()
+    password: '123'
   })
 }
 
@@ -88,6 +88,21 @@ for (let i = 0; i < 6; i++) {
     itemId: i + 2
   })
 }
+
+const orderDetails = [
+  {
+    orderId: 1,
+    itemId: 2
+  },
+  {
+    orderId: 1,
+    itemId: 1
+  },
+  {
+    orderId: 2,
+    itemId: 1
+  }
+]
 
 const seed = async () => {
   try {

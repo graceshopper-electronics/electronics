@@ -1,7 +1,26 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {addCartItem} from '../store/cart'
 
 const AddToCart = props => {
-  return <button className="add-to-cart">Add to cart</button>
+  const item = props.item
+  return (
+    <button
+      className="add-to-cart"
+      onClick={() => {
+        props.addItem(item)
+      }}
+    >
+      Add to cart
+    </button>
+  )
 }
 
-export default AddToCart
+const mapDispatch = dispatch => {
+  return {
+    addItem: item => dispatch(addCartItem(item))
+  }
+}
+
+export default withRouter(connect(null, mapDispatch)(AddToCart))
