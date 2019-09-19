@@ -2,13 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import {fetchCartItems} from './store/cart'
 import {
   Login,
   Signup,
   UserHome,
   Allitems,
   Singleitem,
-  OrderHistory
+  OrderHistory,
+  ViewCart
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
@@ -32,6 +34,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/items/:itemId" component={Singleitem} />
         <Route path="/items" component={Allitems} />
+        <Route path="/cart" component={ViewCart} />
         <Route path="/orders/history" component={OrderHistory} />
         {isLoggedIn && (
           <Switch>
@@ -63,6 +66,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
       dispatch(fetchItemsThunk())
+      dispatch(fetchCartItems())
       dispatch(fetchOrderHistory())
     }
   }
