@@ -5,10 +5,16 @@ import Reviews from './reviews'
 
 class Singleitem extends Component {
   render() {
+    if (!this.props.items.length) {
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      )
+    }
     let itemId = this.props.match.params.itemId
     let allItems = this.props.items
     let itemObj = allItems.filter(el => el.id === Number(itemId))[0]
-    console.log(this.props)
     return (
       <div>
         <h3>{itemObj.name}</h3>
@@ -17,10 +23,10 @@ class Singleitem extends Component {
             <img src={itemObj.photo} className="itemPhoto" />
           </li>
           <li>Price: {itemObj.price} </li>
-          <li>Inventory: {itemObj.inventory}</li>
+          <li>Left in Stock: {itemObj.inventory}</li>
           <li>Description: {itemObj.description}</li>
         </ul>
-        <Reviews />
+        <Reviews id={itemObj.id} />
       </div>
     )
   }

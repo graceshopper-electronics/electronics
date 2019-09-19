@@ -4,17 +4,6 @@ import {withRouter} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 
 class OrderHistory extends Component {
-  // constructor() {
-  //   super()
-  //   this.state = defaultState
-  // }
-
-  // async componentDidMount() {
-  //   console.log('this is a test')
-  //   const orderHistory = await this.props.getHistory()
-  //   this.setState(orderHistory)
-  //   console.log(this.state, this.props, orderHistory)
-  // }
   render() {
     let displayOrders = []
     if (!this.props.orderHistory.length) {
@@ -23,14 +12,6 @@ class OrderHistory extends Component {
           <h2>Loading User History....</h2>
         </div>
       )
-      // let displayOrders = this.props.orderHistory.filter(
-      //   order => order.status !== 'inCart'
-      // )
-      // displayOrders.sort(function(a, b) {
-      //   a = new Date(a.submissionDate)
-      //   b = new Date(b.submissionDate)
-      //   return a > b ? -1 : a < b ? 1 : 0
-      // })
     } else {
       displayOrders = this.props.orderHistory.filter(
         order => order.status !== 'inCart'
@@ -66,7 +47,7 @@ class OrderHistory extends Component {
               <h4>Order From: {order.submissionDate.slice(0, 10)}</h4>
               <h4>Order Status: {order.status}</h4>
               {order.items.map(item => (
-                <Link to={`items/${item.id}`}>
+                <Link to={`items/${item.id}`} key={item.id}>
                   <div className="wrap" key={item.id}>
                     <img src={item.photo} className="itemPhoto" />
                     <ul>

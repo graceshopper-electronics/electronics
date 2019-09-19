@@ -9,6 +9,7 @@ import {
   Allitems,
   Singleitem,
   OrderHistory,
+  Account,
   Categories,
   SingleCategory,
   ViewCart
@@ -36,8 +37,8 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/items/:itemId" component={Singleitem} />
         <Route path="/items" component={Allitems} />
+        <Route path="/account" component={Account} />
         <Route path="/cart" component={ViewCart} />
-        <Route path="/orders/history" component={OrderHistory} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/categories" component={Categories} />
 
