@@ -13,6 +13,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <div>
       <p>
         <Link to="/items">All items</Link>
+        <Link to="/categories">Categories</Link>
       </p>
     </div>
     <div className="link">

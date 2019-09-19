@@ -8,7 +8,7 @@ class Singleitem extends Component {
     let itemId = this.props.match.params.itemId
     let allItems = this.props.items
     let itemObj = allItems.filter(el => el.id === Number(itemId))[0]
-
+    console.log(this.props)
     return (
       <div>
         <h3>{itemObj.name}</h3>
