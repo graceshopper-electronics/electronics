@@ -3,17 +3,23 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Menu from './menu'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="nav">
-    <div className="fa fa-bars fa-2x link" />
+    <div className="dropdown">
+      <button className="dropbtn">
+        <div className="fa fa-bars fa-2x link" />
+      </button>
+      <div id="myDropdown" className="dropdown-content">
+        <Menu />
+      </div>
+    </div>
+
     <div className="title link">
       <p>#TeamApple</p>
     </div>
     <div>
-      <Link to="/items" className="link">
-        All items
-      </Link>
       <Link to="/categories" className="link">
         Categories
       </Link>
