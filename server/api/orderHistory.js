@@ -5,21 +5,20 @@ const {OrderDetails} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  // if (req.session.user) {
-  try {
-    const orders = await Order.findAll({
-      where: {
-        userId: 1
-        //userId: req.session.user,
-        //include: [Items]
-      },
-      include: [Item]
-    })
-    res.json(orders)
-  } catch (err) {
-    next(err)
+  if (req.session.passport) {
+    try {
+      const orders = await Order.findAll({
+        where: {
+          userId: req.session.passport.user
+        },
+        include: [Item]
+      })
+      res.json(orders)
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    console.log('find a way', req.baseUrl)
+    res.redirect(401, '/items')
   }
-  // } else {
-  //  res.redirect(401, '/login')
-  //}
 })

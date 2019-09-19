@@ -10,12 +10,14 @@ import {
   Singleitem,
   OrderHistory,
   Categories,
-  SingleCategory
+  SingleCategory,
+  ViewCart
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
 import {fetchCategoriesThunk} from './store/categories'
-
+import {fetchOrderHistory} from './store/orderHistory'
+import {fetchCartItems} from './store/cart'
 /**
  * COMPONENT
  */
@@ -34,6 +36,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/items/:itemId" component={Singleitem} />
         <Route path="/items" component={Allitems} />
+        <Route path="/cart" component={ViewCart} />
         <Route path="/orders/history" component={OrderHistory} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/categories" component={Categories} />
@@ -42,6 +45,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/orders/history" component={OrderHistory} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -68,6 +72,8 @@ const mapDispatch = dispatch => {
       dispatch(me())
       dispatch(fetchItemsThunk())
       dispatch(fetchCategoriesThunk())
+      dispatch(fetchCartItems())
+      dispatch(fetchOrderHistory())
     }
   }
 }

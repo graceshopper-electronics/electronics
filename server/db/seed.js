@@ -24,7 +24,7 @@ for (let i = 0; i < 10; i++) {
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
     inventory: 10,
-    photo: faker.image.technics(100, 100, true),
+    //photo: faker.image.technics(70, 70, true),
     description: faker.lorem.sentence(),
     categoryId: Math.floor(Math.random() * 4) + 1
   })
@@ -39,11 +39,11 @@ for (let i = 0; i < 4; i++) {
 for (let i = 0; i < 10; i++) {
   userSeed.push({
     email: faker.internet.email(),
-    password: faker.internet.password()
+    password: '123'
   })
 }
 
-const statusArray = ['inCart', 'processing', 'shipped', 'delivered']
+const statusArray = ['inCart', 'Processing', 'Shipped', 'Delivered']
 
 for (let i = 0; i < 6; i++) {
   orderSeed.push({
@@ -88,6 +88,21 @@ for (let i = 0; i < 6; i++) {
     itemId: i + 2
   })
 }
+
+const orderDetails = [
+  {
+    orderId: 1,
+    itemId: 2
+  },
+  {
+    orderId: 1,
+    itemId: 1
+  },
+  {
+    orderId: 2,
+    itemId: 1
+  }
+]
 
 const seed = async () => {
   try {

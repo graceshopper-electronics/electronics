@@ -11,10 +11,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <p>#TeamApple</p>
     </div>
     <div>
-      <p>
-        <Link to="/items">All items</Link>
-        <Link to="/categories">Categories</Link>
-      </p>
+      <Link to="/items" className="link">
+        All items
+      </Link>
+      <Link to="/categories" className="link">
+        Categories
+      </Link>
     </div>
     <div className="link">
       <input className="search" type="text" />
@@ -22,13 +24,16 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div className="fa fa-search fa-3x" />
       </button>
     </div>
+    <Link to="/items" className="link">
+      Products
+    </Link>
     <Link to="/" className="link">
       Account
     </Link>
     <Link to="/orders/history" className="link">
       Orders
     </Link>
-    <Link to="/" className="link">
+    <Link to="/cart" className="link">
       <div className="fa fa-shopping-cart fa-lg" />
     </Link>
   </div>

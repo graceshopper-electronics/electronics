@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import AddToCart from './addToCart'
+
+/**
+ * COMPONENT
+ */
+import {withRouter, Link} from 'react-router-dom'
 import ItemCard from './itemcard'
 
 class Allitems extends Component {
