@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Items} = require('../db/models')
+const {Order, Item} = require('../db/models')
 module.exports = router
 
 router.use((req, res, next) => {
@@ -11,23 +11,20 @@ router.use((req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('req.user: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const cartOrder = await Order.findOrCreate({
         where: {
           userId,
           status: 'inCart'
-        }
+        },
+        include: [
+          {
+            model: Item
+          }
+        ]
       })
-      console.log('cartOrder: ', cartOrder)
-      const cart = await Order.findByPk(cartOrder[0].id, {
-        include: {
-          Items
-        }
-      })
-      req.session.cart = cart
-      console.log('req.session.cart: ', req.session.cart)
+      req.session.cart = cartOrder
     }
     res.json(req.session.cart)
   } catch (error) {

@@ -5,20 +5,21 @@ const GET_ITEMS_FROM_CART = 'GET_ITEMS_FROM_CART'
 
 const initialState = []
 
-const setCart = cartItems => {
+const setCart = cart => {
   return {
     type: GET_ITEMS_FROM_CART,
-    cartItems
+    cart
   }
 }
 
 export const fetchCartItems = () => {
   return async function(dispatch) {
     try {
-      const {data} = await axios.get('/api/orders/cart')
-      dispatch(setCart(data))
+      const {data} = await axios.get('/api/cart')
+      console.log('cart Incoming: ', data[0])
+      dispatch(setCart(data[0]))
     } catch (error) {
-      console.log('Probelm Getting Cart Items!')
+      console.log('Problem Getting Cart Items!')
     }
   }
 }
@@ -27,8 +28,8 @@ export const addCartItem = item => {
   return async function(dispatch) {
     try {
       console.log('clicked')
-      await axios.put('/api/orders/cart/addItem', item)
-      const {data} = await axios.get('/api/orders/cart')
+      await axios.put('/api/cart/addItem', item)
+      const {data} = await axios.get('/api/cart')
       dispatch(setCart(data))
     } catch {
       console.log('Problem Adding a Cart Item!')
@@ -38,7 +39,7 @@ export const addCartItem = item => {
 const cart = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEMS_FROM_CART:
-      return action.cartItems
+      return action.cart
     default:
       return state
   }

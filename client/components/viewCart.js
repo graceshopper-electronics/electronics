@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom'
 
 class ViewCart extends React.Component {
   render() {
-    const items = this.props.cartItems
+    const items = this.props.cart.items
     console.log('items: ', items)
     console.log('user: ', this.props.user)
     return (
@@ -20,7 +20,6 @@ class ViewCart extends React.Component {
               <ul>
                 <li>Price: {item.price}</li>
                 <li>Name:{item.name}</li>
-                <li>Inventory: {item.inventory}</li>
               </ul>
             </div>
           ))
@@ -36,7 +35,7 @@ class ViewCart extends React.Component {
 
 const mapState = state => {
   return {
-    cartItems: state.cartItems,
+    cart: state.cart,
     user: state.user
   }
 }
