@@ -24,5 +24,5 @@ const mapStateToProps = state => {
     categories: state.categories
   }
 }
-
+//eod
 export default withRouter(connect(mapStateToProps)(Menu))
