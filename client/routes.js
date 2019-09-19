@@ -8,7 +8,8 @@ import {
   UserHome,
   Allitems,
   Singleitem,
-  OrderHistory
+  OrderHistory,
+  Account
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
@@ -32,7 +33,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/items/:itemId" component={Singleitem} />
         <Route path="/items" component={Allitems} />
-        <Route path="/orders/history" component={OrderHistory} />
+        <Route path="/account" component={Account} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
