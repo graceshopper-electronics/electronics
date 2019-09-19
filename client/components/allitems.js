@@ -15,11 +15,14 @@ class Allitems extends Component {
       <div>
         <h3>Welcome, to all items</h3>
         <div>
-          {items.map(item => (
-            <Link to={`items/${item.id}`} key={item.id}>
-              <ItemCard item={item} key={item.id} />
-            </Link>
-          ))}
+          {items.map(item => {
+            return (
+              <div key={item.id}>
+                <ItemCard item={item} />
+                <AddToCart item={item} />
+              </div>
+            )
+          })}
         </div>
       </div>
     )

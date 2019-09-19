@@ -120,21 +120,6 @@ for (let i = 0; i < 6; i++) {
   })
 }
 
-const orderDetails = [
-  {
-    orderId: 1,
-    itemId: 2
-  },
-  {
-    orderId: 1,
-    itemId: 1
-  },
-  {
-    orderId: 2,
-    itemId: 1
-  }
-]
-
 const seed = async () => {
   try {
     await db.sync({force: true})

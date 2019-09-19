@@ -24,9 +24,32 @@ router.get('/', async (req, res, next) => {
           }
         ]
       })
-      req.session.cart = cartOrder
+      res.json(cartOrder[0])
+    } else {
+      const guestCart = {items: req.session.cart}
+      res.json(guestCart)
     }
-    res.json(req.session.cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:itemId', async (req, res, next) => {
+  try {
+    const itemId = req.params.itemId
+    if (req.user) {
+      const userId = req.user.id
+      const order = await Order.findOne({
+        where: {
+          userId,
+          status: 'inCart'
+        }
+      })
+      await order.removeItem(itemId)
+      res.status(204).end()
+    } else {
+      console.log('user is not authenticated')
+    }
   } catch (error) {
     next(error)
   }
@@ -42,11 +65,11 @@ router.put('/addItem', async (req, res, next) => {
           status: 'inCart'
         }
       })
-      order.addItem(req.body)
-      res.json(order)
+      await order.addItem(req.body.id)
+      res.status(204).end()
     } else {
       req.session.cart.push(req.body)
-      res.json(req.session.cart)
+      res.status(204).end()
     }
   } catch (error) {
     next(error)

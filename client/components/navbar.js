@@ -17,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     </div>
 
     <div className="title link">
-      <p>#TeamApple</p>
+      <i className="fa fa-amazon fa-2x logo" />
     </div>
     <div>
       <Link to="/categories" className="link">
