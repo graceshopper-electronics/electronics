@@ -3,16 +3,25 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Menu from './menu'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="nav">
-    <div className="fa fa-bars fa-2x link" />
+    <div className="dropdown">
+      <button className="dropbtn">
+        <div className="fa fa-bars fa-2x link" />
+      </button>
+      <div id="myDropdown" className="dropdown-content">
+        <Menu />
+      </div>
+    </div>
+
     <div className="title link">
       <i className="fa fa-amazon fa-2x logo" />
     </div>
     <div>
-      <Link to="/items" className="link">
-        All items
+      <Link to="/categories" className="link">
+        Categories
       </Link>
     </div>
     <div className="link">
@@ -24,8 +33,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Link to="/items" className="link">
       Products
     </Link>
-    <Link to="/" className="link">
-      Account
+    <Link to="/account" className="link">
+      {isLoggedIn ? 'Your Account' : 'Log In'}
     </Link>
     <Link to="/orders/history" className="link">
       Orders

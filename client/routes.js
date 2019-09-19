@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {fetchCartItems} from './store/cart'
 import {
   Login,
   Signup,
@@ -10,12 +9,16 @@ import {
   Allitems,
   Singleitem,
   OrderHistory,
+  Account,
+  Categories,
+  SingleCategory,
   ViewCart
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
+import {fetchCategoriesThunk} from './store/categories'
 import {fetchOrderHistory} from './store/orderHistory'
-
+import {fetchCartItems} from './store/cart'
 /**
  * COMPONENT
  */
@@ -34,8 +37,11 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/items/:itemId" component={Singleitem} />
         <Route path="/items" component={Allitems} />
+        <Route path="/account" component={Account} />
         <Route path="/cart" component={ViewCart} />
-        <Route path="/orders/history" component={OrderHistory} />
+        <Route path="/categories/:categoryId" component={SingleCategory} />
+        <Route path="/categories" component={Categories} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -66,6 +72,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
       dispatch(fetchItemsThunk())
+      dispatch(fetchCategoriesThunk())
       dispatch(fetchCartItems())
       dispatch(fetchOrderHistory())
     }

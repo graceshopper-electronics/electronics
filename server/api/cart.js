@@ -11,7 +11,6 @@ router.use((req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('req.user: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const cartOrder = await Order.findOrCreate({
@@ -25,13 +24,9 @@ router.get('/', async (req, res, next) => {
           }
         ]
       })
-      console.log('cartOrder: ', cartOrder[0])
-      console.log('req.session.cart: ', req.session.cart)
       res.json(cartOrder[0])
     } else {
-      console.log('req.session.cart: ', req.session.cart)
       const guestCart = {items: req.session.cart}
-      console.log('guestCart: ', guestCart)
       res.json(guestCart)
     }
   } catch (error) {
@@ -41,7 +36,20 @@ router.get('/', async (req, res, next) => {
 
 router.delete('/:itemId', async (req, res, next) => {
   try {
-    console.log('hit delete route!')
+    const itemId = req.params.itemId
+    if (req.user) {
+      const userId = req.user.id
+      const order = await Order.findOne({
+        where: {
+          userId,
+          status: 'inCart'
+        }
+      })
+      await order.removeItem(itemId)
+      res.status(204).end()
+    } else {
+      console.log('user is not authenticated')
+    }
   } catch (error) {
     next(error)
   }
@@ -57,13 +65,11 @@ router.put('/addItem', async (req, res, next) => {
           status: 'inCart'
         }
       })
-      console.log('order: ', order)
       await order.addItem(req.body.id)
-      res.json(order)
+      res.status(204).end()
     } else {
       req.session.cart.push(req.body)
-      console.log('req.session.cart: ', req.session.cart)
-      res.json(req.session.cart)
+      res.status(204).end()
     }
   } catch (error) {
     next(error)
