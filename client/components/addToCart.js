@@ -3,18 +3,29 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {addCartItem} from '../store/cart'
 
-const AddToCart = props => {
-  const item = props.item
-  return (
-    <button
-      className="add-to-cart"
-      onClick={() => {
-        props.addItem(item)
-      }}
-    >
-      Add to cart
-    </button>
-  )
+class AddToCart extends React.Component {
+  constructor() {
+    super()
+    this.handleAddToCart = this.handleAddToCart.bind(this)
+  }
+
+  handleAddToCart() {
+    const item = this.props.item
+    this.props.addItem(item)
+  }
+
+  render() {
+    return (
+      <button
+        className="add-to-cart"
+        onClick={() => {
+          this.handleAddToCart()
+        }}
+      >
+        Add to cart
+      </button>
+    )
+  }
 }
 
 const mapDispatch = dispatch => {

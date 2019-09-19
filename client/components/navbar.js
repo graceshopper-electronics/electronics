@@ -8,7 +8,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="nav">
     <div className="fa fa-bars fa-2x link" />
     <div className="title link">
-      <p>#TeamApple</p>
+      <i className="fa fa-amazon fa-2x logo" />
     </div>
     <div>
       <Link to="/items" className="link">
