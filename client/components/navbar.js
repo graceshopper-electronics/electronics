@@ -14,6 +14,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <Link to="/items" className="link">
         All items
       </Link>
+      <Link to="/categories" className="link">
+        Categories
+      </Link>
     </div>
     <div className="link">
       <input className="search" type="text" />
