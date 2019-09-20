@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {Login} from './auth-form'
-import {Link} from 'react-router-dom'
 import {fetchUsersThunk} from '../store/allusers'
 
 class Account extends Component {
@@ -28,7 +27,7 @@ class Account extends Component {
             <div />
             <input type="text" />
             <div />
-            <button> Submit </button>
+            <button type="button"> Submit </button>
           </p>
         </div>
         <div>
@@ -38,7 +37,7 @@ class Account extends Component {
             <div />
             <input type="text" />
             <div />
-            <button> Submit </button>
+            <button type="button"> Submit </button>
           </p>
         </div>
         <div>
@@ -46,16 +45,24 @@ class Account extends Component {
         </div>
         <div>
           {isAdmin ? (
-            <button onClick={() => this.props.fetchUsers()}>
-              <Link to="/users">View All Users</Link>
-            </button>
+            <div>
+              <button type="button" onClick={() => this.props.fetchUsers()}>
+                <Link to="/users">Manage Users</Link>
+              </button>
+              <button type="button">
+                <Link to="/items">Manage Products</Link>
+              </button>
+              <button type="button">
+                <Link to="/orders">Manage Orders</Link>
+              </button>
+            </div>
           ) : (
             <div />
           )}
         </div>
         <div>
           <br />
-          <button>Log Out</button>
+          <button type="button">Log Out</button>
         </div>
       </div>
     )

@@ -2,9 +2,19 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Reviews from './reviews'
+import UpdateItem from './singleitem'
+import {fetchSingleItemThunk} from '../store/singleitem'
 
 class Singleitem extends Component {
+  // componentDidMount() {
+  //   this.props.setItem(this.props.match.params.itemId)
+  // }
+
   render() {
+    console.log('INSIDE SINGLE ITEM', this.props)
+    const isAdmin = this.props.isAdmin
+    const itemObj = this.props.item || {}
+
     if (!this.props.items.length) {
       return (
         <div>
@@ -12,9 +22,6 @@ class Singleitem extends Component {
         </div>
       )
     }
-    let itemId = this.props.match.params.itemId
-    let allItems = this.props.items
-    let itemObj = allItems.filter(el => el.id === Number(itemId))[0]
     return (
       <div>
         <h3>{itemObj.name}</h3>
@@ -27,6 +34,16 @@ class Singleitem extends Component {
           <li>Description: {itemObj.description}</li>
         </ul>
         <Reviews id={itemObj.id} />
+
+        <div>
+          {isAdmin ? (
+            <div>
+              <UpdateItem />
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
     )
   }
@@ -34,8 +51,16 @@ class Singleitem extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items
+    item: state.singleitem,
+    items: state.items,
+    isAdmin: state.user.isAdmin
   }
 }
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     setItem: id => dispatch(fetchSingleItemThunk(id))
+//   }
+// }
 
 export default withRouter(connect(mapStateToProps)(Singleitem))

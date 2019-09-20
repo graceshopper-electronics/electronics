@@ -32,6 +32,8 @@ class Allusers extends Component {
                 id={user.id}
                 onClick={evt => this.handleClick(evt)}
               />
+              <button type="button">Reset Password</button>
+              <button type="button">Set as Admin</button>
               ID: {user.id} Email: {user.email}
             </li>
           ))}

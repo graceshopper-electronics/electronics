@@ -191,6 +191,7 @@ img {
 .users {
   list-style-type: none;
   margin-left: 35px;
+  width: 60vw;
 }
 
 #deleteUserIcon {
