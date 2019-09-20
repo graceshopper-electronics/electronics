@@ -15,3 +15,26 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:userid', async (req, res, next) => {
+  if (req.body.email) {
+    try {
+      User.findByPk(req.params.userid)
+        .then(user => user.update({email: req.body.email}))
+        .then(user => res.json(user))
+        .catch(next)
+    } catch (err) {
+      next(err)
+    }
+  } else if (req.body.password) {
+    try {
+      console.log(req.body.password)
+      User.findByPk(req.params.userid)
+        .then(user => user.update({password: req.body.password}))
+        .then(user => res.json(user))
+        .catch(next)
+    } catch (err) {
+      next(err)
+    }
+  }
+})

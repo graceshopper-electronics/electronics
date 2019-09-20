@@ -20,7 +20,7 @@ class Singleitem extends Component {
         <h3>{itemObj.name}</h3>
         <ul>
           <li>
-            <img src={itemObj.photo} className="itemPhoto" />
+            <img src={itemObj.photo} className="singleItemPhoto" />
           </li>
           <li>Price: {itemObj.price} </li>
           <li>Left in Stock: {itemObj.inventory}</li>

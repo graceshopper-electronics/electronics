@@ -13,7 +13,7 @@ class Allitems extends Component {
     const items = this.props.items
     return (
       <div>
-        <h3>Welcome, to all items</h3>
+        <h3>All Products View</h3>
         <div>
           {items.map(item => {
             return (
