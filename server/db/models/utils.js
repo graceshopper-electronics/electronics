@@ -96,7 +96,6 @@ Order.prototype.addItemPlus = async function(itemId) {
     if (!currentItems.includes(parseInt(itemId))) {
       await this.addItem(itemId)
     } else {
-      console.log('ELSE!')
       await OrderDetails.updateQuantity(orderId, itemId, 'increment')
     }
   } catch (error) {

@@ -62,3 +62,23 @@ router.put('/addItem/:itemId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/quantity/:itemId', async (req, res, next) => {
+  try {
+    const itemId = req.params.itemId
+    const quantity = req.body.quantity
+    if (req.user) {
+      const userId = req.user.id
+      const order = await Order.findOneGuestUser('user', userId)
+      await order.changeQuantity(itemId, quantity)
+      res.status(204).end()
+    } else {
+      const guestId = req.session.id
+      const order = await Order.findOneGuestUser('guest', guestId)
+      await order.changeQuantity(itemId, quantity)
+      res.status(204).end()
+    }
+  } catch (error) {
+    next(error)
+  }
+})
