@@ -13,21 +13,12 @@ router.get('/', async (req, res, next) => {
   try {
     if (req.user) {
       const userId = req.user.id
-      const cartOrder = await Order.findOrCreate({
-        where: {
-          userId,
-          status: 'inCart'
-        },
-        include: [
-          {
-            model: Item
-          }
-        ]
-      })
-      res.json(cartOrder[0])
+      const cartOrder = await Order.findOrCreateGuestUser('user', userId)
+      res.json(cartOrder)
     } else {
-      const guestCart = {items: req.session.cart}
-      res.json(guestCart)
+      const guestId = req.session.id
+      const guestOrder = await Order.findOrCreateGuestUser('guest', guestId)
+      res.json(guestOrder)
     }
   } catch (error) {
     next(error)
@@ -39,36 +30,32 @@ router.delete('/:itemId', async (req, res, next) => {
     const itemId = req.params.itemId
     if (req.user) {
       const userId = req.user.id
-      const order = await Order.findOne({
-        where: {
-          userId,
-          status: 'inCart'
-        }
-      })
+      const order = await Order.findOneGuestUser('user', userId)
       await order.removeItem(itemId)
       res.status(204).end()
     } else {
-      console.log('user is not authenticated')
+      const guestId = req.session.id
+      const order = await Order.findOneGuestUser('guest', guestId)
+      await order.removeItem(itemId)
+      res.status(204).end()
     }
   } catch (error) {
     next(error)
   }
 })
 
-router.put('/addItem', async (req, res, next) => {
+router.put('/addItem/:itemId', async (req, res, next) => {
   try {
+    const itemId = req.params.itemId
     if (req.user) {
       const userId = req.user.id
-      const order = await Order.findOne({
-        where: {
-          userId,
-          status: 'inCart'
-        }
-      })
-      await order.addItem(req.body.id)
+      const order = await Order.findOneGuestUser('user', userId)
+      await order.addItemPlus(itemId)
       res.status(204).end()
     } else {
-      req.session.cart.push(req.body)
+      const guestId = req.session.id
+      const order = await Order.findOneGuestUser('guest', guestId)
+      await order.addItemPlus(itemId)
       res.status(204).end()
     }
   } catch (error) {

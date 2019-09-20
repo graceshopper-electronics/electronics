@@ -6,13 +6,14 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
-      where: {
-        userId: req.session.passport.user
-      },
-      include: [Item]
-    })
-    res.json(orders)
+    // const orders = await Order.findAll({
+    //   where: {
+    //     userId: req.session.passport.user
+    //   },
+    //   include: [Item]
+    // })
+    // res.json(orders)
+    res.json({})
   } catch (err) {
     next(err)
   }
