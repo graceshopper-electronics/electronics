@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Reviews from './reviews'
+import {AddToCart} from '.'
 
 class Singleitem extends Component {
   render() {
