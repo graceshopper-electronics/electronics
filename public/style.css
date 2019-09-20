@@ -187,3 +187,12 @@ img {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+.users {
+  list-style-type: none;
+  margin-left: 35px;
+}
+
+#deleteUserIcon {
+  padding: 0px 10px 0px 10px;
+}

@@ -5,8 +5,6 @@ import {withRouter} from 'react-router-dom'
 class ViewCart extends React.Component {
   render() {
     const items = this.props.cart.items
-    console.log('items: ', items)
-    console.log('user: ', this.props.user)
     return (
       <div id="cart-side-bar">
         <div className="cart-header">

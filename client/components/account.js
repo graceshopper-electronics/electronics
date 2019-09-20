@@ -3,9 +3,11 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {Login} from './auth-form'
 import {Link} from 'react-router-dom'
+import {fetchUsersThunk} from '../store/allusers'
 
 class Account extends Component {
   render() {
+    const isAdmin = this.props.user.isAdmin
     if (!this.props.user.id) {
       return (
         <div>
@@ -43,6 +45,15 @@ class Account extends Component {
           <Link to="/orders/history">Your Order History</Link>
         </div>
         <div>
+          {isAdmin ? (
+            <button onClick={() => this.props.fetchUsers()}>
+              <Link to="/users">View All Users</Link>
+            </button>
+          ) : (
+            <div />
+          )}
+        </div>
+        <div>
           <br />
           <button>Log Out</button>
         </div>
@@ -56,5 +67,9 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
-
-export default withRouter(connect(mapStateToProps)(Account))
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchUsers: () => dispatch(fetchUsersThunk())
+  }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Account))

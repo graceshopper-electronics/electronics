@@ -12,7 +12,8 @@ import {
   Account,
   Categories,
   SingleCategory,
-  ViewCart
+  ViewCart,
+  AllUsers
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
@@ -29,7 +30,7 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-
+    const isAdmin = this.props.isAdmin
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -41,6 +42,12 @@ class Routes extends Component {
         <Route path="/cart" component={ViewCart} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/categories" component={Categories} />
+
+        {isAdmin && (
+          <Switch>
+            <Route path="/users" component={AllUsers} />
+          </Switch>
+        )}
 
         {isLoggedIn && (
           <Switch>
@@ -63,7 +70,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 

@@ -4,7 +4,6 @@ import {withRouter, Link} from 'react-router-dom'
 
 const Menu = props => {
   const list = props.categories
-  console.log('inside menu', list)
   return (
     <ul>
       {list.map(ctg => (
