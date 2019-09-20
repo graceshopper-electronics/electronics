@@ -25,7 +25,6 @@ class Reviews extends Component {
   }
 
   addReview(review) {
-    console.log('here')
     review.user = {}
     review.user.email = this.props.user.email
     console.log(review)

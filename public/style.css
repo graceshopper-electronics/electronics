@@ -232,3 +232,11 @@ img {
   width: 450px;
   height: 150px;
 }
+
+.warning {
+  padding: 2px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  background-color: red;
+  color: white;
+}
