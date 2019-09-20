@@ -158,6 +158,13 @@ form div {
   padding: 10px;
   display: table-cell;
   vertical-align: left;
+  height: 100px;
+  width: 100px;
+}
+
+.singleItemPhoto {
+  height: 250px;
+  width: 250px;
 }
 
 ul {
@@ -219,4 +226,9 @@ img {
 
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
+}
+
+#reviewEntry {
+  width: 450px;
+  height: 150px;
 }

@@ -21,23 +21,28 @@ class Account extends Component {
         </div>
         <p>Your Email: {this.props.user.email}</p>
         <div>
-          <p>
-            Update Email:
-            <div />
-            <input type="text" />
-            <div />
-            <button> Submit </button>
-          </p>
+          <form>
+            <p>
+              Update Email:
+              <div />
+              <input type="text" />
+              <div />
+              <button> Submit </button>
+            </p>
+          </form>
         </div>
         <div>
-          <p>
-            {' '}
-            Update Password:
-            <div />
-            <input type="text" />
-            <div />
-            <button> Submit </button>
-          </p>
+          <form>
+            <p>
+              {' '}
+              Update Password (Fields must match):
+              <div />
+              <input type="text" />
+              <div />
+              <input type="text" />
+              <button> Submit </button>
+            </p>
+          </form>
         </div>
         <div>
           <Link to="/orders/history">Your Order History</Link>

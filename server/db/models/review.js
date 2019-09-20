@@ -19,7 +19,7 @@ const Review = db.define('review', {
     type: Sequelize.TEXT,
     allowNull: false,
     validate: {
-      isEmpty: false
+      len: [1, 20000]
     }
   }
 })
