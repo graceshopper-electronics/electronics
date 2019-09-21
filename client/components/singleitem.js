@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Reviews from './reviews'
-import UpdateItem from './singleitem'
+import UpdateItem from './updateitem'
 import {fetchSingleItemThunk} from '../store/singleitem'
 
 class Singleitem extends Component {
@@ -11,37 +11,35 @@ class Singleitem extends Component {
   }
 
   render() {
-    console.log('INSIDE SINGLE ITEM', this.props)
     const isAdmin = this.props.isAdmin
     const itemObj = this.props.item || {}
 
-    if (!itemObj.name) {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      )
-    }
-    return (
+    return !itemObj.id ? (
       <div>
-        <h3>{itemObj.name}</h3>
-        <ul>
-          <li>
-            <img src={itemObj.photo} className="itemPhoto" />
-          </li>
-          <li>Price: {itemObj.price} </li>
-          <li>Left in Stock: {itemObj.inventory}</li>
-          <li>Description: {itemObj.description}</li>
-        </ul>
-        <Reviews id={itemObj.id} />
-
+        <h1>Loading...</h1>
+      </div>
+    ) : (
+      <div>
         <div>
+          <h3>{itemObj.name}</h3>
+          <ul>
+            <li>
+              <img src={itemObj.photo} className="singleItemPhoto" />
+            </li>
+            <li>Price: {itemObj.price} </li>
+            <li>Left in Stock: {itemObj.inventory}</li>
+            <li>Description: {itemObj.description}</li>
+          </ul>
+          <Reviews id={itemObj.id} />
+        </div>
+        <div>
+          {' '}
           {isAdmin ? (
             <div>
               <UpdateItem />
             </div>
           ) : (
-            <div />
+            <h1>Not Admin</h1>
           )}
         </div>
       </div>

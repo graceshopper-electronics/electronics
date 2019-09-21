@@ -8,33 +8,20 @@ class OrderHistory extends Component {
     if (!this.props.orderHistory.length) {
       return (
         <div>
-          <h2>Loading User History....</h2>
+          <h2>Order History Not Found</h2>
         </div>
       )
     } else {
-      displayOrders = this.props.orderHistory.filter(
-        order => order.status !== 'inCart'
-      )
-      displayOrders.sort(function(a, b) {
+      displayOrders = this.props.orderHistory.sort(function(a, b) {
         a = new Date(a.submissionDate)
         b = new Date(b.submissionDate)
         return a > b ? -1 : a < b ? 1 : 0
       })
       displayOrders.map(
         order =>
-          (order.total = order.items
-            .reduce(function(acc, item) {
-              item.orderdetails.priceAtPurchase =
-                item.orderdetails.priceAtPurchase.slice(
-                  0,
-                  item.orderdetails.priceAtPurchase.length - 3
-                ) +
-                item.orderdetails.priceAtPurchase.slice(
-                  item.orderdetails.priceAtPurchase.length - 2
-                )
-              return acc + Number(item.orderdetails.priceAtPurchase)
-            }, 0)
-            .toString())
+          (order.total = order.items.reduce(function(acc, item) {
+            return acc + Number(item.orderdetails.priceAtPurchase)
+          }, 0))
       )
     }
     return (
@@ -53,22 +40,13 @@ class OrderHistory extends Component {
                       <li>{item.name}</li>
                       <li>{item.description}</li>
                       <li>
-                        ${item.orderdetails.priceAtPurchase.slice(
-                          0,
-                          item.orderdetails.priceAtPurchase.length - 2
-                        ) +
-                          '.' +
-                          item.orderdetails.priceAtPurchase.slice(-2)}
+                        ${Number(item.orderdetails.priceAtPurchase).toFixed(2)}
                       </li>
                     </ul>
                   </div>
                 </Link>
               ))}
-              <div>
-                Order Total: ${order.total.slice(0, order.total.length - 2) +
-                  '.' +
-                  order.total.slice(-2)}
-              </div>
+              <div>Order Total: ${order.total.toFixed(2)}</div>
             </div>
           ))}
         </div>

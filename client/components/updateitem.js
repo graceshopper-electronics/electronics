@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {updateItemThunk} from '../store/items'
+import {updateItemThunk} from '../store/singleitem'
 
 class UpdateItem extends Component {
   constructor(props) {

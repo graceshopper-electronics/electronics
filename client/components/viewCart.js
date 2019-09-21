@@ -1,24 +1,62 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import {deleteCartItem} from '../store/cart'
 
 class ViewCart extends React.Component {
+  constructor() {
+    super()
+    this.handleDelete = this.handleDelete.bind(this)
+  }
+
+  handleDelete(itemId) {
+    this.props.delete(itemId)
+  }
+
   render() {
-    const items = this.props.cart.items
+    const items = this.props.cart.items || []
+    console.log('items: ', items)
+    console.log('user: ', this.props.user)
     return (
       <div id="cart-side-bar">
         <div className="cart-header">
-          <p>Subtotal: $0.00</p>
+          <p>
+            Subtotal:{' '}
+            {`$${
+              items[0]
+                ? items.reduce((acc, item) => {
+                    return acc + Number(item.price)
+                  }, 0.0)
+                : '0.00'
+            }`}
+          </p>
           <button className="checkout">Proceed to Checkout</button>
         </div>
-        {items ? (
+        {items[0] ? (
           items.map(item => (
             <div key={item.id} className="wrap">
               <img src={item.photo} className="itemPhoto" />
               <ul>
-                <li>Price: {item.price}</li>
-                <li>Name:{item.name}</li>
+                <li className="item-name">{item.name}</li>
+                <li className="price">${item.price}</li>
               </ul>
+              <input
+                className="cart-quantity"
+                type="number"
+                name="quantity"
+                defaultValue="1"
+                step="1"
+                min="1"
+                max="100"
+              />
+              <button
+                className="delete"
+                onClick={() => {
+                  this.handleDelete(item.id)
+                }}
+              >
+                Delete
+              </button>
             </div>
           ))
         ) : (
@@ -38,4 +76,10 @@ const mapState = state => {
   }
 }
 
-export default withRouter(connect(mapState)(ViewCart))
+const mapDispatch = dispatch => {
+  return {
+    delete: itemId => dispatch(deleteCartItem(itemId))
+  }
+}
+
+export default withRouter(connect(mapState, mapDispatch)(ViewCart))

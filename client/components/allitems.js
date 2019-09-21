@@ -15,17 +15,28 @@ class Allitems extends Component {
     const isAdmin = this.props.isAdmin
     return (
       <div>
-        <h3>Welcome, to all items</h3>
+        <h3>All Products View</h3>
         <div>
-          {isAdmin ? (
-            <div>
-              <AddNewItem />
-            </div>
-          ) : (
-            <div />
-          )}
+          <div>
+            {isAdmin ? (
+              <div>
+                <AddNewItem />
+              </div>
+            ) : (
+              <div />
+            )}
+          </div>
+          <div>
+            {items.map(item => {
+              return (
+                <div key={item.id}>
+                  <ItemCard item={item} />
+                  <AddToCart item={item} />
+                </div>
+              )
+            })}
+          </div>
         </div>
-        <div>{items.map(item => <ItemCard item={item} key={item.id} />)}</div>
       </div>
     )
   }
