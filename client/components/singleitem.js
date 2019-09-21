@@ -2,32 +2,47 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Reviews from './reviews'
+import UpdateItem from './updateitem'
+import {fetchSingleItemThunk} from '../store/singleitem'
 import {AddToCart} from '.'
 
 class Singleitem extends Component {
+  componentDidMount() {
+    this.props.setItem(this.props.match.params.itemId)
+  }
+
   render() {
-    if (!this.props.items.length) {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      )
-    }
-    let itemId = this.props.match.params.itemId
-    let allItems = this.props.items
-    let itemObj = allItems.filter(el => el.id === Number(itemId))[0]
-    return (
+    const isAdmin = this.props.isAdmin
+    const itemObj = this.props.item || {}
+
+    return !itemObj.id ? (
       <div>
-        <h3>{itemObj.name}</h3>
-        <ul>
-          <li>
-            <img src={itemObj.photo} className="singleItemPhoto" />
-          </li>
-          <li>Price: {itemObj.price} </li>
-          <li>Left in Stock: {itemObj.inventory}</li>
-          <li>Description: {itemObj.description}</li>
-        </ul>
-        <Reviews id={itemObj.id} />
+        <h1>Loading...</h1>
+      </div>
+    ) : (
+      <div>
+        <div>
+          <h3>{itemObj.name}</h3>
+          <ul>
+            <li>
+              <img src={itemObj.photo} className="singleItemPhoto" />
+            </li>
+            <li>Price: {itemObj.price} </li>
+            <li>Left in Stock: {itemObj.inventory}</li>
+            <li>Description: {itemObj.description}</li>
+          </ul>
+          <Reviews id={itemObj.id} />
+        </div>
+        <div>
+          {' '}
+          {isAdmin ? (
+            <div>
+              <UpdateItem />
+            </div>
+          ) : (
+            <h1>Not Admin</h1>
+          )}
+        </div>
       </div>
     )
   }
@@ -35,8 +50,18 @@ class Singleitem extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items
+    item: state.singleitem,
+    items: state.items,
+    isAdmin: state.user.isAdmin
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Singleitem))
+const mapDispatchToProps = dispatch => {
+  return {
+    setItem: id => dispatch(fetchSingleItemThunk(id))
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Singleitem)
+)

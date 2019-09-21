@@ -8,6 +8,8 @@ import items from './items'
 import reviews from './review'
 import categories from './categories'
 import orderHistory from './orderHistory'
+import allUsers from './allusers'
+import singleitem from './singleitem'
 
 const reducer = combineReducers({
   user,
@@ -15,7 +17,9 @@ const reducer = combineReducers({
   orderHistory,
   cart,
   categories,
-  reviews
+  reviews,
+  allUsers,
+  singleitem
 })
 
 const middleware = composeWithDevTools(

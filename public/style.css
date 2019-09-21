@@ -233,6 +233,16 @@ img {
   background-color: transparent;
 }
 
+.users {
+  list-style-type: none;
+  margin-left: 35px;
+  width: 60vw;
+}
+
+#deleteUserIcon {
+  padding: 0px 10px 0px 10px;
+}
+
 #reviewEntry {
   width: 450px;
   height: 150px;

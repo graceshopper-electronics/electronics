@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {Login} from './auth-form'
+import {fetchUsersThunk} from '../store/allusers'
 import {logout} from '../store'
 import axios from 'axios'
 
@@ -76,6 +77,7 @@ class Account extends Component {
   }
 
   render() {
+    const isAdmin = this.props.user.isAdmin
     if (!this.props.user.id) {
       return (
         <div>
@@ -139,6 +141,23 @@ class Account extends Component {
           <Link to="/orders/history">Your Order History</Link>
         </div>
         <div>
+          {isAdmin ? (
+            <div>
+              <button type="button" onClick={() => this.props.fetchUsers()}>
+                <Link to="/users">Manage Users</Link>
+              </button>
+              <button type="button">
+                <Link to="/items">Manage Products</Link>
+              </button>
+              <button type="button">
+                <Link to="/orders">Manage Orders</Link>
+              </button>
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
+        <div>
           <br />
           <button onClick={this.handleLogout}>Log Out</button>
         </div>
@@ -155,9 +174,8 @@ const mapStateToProps = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
-    }
+    fetchUsers: () => dispatch(fetchUsersThunk()),
+    handleClick: () => dispatch(logout())
   }
 }
 

@@ -16,6 +16,41 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// const onlyAdmins = (req, res, next) => {
+//   if (!req.user) {
+//     console.log('USER IS NOT LOGGED IN!')
+//     return res.sendStatus(401)
+//   }
+//   if (!req.user.isAdmin) {
+//     console.log('USER LOGEED IN BUT NOT AN ADMIN!')
+//     return res.sendStatus(401)
+//   }
+//   next()
+// }
+
+// router.param('id', (req, res, next, id) => {
+//   User.findById(id)
+//     .then(user => {
+//       if (!user) throw HttpError(404)
+//       req.requestedUser = user
+//       next()
+//       return null
+//     })
+//     .catch(next)
+// })
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    await User.destroy({
+      where: {id}
+    })
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/:userid', async (req, res, next) => {
   if (req.body.email) {
     try {
