@@ -6,16 +6,16 @@ import UpdateItem from './singleitem'
 import {fetchSingleItemThunk} from '../store/singleitem'
 
 class Singleitem extends Component {
-  // componentDidMount() {
-  //   this.props.setItem(this.props.match.params.itemId)
-  // }
+  componentDidMount() {
+    this.props.setItem(this.props.match.params.itemId)
+  }
 
   render() {
     console.log('INSIDE SINGLE ITEM', this.props)
     const isAdmin = this.props.isAdmin
     const itemObj = this.props.item || {}
 
-    if (!this.props.items.length) {
+    if (!itemObj.name) {
       return (
         <div>
           <h1>Loading...</h1>
@@ -57,10 +57,12 @@ const mapStateToProps = state => {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     setItem: id => dispatch(fetchSingleItemThunk(id))
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    setItem: id => dispatch(fetchSingleItemThunk(id))
+  }
+}
 
-export default withRouter(connect(mapStateToProps)(Singleitem))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Singleitem)
+)
