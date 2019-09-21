@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 import Reviews from './reviews'
 import UpdateItem from './updateitem'
 import {fetchSingleItemThunk} from '../store/singleitem'
+import {AddToCart} from '.'
 
 class Singleitem extends Component {
   componentDidMount() {
