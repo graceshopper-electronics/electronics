@@ -33,8 +33,8 @@ router.put('/:itemid', async (req, res, next) => {
   try {
     const id = req.params.itemid
     const item = await Item.findByPk(id)
-    await item.update(req.body)
-    res.status(204).end()
+    const updatedItem = await item.update(req.body)
+    res.json(updatedItem)
   } catch (err) {
     next(err)
   }

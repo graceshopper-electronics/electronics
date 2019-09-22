@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import AddToCart from './addToCart'
 import AddNewItem from './addnewitem'
-import {deleteItemThunk, fetchItemsThunk} from '../store/items'
+import {deleteItemThunk} from '../store/items'
 
 /**
  * COMPONENT

@@ -50,9 +50,7 @@ class UpdateItem extends Component {
       description: '',
       imageUrl: ''
     })
-
     obj = {}
-    this.props.setItem(this.props.match.params.itemId)
   }
 
   render() {
