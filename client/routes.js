@@ -12,7 +12,9 @@ import {
   Account,
   Categories,
   SingleCategory,
-  ViewCart
+  ViewCart,
+  Checkout,
+  OrderConfirmation
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
@@ -41,6 +43,8 @@ class Routes extends Component {
         <Route path="/cart" component={ViewCart} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/categories" component={Categories} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/orderConfirmation" component={OrderConfirmation} />
 
         {isLoggedIn && (
           <Switch>

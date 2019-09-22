@@ -4,6 +4,7 @@ import history from '../history'
 const GET_ITEMS_FROM_CART = 'GET_ITEMS_FROM_CART'
 const DELETE_ITEM_FROM_CART = 'DELETE_ITEM_FROM_CART'
 const WRITE_QUANTITY = 'WRITE_QUANTITY'
+const PLACE_ORDER_FROM_CART = 'PLACE_ORDER_FROM_CART'
 
 const initialState = []
 
@@ -18,6 +19,12 @@ const deleteItem = itemId => {
   return {
     type: DELETE_ITEM_FROM_CART,
     itemId
+  }
+}
+
+const placeOrderFromCart = () => {
+  return {
+    type: PLACE_ORDER_FROM_CART
   }
 }
 
@@ -63,6 +70,17 @@ export const deleteCartItem = itemId => {
   }
 }
 
+export const placeOrder = orderId => {
+  return async function(dispatch) {
+    try {
+      await axios.put(`/api/cart/placeOrder/${orderId}`)
+      dispatch(placeOrderFromCart())
+    } catch (error) {
+      console.log('Problem placing cart order!')
+    }
+  }
+}
+
 export const updateQuantity = (itemId, quantity) => {
   return async function(dispatch) {
     try {
@@ -97,6 +115,9 @@ const cart = (state = initialState, action) => {
         return item
       })
       return {...state, items: newItems}
+
+    case PLACE_ORDER_FROM_CART:
+      return {}
 
     default:
       return state
