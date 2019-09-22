@@ -37,7 +37,7 @@ class Singleitem extends Component {
           {' '}
           {isAdmin ? (
             <div>
-              <UpdateItem />
+              <UpdateItem setItem={this.props.setItem} />
             </div>
           ) : (
             <h1>Not Admin</h1>

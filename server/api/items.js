@@ -11,6 +11,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    const items = await Item.create(req.body)
+    res.json(items)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:itemid', async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.itemid)
@@ -54,12 +63,14 @@ router.put('/:itemid', async (req, res, next) => {
 //     .catch(next)
 // })
 
-// router.delete('/:itemid', onlyAdmins, async (req, res, next) => {
-//   try {
-//     const itemToRemove = await Item.findByPk(req.params.itemid)
-//     await itemToRemove.destroy()
-//     res.status(204)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+router.delete('/:itemid', async (req, res, next) => {
+  try {
+    const id = req.params.itemid
+    await Item.destroy({
+      where: {id}
+    })
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})

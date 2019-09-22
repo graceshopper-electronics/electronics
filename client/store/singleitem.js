@@ -45,11 +45,14 @@ export const updateItemThunk = (id, item) => async dispatch => {
  */
 export default function(state = singleitem, action) {
   switch (action.type) {
-    case SET_SINGLE_ITEM:
+    case SET_SINGLE_ITEM: {
       return action.item
-    case UPDATE_ITEM:
+    }
+    case UPDATE_ITEM: {
       return action.item
-    default:
+    }
+    default: {
       return state
+    }
   }
 }

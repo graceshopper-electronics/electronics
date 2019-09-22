@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {updateItemThunk} from '../store/singleitem'
+//import {fetchSingleItemThunk} from '../store/singleitem'
 
 class UpdateItem extends Component {
   constructor(props) {
@@ -21,8 +22,8 @@ class UpdateItem extends Component {
     this.setState({
       [evt.target.name]: evt.target.value
     })
-    console.log(Number(this.props.match.params.itemId))
   }
+
   handleSubmit(evt) {
     evt.preventDefault()
     let obj = {}
@@ -33,13 +34,13 @@ class UpdateItem extends Component {
       obj.price = this.state.price
     }
     if (this.state.stock) {
-      obj.stock = this.state.stock
+      obj.inventory = this.state.stock
     }
     if (this.state.description) {
       obj.description = this.state.description
     }
     if (this.state.imageUrl) {
-      obj.imageUrl = this.state.imageUrl
+      obj.photo = this.state.imageUrl
     }
     this.props.update(Number(this.props.match.params.itemId), obj)
     this.setState({
@@ -51,7 +52,7 @@ class UpdateItem extends Component {
     })
 
     obj = {}
-    // this.props.fetchItemsThunk()
+    this.props.setItem(this.props.match.params.itemId)
   }
 
   render() {
