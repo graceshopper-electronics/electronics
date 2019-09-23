@@ -8,9 +8,44 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'isAdmin']
     })
     res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// const onlyAdmins = (req, res, next) => {
+//   if (!req.user) {
+//     console.log('USER IS NOT LOGGED IN!')
+//     return res.sendStatus(401)
+//   }
+//   if (!req.user.isAdmin) {
+//     console.log('USER LOGEED IN BUT NOT AN ADMIN!')
+//     return res.sendStatus(401)
+//   }
+//   next()
+// }
+
+// router.param('id', (req, res, next, id) => {
+//   User.findById(id)
+//     .then(user => {
+//       if (!user) throw HttpError(404)
+//       req.requestedUser = user
+//       next()
+//       return null
+//     })
+//     .catch(next)
+// })
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    await User.destroy({
+      where: {id}
+    })
+    res.status(204).end()
   } catch (err) {
     next(err)
   }
@@ -36,5 +71,22 @@ router.put('/:userid', async (req, res, next) => {
     } catch (err) {
       next(err)
     }
+  }
+})
+
+router.put('/admin/:userid', async (req, res, next) => {
+  try {
+    const id = req.params.userid
+    const user = await User.findByPk(id)
+    let adminStatus
+    if (!user.isAdmin) {
+      adminStatus = true
+    } else {
+      adminStatus = false
+    }
+    await user.update({isAdmin: adminStatus})
+    res.status(204).end()
+  } catch (err) {
+    next(err)
   }
 })
