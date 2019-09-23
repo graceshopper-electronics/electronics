@@ -5,6 +5,7 @@ import {Login} from './auth-form'
 import {fetchUsersThunk} from '../store/allusers'
 import {logout} from '../store'
 import axios from 'axios'
+import {fetchAllOrdersThunk} from '../store/allorders'
 
 let defaultState = {
   password1: '',
@@ -143,7 +144,7 @@ class Account extends Component {
         <div>
           {isAdmin ? (
             <div>
-              <button type="button" onClick={() => this.props.fetchUsers()}>
+              <button type="button">
                 <Link to="/users">Manage Users</Link>
               </button>
               <button type="button">
@@ -178,7 +179,8 @@ const mapStateToProps = state => {
 const mapDispatch = dispatch => {
   return {
     fetchUsers: () => dispatch(fetchUsersThunk()),
-    handleClick: () => dispatch(logout())
+    handleClick: () => dispatch(logout()),
+    fetchOrders: () => dispatch(fetchAllOrdersThunk())
   }
 }
 
