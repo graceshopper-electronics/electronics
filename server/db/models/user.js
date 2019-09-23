@@ -29,7 +29,10 @@ const User = db.define('user', {
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
-    default: false
+    defaultValue: false
+  },
+  shippingAddress: {
+    type: Sequelize.STRING
   }
 })
 

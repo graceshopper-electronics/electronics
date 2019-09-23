@@ -26,11 +26,21 @@ router.put('/:userid', async (req, res, next) => {
     } catch (err) {
       next(err)
     }
-  } else if (req.body.password) {
+  }
+  if (req.body.password) {
     try {
       console.log(req.body.password)
       User.findByPk(req.params.userid)
         .then(user => user.update({password: req.body.password}))
+        .then(user => res.json(user))
+        .catch(next)
+    } catch (err) {
+      next(err)
+    }
+  } else if (req.body.shippingAddress) {
+    try {
+      User.findByPk(req.params.userid)
+        .then(user => user.update({shippingAddress: req.body.shippingAddress}))
         .then(user => res.json(user))
         .catch(next)
     } catch (err) {

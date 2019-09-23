@@ -28,11 +28,14 @@ class ViewCart extends React.Component {
             Subtotal:{' '}
             {`$${
               items[0]
-                ? items.reduce((acc, item) => {
-                    return (
-                      acc + Number(item.price * item.orderdetails.itemQuantity)
-                    )
-                  }, 0.0)
+                ? items
+                    .reduce((acc, item) => {
+                      return (
+                        acc +
+                        Number(item.price * item.orderdetails.itemQuantity)
+                      )
+                    }, 0)
+                    .toFixed(2)
                 : '0.00'
             }`}
           </p>
@@ -46,7 +49,7 @@ class ViewCart extends React.Component {
                 <ul>
                   <li className="item-name">{item.name}</li>
                   <li className="price">
-                    ${item.price * item.orderdetails.itemQuantity}
+                    ${(item.price * item.orderdetails.itemQuantity).toFixed(2)}
                   </li>
                 </ul>
               </Link>

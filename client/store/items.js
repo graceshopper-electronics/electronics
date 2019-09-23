@@ -27,6 +27,19 @@ export const fetchItemsThunk = () => async dispatch => {
   }
 }
 
+export const fetchSearchItems = search => async dispatch => {
+  try {
+    const res = await axios.get(`/api/items?search=${search}`)
+    dispatch(setItems(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const setSearchedItems = items => dispatch => {
+  dispatch(setItems(items))
+}
+
 /**
  * REDUCER
  */
