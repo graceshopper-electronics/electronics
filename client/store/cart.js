@@ -117,6 +117,17 @@ export const mergeToUser = (guestId, userId) => {
   }
 }
 
+export const submitPaymentMethod = (token, items) => {
+  return async function(dispatch) {
+    try {
+      const {data} = await axios.post('/api/cart/checkout', {token, items})
+      return data.status
+    } catch (error) {
+      console.log('Problem submiting payment method!')
+    }
+  }
+}
+
 const cart = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEMS_FROM_CART:

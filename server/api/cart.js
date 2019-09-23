@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {Order, Item} = require('../db/models')
+const stripe = require('stripe')('sk_test_xuAO2kKxFAcc4bmggmiPCXYW00aQRcRhSh')
+const uuid = require('uuid/v4')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -149,11 +151,55 @@ router.put('/clear/:orderId', async (req, res, next) => {
   try {
     const orderId = req.params.orderId
     const order = await Order.findByPk(orderId)
-    await order.update({
-      items: []
-    })
+    await order.destroy()
     res.status(204).end()
   } catch (error) {
     next(error)
   }
+})
+
+router.post('/checkout', async (req, res, next) => {
+  console.log('req.body: ', req.body)
+  let error
+  let status
+  try {
+    const token = req.body.token
+    const items = req.body.items
+    const price = items.reduce((acc, item) => {
+      return acc + Number(item.price * item.orderdetails.itemQuantity)
+    }, 0.0)
+    const customer = await stripe.customers.create({
+      email: token.email,
+      id: token.id
+    })
+    const idempotency_key = uuid()
+    const charge = await stripe.charges.create(
+      {
+        amount: price,
+        currency: 'usd',
+        customer: customer.id,
+        receipt_email: token.email,
+        description: `Order Placed`,
+        shipping: {
+          name: token.card.name,
+          address: {
+            line1: token.card.address_line1,
+            line2: token.card.address_line2,
+            city: token.card.address_city,
+            country: token.card.address_country,
+            postal_code: token.card.address_zip
+          }
+        }
+      },
+      {
+        idempotency_key
+      }
+    )
+    console.log('Charge:', {charge})
+    status = 'success'
+  } catch (error) {
+    status = 'failure'
+    console.error('Error: ', error)
+  }
+  res.json({error, status})
 })
