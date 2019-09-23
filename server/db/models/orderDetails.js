@@ -12,7 +12,7 @@ const OrderDetails = db.define(
       },
       defaultValue: 1
     },
-    sum: {
+    total: {
       type: Sequelize.FLOAT,
       allowNull: true
     }
@@ -30,7 +30,7 @@ const OrderDetails = db.define(
 )
 
 OrderDetails.beforeCreate((orderinstance, options) => {
-  orderinstance.sum = 100
+  orderinstance.total = 100
 })
 
 module.exports = OrderDetails

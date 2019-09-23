@@ -97,7 +97,7 @@ for (let i = 0; i < 6; i++) {
     priceAtPurchase: faker.commerce.price(),
     orderId: i + 1,
     itemId: i + 2,
-    sum: 1
+    total: 0
   })
 }
 
