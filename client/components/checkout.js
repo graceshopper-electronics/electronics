@@ -16,6 +16,7 @@ class Checkout extends React.Component {
 
   handleClick() {
     this.props.placeOrder(this.props.cart.id)
+    console.log('hit handleClick')
   }
 
   render() {
@@ -65,22 +66,50 @@ class Checkout extends React.Component {
         </div>
 
         <div className="place-order-footer">
-          <button onClick={this.handleClick} className="place-order-button">
-            <Link to="/orderConfirmation" className="remove-decoration">
+          <Link
+            to={{
+              pathname: '/orderConfirmation',
+              state: {
+                items: items,
+                orderId: this.props.cart.id
+              }
+            }}
+            className="remove-decoration"
+          >
+            <button
+              className="place-order-button"
+              onClick={() => {
+                this.handleClick()
+              }}
+            >
               Place your order
-            </Link>
-          </button>
+            </button>
+          </Link>
           <p>
             Order total: <span className="price">${orderTotal}</span>
           </p>
         </div>
 
         <div className="place-order-sidebar">
-          <button className="place-order-button">
-            <Link to="/orderConfirmation" className="remove-decoration">
+          <Link
+            to={{
+              pathname: '/orderConfirmation',
+              state: {
+                items: items,
+                orderId: this.props.cart.id
+              }
+            }}
+            className="remove-decoration"
+          >
+            <button
+              className="place-order-button"
+              onClick={() => {
+                this.handleClick()
+              }}
+            >
               Place your order
-            </Link>
-          </button>
+            </button>
+          </Link>
           <div className="order-summary">
             <h3>Order Summary: </h3>
             <hr />
