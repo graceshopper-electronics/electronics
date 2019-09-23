@@ -4,17 +4,33 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import Menu from './menu'
+import {fetchSearchItems} from '../../client/store/items'
+
+let defaultState = {
+  searchValue: ''
+}
 
 class Navbar extends React.Component {
   constructor() {
     super()
+    this.state = defaultState
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit(event) {
-    const content = 'monitors'
-    console.log('hit submit, content is: ', content)
-    window.location.href = `https://www.amazon.com/s?k=${content}&ref=nb_sb_noss_1`
+    if (this.state.searchValue === 'monitors') {
+      window.location.href = `https://www.amazon.com/s?k=$monitors&ref=nb_sb_noss_1`
+    } else {
+      let search = this.state.searchValue
+      this.props.getItems(search)
+    }
+  }
+
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
   }
 
   render() {
@@ -41,7 +57,13 @@ class Navbar extends React.Component {
         </div>
 
         <div className="link">
-          <input className="search" name="monitors" type="text" />
+          <input
+            className="search"
+            name="searchValue"
+            type="text"
+            value={this.state.searchValue}
+            onChange={this.handleChange}
+          />
           <button className="search-button" onClick={this.handleSubmit}>
             <i className="fa fa-search fa-3x" />
           </button>
@@ -83,7 +105,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    getItems: search => dispatch(fetchSearchItems(search))
   }
 }
 

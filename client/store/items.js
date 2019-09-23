@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {setSearch} from './search'
 /**
  * ACTION TYPES
  */
@@ -28,6 +28,20 @@ export const fetchItemsThunk = () => async dispatch => {
   } catch (err) {
     console.error(err)
   }
+}
+
+export const fetchSearchItems = search => async dispatch => {
+  try {
+    const res = await axios.get(`/api/items?search=${search}`)
+    dispatch(setSearch(search))
+    dispatch(setItems(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const setSearchedItems = items => dispatch => {
+  dispatch(setItems(items))
 }
 
 export const addItemThunk = item => {

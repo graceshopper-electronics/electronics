@@ -56,11 +56,11 @@ let categorySeed = [
   }
 ]
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 30; i++) {
   itemSeed.push({
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
-    inventory: 10,
+    inventory: Math.floor(Math.random() * 14),
     photo: faker.image.technics(150, 150, true),
     description: faker.lorem.sentence()
     //categoryId: Math.floor(Math.random() * 4) + 1
@@ -70,7 +70,8 @@ for (let i = 0; i < 10; i++) {
 for (let i = 0; i < 10; i++) {
   userSeed.push({
     email: faker.internet.email(),
-    password: '123'
+    password: '123',
+    shippingAddress: faker.address.streetAddress()
   })
 }
 
@@ -124,7 +125,12 @@ for (let i = 0; i < 6; i++) {
 const seed = async () => {
   try {
     await db.sync({force: true})
-    await User.create({email: 'cody@email.com', password: '123', isAdmin: true})
+    await User.create({
+      email: 'cody@email.com',
+      password: '123',
+      isAdmin: true,
+      shippingAddress: faker.address.streetAddress()
+    })
     await Category.bulkCreate(categorySeed)
     await Item.bulkCreate(itemSeed)
     await User.bulkCreate(userSeed)
