@@ -11,6 +11,7 @@ let defaultState = {
   password1: '',
   password2: '',
   email: '',
+  shippingAddress: '',
   err: false,
   message: ''
 }
@@ -23,6 +24,7 @@ class Account extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleEmail = this.handleEmail.bind(this)
     this.handlePassword = this.handlePassword.bind(this)
+    this.handleShipping = this.handleShipping.bind(this)
   }
 
   handleLogout() {
@@ -41,6 +43,22 @@ class Account extends Component {
     } catch (err) {
       this.setState({
         error: `There was a problem changing email!: ${err.message}`
+      })
+    }
+  }
+
+  async handleShipping(evt) {
+    let update = {
+      shippingAddress: this.state.shippingAddress
+    }
+    evt.preventDefault()
+    try {
+      await axios.put(`/api/users/${this.props.user.id}`, update)
+      this.props.user.shippingAddress = this.state.shippingAddress
+      this.setState(defaultState)
+    } catch (err) {
+      this.setState({
+        error: `There was a problem changing shipping address!: ${err.message}`
       })
     }
   }
@@ -103,6 +121,23 @@ class Account extends Component {
                 onChange={this.handleChange}
                 name="email"
                 value={this.state.email}
+              />
+              <br />
+              <button type="submit"> Submit </button>
+            </p>
+          </form>
+        </div>
+        <p>Your Shipping Address: {this.props.user.shippingAddress}</p>
+        <div>
+          <form onSubmit={this.handleShipping}>
+            <p>
+              Update Shipping Addresss:
+              <br />
+              <input
+                type="text"
+                onChange={this.handleChange}
+                name="shippingAddress"
+                value={this.state.shippingAddress}
               />
               <br />
               <button type="submit"> Submit </button>

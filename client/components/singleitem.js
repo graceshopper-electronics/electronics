@@ -39,7 +39,15 @@ class Singleitem extends Component {
               <img src={itemObj.photo} className="singleItemPhoto" />
             </li>
             <li>Price: {itemObj.price} </li>
-            <li>Left in Stock: {itemObj.inventory}</li>
+            {itemObj.inventory ? (
+              itemObj.inventory < 10 ? (
+                <li>Left in Stock: {itemObj.inventory}</li>
+              ) : (
+                <li>Currently in Stock</li>
+              )
+            ) : (
+              <li>Out of Stock, Check Back Later</li>
+            )}
             <li>Description: {itemObj.description}</li>
             <li>
               Categories:{' '}
@@ -66,6 +74,11 @@ class Singleitem extends Component {
                 <span>No Categories for this Item</span>
               )}
             </li>
+            {itemObj.inventory ? (
+              <AddToCart item={itemObj} />
+            ) : (
+              <h3>Unavailable for Cart</h3>
+            )}
           </ul>
 
           <Reviews id={itemObj.id} />

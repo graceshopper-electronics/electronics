@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const OrderDetails = require('./orderDetails')
 
 const Order = db.define('order', {
   submissionDate: {
@@ -11,7 +10,7 @@ const Order = db.define('order', {
   },
   status: {
     type: Sequelize.STRING,
-    values: ['inCart', 'Processing', 'Shipped', 'Delivered'],
+    values: ['inCart', 'Processing', 'Shipped', 'Delivered', 'Canceled'],
     defaultValue: 'inCart'
   },
   guestId: {
