@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {mergeToUser} from './cart'
 
 /**
  * ACTION TYPES
@@ -34,6 +35,9 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    const guestId = res.data.guestId
+    const userId = res.data.user.id
+    dispatch(mergeToUser(guestId, userId))
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }

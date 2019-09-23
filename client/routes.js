@@ -13,6 +13,8 @@ import {
   Categories,
   SingleCategory,
   ViewCart,
+  Checkout,
+  OrderConfirmation,
   AllUsers,
   AllOrders
 } from './components'
@@ -43,6 +45,8 @@ class Routes extends Component {
         <Route path="/cart" component={ViewCart} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/categories" component={Categories} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/orderConfirmation" component={OrderConfirmation} />
 
         {isAdmin && (
           <Switch>
