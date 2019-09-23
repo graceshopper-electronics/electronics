@@ -71,6 +71,29 @@ router.put('/assign/:itemid', async (req, res, next) => {
   }
 })
 
+router.put('/unassign/:itemid', async (req, res, next) => {
+  try {
+    const id = req.params.itemid
+    const categoryid = req.body.id
+    const item = await Item.findByPk(id)
+    const category = await Category.findAll({
+      where: {
+        id: [categoryid]
+      }
+    })
+    await item.removeCategory(category)
+    const itemWithCategory = await Item.findOne({
+      where: {
+        id: id
+      },
+      include: [Category]
+    })
+    res.json(itemWithCategory)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // const onlyAdmins = (req, res, next) => {
 //   if (!req.user) {
 //     console.log('USER IS NOT LOGGED IN!')
