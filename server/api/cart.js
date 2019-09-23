@@ -67,6 +67,7 @@ router.delete('/:itemId', async (req, res, next) => {
 router.put('/addItem/:itemId', async (req, res, next) => {
   try {
     const itemId = req.params.itemId
+    console.log('req.user: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const order = await Order.findOneGuestUser('user', userId)
@@ -74,10 +75,22 @@ router.put('/addItem/:itemId', async (req, res, next) => {
       res.status(204).end()
     } else {
       const guestId = req.session.id
-      const order = await Order.findOneGuestUser('guest', guestId)
+      const order = await Order.findOrCreateGuestUser('guest', guestId)
       await order.addItemPlus(itemId)
       res.status(204).end()
     }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/mergeItem/:itemId/:userId', async (req, res, next) => {
+  try {
+    const userId = req.params.userId
+    const itemId = req.params.itemId
+    const order = await Order.findOneGuestUser('user', userId)
+    await order.addItemPlus(itemId)
+    res.status(204).end()
   } catch (error) {
     next(error)
   }

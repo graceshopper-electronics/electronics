@@ -97,15 +97,15 @@ export const updateQuantity = (itemId, quantity) => {
   }
 }
 
-export const mergeToUser = guestId => {
+export const mergeToUser = (guestId, userId) => {
   return async function(dispatch) {
     try {
       const guestOrder = await axios.get(`/api/cart/${guestId}`)
-      const orderId = guestOrder.id
-      const items = guestOrder.items
+      const orderId = guestOrder.data.id
+      const items = guestOrder.data.items
       if (items.length > 0) {
         items.forEach(async item => {
-          await axios.put(`/api/cart/addItem/${item.id}`)
+          await axios.put(`/api/cart/mergeItem/${item.id}/${userId}`)
         })
       }
       await axios.put(`/api/cart/clear/${orderId}`) // resets guest cart to an empty cart
