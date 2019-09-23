@@ -14,7 +14,8 @@ router.get('/', async (req, res, next) => {
     whereConditions.categoryId = req.query.categoryid
   }
   if (req.query.search) {
-    whereConditions.name = {[Op.substring]: req.query.search}
+    let search = req.query.search[0].toUpperCase() + req.query.search.slice(1)
+    whereConditions.name = {[Op.substring]: search}
   }
   if (req.query.price) {
     orderConditions.push(['price', req.query.price])
@@ -32,5 +33,3 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
-
-// { limit: '20', offset: '0', categoryid: '1', price: 'true', search: '' }

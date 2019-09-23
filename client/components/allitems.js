@@ -29,7 +29,9 @@ class Allitems extends Component {
   }
 
   pageClick(evt) {
-    console.log(evt.target.value)
+    if (evt.target.value === 'NaN') {
+      evt.target.value = 1
+    }
     let obj = {offset: evt.target.value}
     this.handleClick(obj)
   }
@@ -41,15 +43,20 @@ class Allitems extends Component {
   }
 
   async handleClick(evt) {
+    console.log(this.props.search, typeof this.props.search)
     let limit = !this.state.perPage ? 15 : Number(this.state.perPage)
     let offset = !evt.offset ? 0 : Number(Number(evt.offset) * limit)
     let whereConditions = ''
+    if (this.props.search) {
+      whereConditions += `&search=${this.props.search}`
+    }
     if (this.state.category) {
       whereConditions += `&categoryid=${this.state.category}`
     }
     if (this.state.price) {
       whereConditions += `&price=${this.state.price}`
     }
+    console.log(whereConditions)
     try {
       let result = await axios.get(
         `/api/items?limit=${limit}&offset=${offset}${whereConditions}`
@@ -66,7 +73,7 @@ class Allitems extends Component {
   }
 
   render() {
-    console.log(this.props.items)
+    console.log(this.state.offset)
     const items = this.props.items
     return (
       <div>
@@ -137,7 +144,7 @@ class Allitems extends Component {
                   </div>
                 )
               })}
-              {this.state.offset ? (
+              {Number(this.state.offset) ? (
                 <div>
                   <button
                     type="button"
@@ -182,7 +189,8 @@ class Allitems extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items
+    items: state.items,
+    search: state.search
   }
 }
 

@@ -6,6 +6,29 @@ const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 module.exports = router
 
+router.get('/:userid', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userid,
+        status: {
+          [Op.not]: ['inCart']
+        }
+      },
+      attributes: ['id', 'submissionDate', 'status'],
+      include: [
+        {
+          model: Item,
+          attributes: ['id', 'name', 'photo', 'description']
+        }
+      ]
+    })
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/', async (req, res, next) => {
   if (req.session.passport) {
     try {

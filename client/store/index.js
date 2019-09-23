@@ -8,6 +8,7 @@ import items from './items'
 import reviews from './review'
 import categories from './categories'
 import orderHistory from './orderHistory'
+import search from './search'
 
 const reducer = combineReducers({
   user,
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   orderHistory,
   cart,
   categories,
-  reviews
+  reviews,
+  search
 })
 
 const middleware = composeWithDevTools(

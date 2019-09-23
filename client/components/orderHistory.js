@@ -1,18 +1,35 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
+import axios from 'axios'
+
+const defaultState = {
+  orderHistory: []
+}
 
 class OrderHistory extends Component {
+  constructor() {
+    super()
+    this.state = defaultState
+  }
+
+  async componentDidMount() {
+    console.log(this.props)
+    const res = await axios.get(`/api/orders/history/${this.props.user.id}`)
+    this.setState({orderHistory: res.data})
+  }
+
   render() {
+    console.log(this.state)
     let displayOrders = []
-    if (!this.props.orderHistory.length) {
+    if (!this.state.orderHistory || !this.state.orderHistory) {
       return (
         <div>
           <h2>Order History Not Found</h2>
         </div>
       )
     } else {
-      displayOrders = this.props.orderHistory.sort(function(a, b) {
+      displayOrders = this.state.orderHistory.sort(function(a, b) {
         a = new Date(a.submissionDate)
         b = new Date(b.submissionDate)
         return a > b ? -1 : a < b ? 1 : 0
@@ -57,7 +74,9 @@ class OrderHistory extends Component {
 
 const mapStateToProps = state => {
   return {
-    orderHistory: state.orderHistory
+    orderHistory: state.orderHistory,
+    user: state.user
   }
 }
+
 export default withRouter(connect(mapStateToProps)(OrderHistory))

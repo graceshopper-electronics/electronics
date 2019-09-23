@@ -24,7 +24,6 @@ class Navbar extends React.Component {
     } else {
       let search = this.state.searchValue
       this.props.getItems(search)
-      this.setState(defaultState)
     }
   }
 
