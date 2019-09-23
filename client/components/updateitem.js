@@ -1,19 +1,22 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {updateItemThunk} from '../store/singleitem'
+import {updateItemThunk, assignCategoryThunk} from '../store/singleitem'
+import CategoryDropDown from './categorydropdown'
 
 class UpdateItem extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleAssign = this.handleAssign.bind(this)
     this.state = {
       name: '',
       price: '',
       stock: '',
       description: '',
-      imageUrl: ''
+      imageUrl: '',
+      category: ''
     }
   }
 
@@ -21,8 +24,25 @@ class UpdateItem extends Component {
     this.setState({
       [evt.target.name]: evt.target.value
     })
-    console.log(Number(this.props.match.params.itemId))
   }
+  handleAssign(evt) {
+    evt.preventDefault()
+    let obj = {}
+    if (this.state.category) {
+      obj.category = this.state.category
+    }
+    this.props.assign(Number(this.props.match.params.itemId), obj)
+    obj = {}
+    this.setState({
+      name: '',
+      price: '',
+      stock: '',
+      description: '',
+      imageUrl: '',
+      category: ''
+    })
+  }
+
   handleSubmit(evt) {
     evt.preventDefault()
     let obj = {}
@@ -33,30 +53,46 @@ class UpdateItem extends Component {
       obj.price = this.state.price
     }
     if (this.state.stock) {
-      obj.stock = this.state.stock
+      obj.inventory = this.state.stock
     }
     if (this.state.description) {
       obj.description = this.state.description
     }
     if (this.state.imageUrl) {
-      obj.imageUrl = this.state.imageUrl
+      obj.photo = this.state.imageUrl
     }
     this.props.update(Number(this.props.match.params.itemId), obj)
+    obj = {}
     this.setState({
       name: '',
       price: '',
       stock: '',
       description: '',
-      imageUrl: ''
+      imageUrl: '',
+      category: ''
     })
-
-    obj = {}
-    // this.props.fetchItemsThunk()
   }
 
   render() {
     return (
       <div>
+        <h1>Assign Category</h1>
+        <div>
+          <form onSubmit={this.handleAssign}>
+            <label htmlFor="category">Category:</label>
+            <CategoryDropDown handleChange={this.handleChange} />
+            <button
+              type="submit"
+              disabled={
+                !this.state.category ||
+                this.state.category === 'select category'
+              }
+            >
+              Assign
+            </button>
+          </form>
+        </div>
+
         <h1>Update Product</h1>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="name">Product Name:</label>
@@ -108,7 +144,8 @@ class UpdateItem extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    update: (id, obj) => dispatch(updateItemThunk(id, obj))
+    update: (id, obj) => dispatch(updateItemThunk(id, obj)),
+    assign: (itemId, catName) => dispatch(assignCategoryThunk(itemId, catName))
   }
 }
 export default withRouter(connect(null, mapDispatchToProps)(UpdateItem))

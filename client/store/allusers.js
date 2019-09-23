@@ -5,7 +5,7 @@ import axios from 'axios'
  */
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const DELETE_USER = 'DELETE_USER'
-
+const PROMOTE_USER = 'PROMOTE_USER'
 /**
  * INITIAL STATE
  */
@@ -17,6 +17,7 @@ const allUsers = []
  */
 const getAllUsers = users => ({type: GET_ALL_USERS, users})
 const deleteUser = id => ({type: DELETE_USER, id})
+const promoteUser = id => ({type: PROMOTE_USER, id})
 /**
  * THUNK CREATORS
  */
@@ -32,7 +33,16 @@ export const fetchUsersThunk = () => async dispatch => {
 export const deleteUserThunk = id => async dispatch => {
   try {
     await axios.delete(`/api/users/${id}`)
-    dispatch(deleteUser())
+    dispatch(deleteUser(id))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const promoteUserThunk = id => async dispatch => {
+  try {
+    await axios.put(`/api/users/admin/${id}`)
+    dispatch(promoteUser(id))
   } catch (err) {
     console.error(err)
   }
@@ -42,11 +52,26 @@ export const deleteUserThunk = id => async dispatch => {
  */
 export default function(state = allUsers, action) {
   switch (action.type) {
-    case GET_ALL_USERS:
+    case GET_ALL_USERS: {
       return action.users
-    case DELETE_USER:
-      return state.filter(user => user.id !== action.id)
-    default:
+    }
+    case DELETE_USER: {
+      return state.filter(user => user.id !== Number(action.id))
+    }
+    case PROMOTE_USER: {
+      return state.map(user => {
+        if (user.id === Number(action.id)) {
+          if (!user.isAdmin) {
+            user.isAdmin = true
+          } else {
+            user.isAdmin = false
+          }
+        }
+        return user
+      })
+    }
+    default: {
       return state
+    }
   }
 }

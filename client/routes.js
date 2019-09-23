@@ -13,7 +13,8 @@ import {
   Categories,
   SingleCategory,
   ViewCart,
-  AllUsers
+  AllUsers,
+  AllOrders
 } from './components'
 import {me} from './store'
 import {fetchItemsThunk} from './store/items'
@@ -46,6 +47,7 @@ class Routes extends Component {
         {isAdmin && (
           <Switch>
             <Route path="/users" component={AllUsers} />
+            <Route path="/orders" component={AllOrders} />
           </Switch>
         )}
 

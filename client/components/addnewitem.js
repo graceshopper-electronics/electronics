@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {addItemThunk} from '../store/items'
 
 class AddNewItem extends Component {
   constructor(props) {
@@ -26,24 +27,27 @@ class AddNewItem extends Component {
     if (this.state.name) {
       obj.name = this.state.name
     }
-    if (this.state.fuelType) {
-      obj.fuelType = this.state.fuelType
+    if (this.state.price) {
+      obj.price = this.state.price
     }
-    if (this.state.fuelLevel) {
-      obj.fuelLevel = this.state.fuelLevel
+    if (this.state.description) {
+      obj.description = this.state.description
+    }
+    if (this.state.stock) {
+      obj.inventory = this.state.stock
     }
     if (this.state.imageUrl) {
-      obj.imageUrl = this.state.imageUrl
+      obj.photo = this.state.imageUrl
     }
-    this.props.update(this.props.params.robotId, obj)
+    this.props.addItem(obj)
     this.setState({
       name: '',
-      fuelType: '',
-      fuelLevel: '',
+      price: '',
+      stock: '',
+      description: '',
       imageUrl: ''
     })
     obj = {}
-    this.props.fetchSingleRobot(this.props.params.robotId)
   }
 
   render() {
@@ -78,7 +82,7 @@ class AddNewItem extends Component {
           <label htmlFor="description">Description:</label>
           <input
             name="stock"
-            type="number"
+            type="text"
             onChange={this.handleChange}
             value={this.state.description}
           />
@@ -98,10 +102,11 @@ class AddNewItem extends Component {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     update: (id, obj) => dispatch(updateRobotThunk(id, obj))
-//   }
-// }
-// export default connect(null, mapDispatchToProps)(UpdateRobot)
-export default AddNewItem
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: obj => dispatch(addItemThunk(obj))
+  }
+}
+export default connect(null, mapDispatchToProps)(AddNewItem)
+
+// https://media.wired.com/photos/5b22c5c4b878a15e9ce80d92/master/pass/iphonex-TA.jpg
