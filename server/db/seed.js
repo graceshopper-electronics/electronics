@@ -62,8 +62,8 @@ for (let i = 0; i < 10; i++) {
     price: faker.commerce.price(),
     inventory: 10,
     photo: faker.image.technics(150, 150, true),
-    description: faker.lorem.sentence(),
-    categoryId: Math.floor(Math.random() * 4) + 1
+    description: faker.lorem.sentence()
+    //categoryId: Math.floor(Math.random() * 4) + 1
   })
 }
 

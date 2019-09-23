@@ -5,7 +5,7 @@ import axios from 'axios'
  */
 const SET_SINGLE_ITEM = 'SET_SINGLE_ITEM'
 const UPDATE_ITEM = 'UPDATE_ITEM'
-
+const ASSIGN_CATEGORY = 'ASSIGN_CATEGORY'
 /**
  * INITIAL STATE
  */
@@ -17,7 +17,7 @@ const singleitem = {}
 
 const updateItem = item => ({type: UPDATE_ITEM, item})
 const setSingleItem = item => ({type: SET_SINGLE_ITEM, item})
-
+const assignCategory = item => ({type: ASSIGN_CATEGORY, item})
 /**
  * THUNK CREATOR
  */
@@ -40,6 +40,17 @@ export const updateItemThunk = (id, item) => async dispatch => {
   }
 }
 
+export const assignCategoryThunk = (itemId, catName) => {
+  return async dispatch => {
+    try {
+      const res = await axios.put(`/api/items/assign/${itemId}`, catName)
+      dispatch(assignCategory(res.data))
+    } catch (err) {
+      console.log('Error', err)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
@@ -49,6 +60,9 @@ export default function(state = singleitem, action) {
       return action.item
     }
     case UPDATE_ITEM: {
+      return action.item
+    }
+    case ASSIGN_CATEGORY: {
       return action.item
     }
     default: {

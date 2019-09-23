@@ -152,6 +152,9 @@ class Account extends Component {
               <button type="button">
                 <Link to="/orders">Manage Orders</Link>
               </button>
+              <button type="button">
+                <Link to="/categories">Manage Categories</Link>
+              </button>
             </div>
           ) : (
             <div />

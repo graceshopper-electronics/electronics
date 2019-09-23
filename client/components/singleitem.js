@@ -30,17 +30,39 @@ class Singleitem extends Component {
             <li>Price: {itemObj.price} </li>
             <li>Left in Stock: {itemObj.inventory}</li>
             <li>Description: {itemObj.description}</li>
+            <li>
+              Categories:{' '}
+              {itemObj.categories ? (
+                itemObj.categories.map(ctg => (
+                  <span key={ctg.id}>
+                    {ctg.name}{' '}
+                    {isAdmin ? (
+                      <span>
+                        <button type="button" id={ctg.id}>
+                          X
+                        </button>
+                      </span>
+                    ) : (
+                      <span />
+                    )}
+                  </span>
+                ))
+              ) : (
+                <span>No Categories for this Item</span>
+              )}
+            </li>
           </ul>
+
           <Reviews id={itemObj.id} />
         </div>
         <div>
           {' '}
           {isAdmin ? (
             <div>
-              <UpdateItem />
+              <UpdateItem setItem={this.props.setItem} />
             </div>
           ) : (
-            <h1>Not Admin</h1>
+            <div />
           )}
         </div>
       </div>

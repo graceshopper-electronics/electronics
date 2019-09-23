@@ -1,10 +1,11 @@
 const router = require('express').Router()
-const {Item} = require('../db/models')
+const {Item, Category} = require('../db/models')
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const items = await Item.findAll({})
+    const items = await Item.findAll()
     res.json(items)
   } catch (err) {
     next(err)
@@ -22,7 +23,13 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:itemid', async (req, res, next) => {
   try {
-    const item = await Item.findByPk(req.params.itemid)
+    const ID = req.params.itemid
+    const item = await Item.findOne({
+      where: {
+        id: ID
+      },
+      include: [Category]
+    })
     res.json(item)
   } catch (err) {
     next(err)
@@ -35,6 +42,30 @@ router.put('/:itemid', async (req, res, next) => {
     const item = await Item.findByPk(id)
     const updatedItem = await item.update(req.body)
     res.json(updatedItem)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//creating category assignments
+router.put('/assign/:itemid', async (req, res, next) => {
+  try {
+    const id = req.params.itemid
+    const catName = req.body.category
+    const item = await Item.findByPk(id)
+    const category = await Category.findAll({
+      where: {
+        name: [catName]
+      }
+    })
+    await item.addCategories(category)
+    const itemWithCategory = await Item.findOne({
+      where: {
+        id: id
+      },
+      include: [Category]
+    })
+    res.json(itemWithCategory)
   } catch (err) {
     next(err)
   }
