@@ -34,6 +34,7 @@ class Navbar extends React.Component {
   }
 
   render() {
+    const isLoggedIn = this.props.isLoggedIn
     return (
       <div className="nav">
         <div className="dropdown">
@@ -76,10 +77,13 @@ class Navbar extends React.Component {
           {this.props.isLoggedIn ? 'Your Account' : 'Log In'}
         </Link>
 
-        <Link to="/orders/history" className="link">
-          Orders
-        </Link>
-
+        {isLoggedIn ? (
+          <Link to="/orders/history" className="link">
+            Orders
+          </Link>
+        ) : (
+          <div />
+        )}
         <Link to="/cart" className="link">
           <div className="fa fa-shopping-cart fa-lg" />
         </Link>

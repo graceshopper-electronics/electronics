@@ -14,8 +14,8 @@ Review.belongsTo(User)
 User.hasMany(Order)
 Order.belongsTo(User)
 
-Category.hasMany(Item)
-Item.belongsTo(Category)
+Category.belongsToMany(Item, {through: 'itemcategories'})
+Item.belongsToMany(Category, {through: 'itemcategories'})
 
 Order.belongsToMany(Item, {through: 'orderdetails'})
 Item.belongsToMany(Order, {through: 'orderdetails'})

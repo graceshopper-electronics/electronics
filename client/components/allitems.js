@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import AddToCart from './addToCart'
 import axios from 'axios'
 import {setSearchedItems} from '../store/items'
+import AddNewItem from './addnewitem'
+import {deleteItemThunk} from '../store/items'
 
 /**
  * COMPONENT
@@ -26,6 +28,7 @@ class Allitems extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.pageClick = this.pageClick.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   pageClick(evt) {
@@ -40,6 +43,13 @@ class Allitems extends Component {
     this.setState({
       [evt.target.name]: evt.target.value
     })
+  }
+
+  handleRemove = evt => {
+    evt.preventDefault()
+    if (evt.target.id) {
+      this.props.deleteItem(evt.target.id)
+    }
   }
 
   async handleClick(evt) {
@@ -75,6 +85,7 @@ class Allitems extends Component {
   render() {
     console.log(this.state.offset)
     const items = this.props.items
+    const isAdmin = this.props.isAdmin
     return (
       <div>
         <div className="mappedObject">
@@ -127,61 +138,74 @@ class Allitems extends Component {
               Submit Filters
             </button>
           </p>
-        </div>
-        {items.length ? (
-          <div>
-            <h3>All Products View</h3>
+          {items.length ? (
             <div>
-              {items.map(item => {
-                return (
-                  <div key={item.id}>
-                    <ItemCard item={item} />
-                    {item.inventory ? (
-                      <AddToCart item={item} />
-                    ) : (
-                      <h3>Out of Stock, Check Back Later</h3>
-                    )}
+              <h3>All Products View</h3>
+              <div>
+                {items.map(item => {
+                  return (
+                    <div key={item.id}>
+                      <ItemCard item={item} />
+                      {item.inventory ? (
+                        <AddToCart item={item} />
+                      ) : (
+                        <h3>Out of Stock, Check Back Later</h3>
+                      )}
+                      {isAdmin ? (
+                        <div>
+                          <button
+                            type="button"
+                            id={item.id}
+                            onClick={evt => this.handleRemove(evt)}
+                          >
+                            Delete Item
+                          </button>
+                        </div>
+                      ) : (
+                        <div />
+                      )}
+                    </div>
+                  )
+                })}
+                {Number(this.state.offset) ? (
+                  <div>
+                    <button
+                      type="button"
+                      value={Number(this.state.offset) - 1}
+                      onClick={this.pageClick}
+                    >
+                      Previous Page
+                    </button>{' '}
+                    <button
+                      type="button"
+                      value={Number(this.state.offset) + 1}
+                      onClick={this.pageClick}
+                    >
+                      Next Page
+                    </button>
+                    <p> </p>
+                    <br />
                   </div>
-                )
-              })}
-              {Number(this.state.offset) ? (
-                <div>
-                  <button
-                    type="button"
-                    value={Number(this.state.offset) - 1}
-                    onClick={this.pageClick}
-                  >
-                    Previous Page
-                  </button>{' '}
-                  <button
-                    type="button"
-                    value={Number(this.state.offset) + 1}
-                    onClick={this.pageClick}
-                  >
-                    Next Page
-                  </button>
-                  <p> </p>
-                  <br />
-                </div>
-              ) : (
-                <div>
-                  {' '}
-                  <button
-                    type="button"
-                    value={Number(this.state.offset) + 1}
-                    onClick={this.pageClick}
-                  >
-                    Next Page
-                  </button>
-                  <p> </p>
-                  <br />
-                </div>
-              )}
+                ) : (
+                  <div>
+                    {' '}
+                    <button
+                      type="button"
+                      value={Number(this.state.offset) + 1}
+                      onClick={this.pageClick}
+                    >
+                      Next Page
+                    </button>
+                    <p> </p>
+                    <br />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        ) : (
-          <h2>No Items Matches</h2>
-        )}
+          ) : (
+            <h2>No Items Matches</h2>
+          )}
+        </div>
       </div>
     )
   }
@@ -190,13 +214,15 @@ class Allitems extends Component {
 const mapStateToProps = state => {
   return {
     items: state.items,
-    search: state.search
+    search: state.search,
+    isAdmin: state.user.isAdmin
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getItems: items => dispatch(setSearchedItems(items))
+    getItems: items => dispatch(setSearchedItems(items)),
+    deleteItem: id => dispatch(deleteItemThunk(id))
   }
 }
 
