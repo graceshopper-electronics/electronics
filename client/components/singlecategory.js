@@ -2,45 +2,28 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import ItemCard from './itemcard'
-import axios from 'axios'
 
-let defaultState = {
-  items: [],
-  catName: ''
-}
+import {fetchByCategoryThunk} from '../store/singlecategory'
 
 class SingleCategory extends Component {
-  constructor() {
-    super()
-    this.state = defaultState
-  }
-
-  async componentDidMount() {
-    const res = await axios.get(
-      `/api/categories/${this.props.match.params.categoryId}`
-    )
-    this.setState({
-      items: res.data,
-      catName: res.data[0].category.name
-    })
+  componentDidMount() {
+    this.props.getItemsByCat(this.props.match.params.categoryId)
   }
 
   render() {
-    let category = Number(this.props.match.params.categoryId)
-    let allItems = this.state.items
-    let catItems = allItems.reduce((accumulator, curr) => {
-      if (curr.categoryId === category) {
-        accumulator.push(curr)
+    const catName = this.props.categories.reduce((accumulator, curr) => {
+      if (curr.id === Number(this.props.match.params.categoryId)) {
+        accumulator = curr.name
       }
       return accumulator
-    }, [])
+    }, '')
 
     return (
       <div>
-        <h3>{this.state.catName}</h3>
-        <div>
-          {catItems.map(item => <ItemCard item={item} key={item.id} />)}
-        </div>
+        <h3>{catName}</h3>
+        {/* <div>
+          {this.props.items.map(item => <ItemCard item={item} key={item.id} />)}
+        </div> */}
       </div>
     )
   }
@@ -48,8 +31,17 @@ class SingleCategory extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    items: state.ctgItems
   }
 }
 
-export default withRouter(connect(mapStateToProps)(SingleCategory))
+const mapDispatchToProps = dispatch => {
+  return {
+    getItemsByCat: id => dispatch(fetchByCategoryThunk(id))
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SingleCategory)
+)

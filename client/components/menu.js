@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
+import {fetchByCategoryThunk, fetchItemsThunk} from '../store/items'
+import history from '../history'
 
 const Menu = props => {
   const list = props.categories
@@ -11,7 +13,7 @@ const Menu = props => {
           <li>{ctg.name}</li>
         </Link>
       ))}
-      <Link to="/items">
+      <Link to="/items" onCLick={() => history.push('/items')}>
         <li>All Producs</li>
       </Link>
     </ul>
@@ -20,8 +22,14 @@ const Menu = props => {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    items: state.items
   }
 }
-//eod
-export default withRouter(connect(mapStateToProps)(Menu))
+const mapDispatchToProps = dispatch => {
+  return {
+    getItemsByCat: id => dispatch(fetchByCategoryThunk(id)),
+    getItems: () => dispatch(fetchItemsThunk())
+  }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu))
