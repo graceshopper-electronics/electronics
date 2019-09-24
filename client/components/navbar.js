@@ -69,8 +69,8 @@ class Navbar extends React.Component {
             onChange={this.handleChange}
           />
           <button className="search-button" onClick={this.handleSubmit}>
-            <Link to="/items" className="fa">
-              <i className="fa fa-search fa-3x" />
+            <Link to="/items" className="link fa">
+              <i className="fa fa-search fa-3x grey" />
             </Link>
           </button>
         </div>

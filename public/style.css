@@ -114,6 +114,10 @@ form div {
   color: white;
 }
 
+.grey {
+  color: rgb(73, 73, 73);
+}
+
 .cart-header {
   color: white;
   background-color: rgb(73, 73, 73);

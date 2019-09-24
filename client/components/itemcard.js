@@ -19,10 +19,10 @@ const ItemCard = props => {
           item.inventory < 10 ? (
             <li className="orange small">Almost out of stock</li>
           ) : (
-            <li className="green small">Currently in Stock</li>
+            <li className="green small">Currently in stock</li>
           )
         ) : (
-          <li className="red small">Out of Stock, Check Back Later</li>
+          <li className="red small">Out of stock</li>
         )}
       </ul>
     </div>
