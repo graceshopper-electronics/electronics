@@ -5,6 +5,7 @@ import axios from 'axios'
 import {setSearchedItems} from '../store/items'
 import AddNewItem from './addnewitem'
 import {deleteItemThunk} from '../store/items'
+import Advertisements from './advertisements'
 
 /**
  * COMPONENT
@@ -150,17 +151,7 @@ class Allitems extends Component {
           </div>
 
           <div className="flex-display all-item-body">
-            <div className="ads">
-              <img src="/macbook-pro-new-ad.jpg" />
-              <img src="/surface-ad.png" />
-              <img src="/macbook-ad.jpg" />
-              <img src="/dell-xp-ad.png" />
-              <img src="/surface-family-ad.png" />
-              <img src="/razer-blade-ad.png" />
-              <img src="/surface-pro4-ad.jpg" />
-              <img src="/lenovo-thinkpad-ad.jpg" />
-              <img src="/macbook-pro-ad.jpg" />
-            </div>
+            <Advertisements />
 
             {items.length ? (
               <div>

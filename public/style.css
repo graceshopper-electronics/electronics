@@ -87,6 +87,11 @@ form div {
 .ads img {
   width: 96%;
   height: auto;
+  margin-bottom: 8px;
+}
+
+.ads img:hover {
+  opacity: 0.8;
 }
 
 .all-item-body {
@@ -272,7 +277,7 @@ form div {
 }
 
 .filter-tab button:hover {
-  background-color: rgb(235, 173, 2);
+  background-color: rgb(206, 152, 4);
 }
 
 .flex-display {
@@ -435,7 +440,7 @@ form div {
 }
 
 .single-item-in-view:hover {
-  color: rgba(206, 173, 65, 0.973);
+  color: rgba(221, 172, 10, 0.973);
 }
 
 ul {
