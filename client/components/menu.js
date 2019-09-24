@@ -12,7 +12,7 @@ const Menu = props => {
         </Link>
       ))}
       <Link to="/items">
-        <li>All Producs</li>
+        <li>All Products</li>
       </Link>
     </ul>
   )

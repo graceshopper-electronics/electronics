@@ -56,14 +56,14 @@ let categorySeed = [
   }
 ]
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 32; i++) {
   itemSeed.push({
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
     inventory: Math.floor(Math.random() * 14),
     photo: faker.image.technics(150, 150, true),
-    description: faker.lorem.sentence()
-    //categoryId: Math.floor(Math.random() * 4) + 1
+    description: faker.lorem.sentence(),
+    categoryId: Math.floor(Math.random() * 4) + 1
   })
 }
 

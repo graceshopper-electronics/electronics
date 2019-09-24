@@ -66,7 +66,9 @@ router.put('/:userid', async (req, res, next) => {
     try {
       console.log(req.body.password)
       User.findByPk(req.params.userid)
-        .then(user => user.update({password: req.body.password}))
+        .then(user =>
+          user.update({password: req.body.password, resetPassword: false})
+        )
         .then(user => res.json(user))
         .catch(next)
     } catch (err) {
