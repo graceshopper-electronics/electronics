@@ -133,12 +133,24 @@ const seed = async () => {
     })
     const cat = await Category.create(categorySeed[0])
     const cat2 = await Category.create(categorySeed[1])
+    const cat3 = await Category.create(categorySeed[2])
+    const cat4 = await Category.create(categorySeed[3])
+
     const itm = await Item.create(itemSeed[0])
     const itm2 = await Item.create(itemSeed[1])
+    const itm3 = await Item.create(itemSeed[2])
+    const itm4 = await Item.create(itemSeed[3])
+
+    cat2.addItems(itm3)
+    cat2.addItems(itm4)
+
     itm.addCategories(cat)
+    itm.addCategories(cat3)
+    itm.addCategories(cat4)
     itm2.addCategories(cat2)
+
     await Category.bulkCreate(categorySeed)
-    const allItems = await Item.bulkCreate(itemSeed)
+    await Item.bulkCreate(itemSeed)
     await User.bulkCreate(userSeed)
     await Order.bulkCreate(orderSeed)
     await OrderDetails.bulkCreate(orderDetailSeed)
