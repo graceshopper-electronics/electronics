@@ -16,30 +16,19 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// const onlyAdmins = (req, res, next) => {
-//   if (!req.user) {
-//     console.log('USER IS NOT LOGGED IN!')
-//     return res.sendStatus(401)
-//   }
-//   if (!req.user.isAdmin) {
-//     console.log('USER LOGEED IN BUT NOT AN ADMIN!')
-//     return res.sendStatus(401)
-//   }
-//   next()
-// }
+const onlyAdmins = (req, res, next) => {
+  if (!req.user) {
+    console.log('USER IS NOT LOGGED IN!')
+    return res.sendStatus(401)
+  }
+  if (!req.user.isAdmin) {
+    console.log('USER LOGGED IN BUT NOT AN ADMIN!')
+    return res.sendStatus(401)
+  }
+  next()
+}
 
-// router.param('id', (req, res, next, id) => {
-//   User.findById(id)
-//     .then(user => {
-//       if (!user) throw HttpError(404)
-//       req.requestedUser = user
-//       next()
-//       return null
-//     })
-//     .catch(next)
-// })
-
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.id
     await User.destroy({
@@ -51,7 +40,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:userid', async (req, res, next) => {
+router.put('/:userid', onlyAdmins, async (req, res, next) => {
   if (req.body.email) {
     try {
       User.findByPk(req.params.userid)
@@ -84,7 +73,7 @@ router.put('/:userid', async (req, res, next) => {
   }
 })
 
-router.put('/admin/:userid', async (req, res, next) => {
+router.put('/admin/:userid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.userid
     const user = await User.findByPk(id)
