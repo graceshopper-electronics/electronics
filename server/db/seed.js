@@ -26,7 +26,12 @@ let categorySeed = [
   {
     name: 'Audio',
     photo:
-      'http://getwallpapers.com/wallpaper/full/7/d/e/724905-download-free-bose-wallpapers-1920x1080-free-download.jpg'
+      'https://gizchina.it/wp-content/uploads/2019/06/huawei-nova-mini-bluetooth-speaker-2.jpg'
+  },
+  {
+    name: 'Computers',
+    photo:
+      'http://i.dell.com/sites/csimages/Videos_Images/all/inspiron-15-7000-2n1-rollupimage.jpg'
   },
   {
     name: 'Photography',
@@ -41,11 +46,6 @@ let categorySeed = [
   {
     name: 'Office',
     photo: 'https://wallpapercave.com/wp/wp2502942.jpg'
-  },
-  {
-    name: 'Computers',
-    photo:
-      'http://i.dell.com/sites/csimages/Videos_Images/all/inspiron-15-7000-2n1-rollupimage.jpg'
   },
   {
     name: 'Accessories',

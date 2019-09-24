@@ -133,14 +133,31 @@ form div {
   flex-wrap: wrap;
 }
 
-.category-image {
-  width: 50vw;
+.category-card {
+  height: auto;
+  text-align: center;
+  color: black;
+}
+
+.category-card:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.category-card p {
+  color: black;
+  margin-top: 3px;
 }
 
 .category-view {
   padding-top: 10px;
   background: linear-gradient(rgb(177, 228, 235), white);
   font-size: 20px;
+}
+
+.category-image {
+  width: 50vw;
+  padding-top: 0px;
 }
 
 .center {
@@ -171,6 +188,11 @@ form div {
 .checkout-view {
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.clean-category {
+  color: black;
+  text-decoration: none;
 }
 
 .clean-link {

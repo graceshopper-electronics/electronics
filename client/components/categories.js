@@ -34,11 +34,10 @@ class Categories extends Component {
         </div>
         <div className="category-body">
           {list.map(ctg => (
-            <div key={ctg.id} className="category-card">
-              <Link to={`/categories/${ctg.id}`}>
-                <div>
-                  <img className="category-image" src={ctg.photo} />
-                </div>
+            <div key={ctg.id} className="category-card flex-display flex-wrap">
+              <Link to={`/categories/${ctg.id}`} className="clean-category">
+                <img className="category-image" src={ctg.photo} />
+                <p>{ctg.name}</p>
               </Link>
               <div>
                 {isAdmin && (
