@@ -41,13 +41,19 @@ class OrderHistory extends Component {
           }, 0))
       )
     }
+    console.log('order stuff')
     return (
       <div id="orderhistory">
         <h1>Your Order History</h1>
         <div>
           {displayOrders.map(order => (
             <div className="singleOrder" key={order.id}>
-              <h4>Order From: {order.submissionDate.slice(0, 10)}</h4>
+              <h4>
+                Order From:{' '}
+                {order.submissionDate
+                  ? order.submissionDate.slice(0, 10)
+                  : 'N/A'}
+              </h4>
               <h4>Order Status: {order.status}</h4>
               {order.items.map(item => (
                 <Link to={`items/${item.id}`} key={item.id}>

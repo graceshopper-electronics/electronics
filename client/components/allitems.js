@@ -15,10 +15,7 @@ import ItemCard from './itemcard'
 
 let defaultState = {
   price: '',
-  category: 0,
-  perPage: 0,
-  lowestResult: 0,
-  highestResult: 0,
+  perPage: 15,
   offset: 0
 }
 
@@ -30,6 +27,12 @@ class Allitems extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.pageClick = this.pageClick.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.search) {
+      this.handleClick({})
+    }
   }
 
   pageClick(evt) {
@@ -55,14 +58,11 @@ class Allitems extends Component {
 
   async handleClick(evt) {
     console.log(this.props.search, typeof this.props.search)
-    let limit = !this.state.perPage ? 15 : Number(this.state.perPage)
+    let limit = Number(this.state.perPage)
     let offset = !evt.offset ? 0 : Number(Number(evt.offset) * limit)
     let whereConditions = ''
     if (this.props.search) {
       whereConditions += `&search=${this.props.search}`
-    }
-    if (this.state.category) {
-      whereConditions += `&categoryid=${this.state.category}`
     }
     if (this.state.price) {
       whereConditions += `&price=${this.state.price}`
@@ -107,7 +107,7 @@ class Allitems extends Component {
               </select>
             </div>
 
-            <div className="filter-element">
+            {/* <div className="filter-element">
               <p>Category:</p>
               <select
                 className="form-control"
@@ -124,7 +124,7 @@ class Allitems extends Component {
                 <option value="3">Audio</option>
                 <option value="4">Photography</option>
               </select>
-            </div>
+            </div> */}
 
             <div className="filter-element">
               <p>Results Per Page:</p>
