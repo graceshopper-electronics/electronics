@@ -34,6 +34,29 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/categories/:categoryId', async (req, res, next) => {
+  try {
+    const ID = Number(req.params.categoryId)
+
+    const items = await Item.findAll({
+      include: [{model: Category, through: {attributes: []}}]
+    })
+    const categoryItems = items.reduce((accumulator, curr) => {
+      const result = curr.categories.find(element => {
+        return element.dataValues.id === ID
+      })
+
+      if (result) {
+        accumulator.push(curr)
+      }
+      return accumulator
+    }, [])
+    res.json(categoryItems)
+  } catch (err) {
+    next(err)
+  }
+})
+
 const onlyAdmins = (req, res, next) => {
   if (!req.user) {
     console.log('USER IS NOT LOGGED IN!')

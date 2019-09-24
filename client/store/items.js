@@ -6,6 +6,7 @@ import {setSearch} from './search'
 const SET_ITEMS = 'SET_ITEMS'
 const ADD_ITEM = 'ADD_ITEM'
 const DELETE_ITEM = 'DELETE_ITEM'
+
 /**
  * INITIAL STATE
  */
