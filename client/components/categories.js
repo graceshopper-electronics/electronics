@@ -21,8 +21,8 @@ class Categories extends Component {
     const list = this.props.categories
     const isAdmin = this.props.isAdmin
     return (
-      <div>
-        <h3>Categories</h3>
+      <div className="category-view">
+        <h3 className="center">Team Apple Electronics</h3>
         <div>
           {isAdmin ? (
             <div>
@@ -32,17 +32,16 @@ class Categories extends Component {
             <div />
           )}
         </div>
-        <div>
+        <div className="category-body">
           {list.map(ctg => (
-            <div key={ctg.id}>
+            <div key={ctg.id} className="category-card">
               <Link to={`/categories/${ctg.id}`}>
-                <li>
-                  <img src={ctg.photo} />
-                </li>
-                <li>{ctg.name}</li>
+                <div>
+                  <img className="category-image" src={ctg.photo} />
+                </div>
               </Link>
               <div>
-                {isAdmin ? (
+                {isAdmin && (
                   <div>
                     <UpdateCategory id={ctg.id} />
                     <button
@@ -53,8 +52,6 @@ class Categories extends Component {
                       Delete Category
                     </button>
                   </div>
-                ) : (
-                  <div />
                 )}
               </div>
             </div>

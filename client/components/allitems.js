@@ -88,123 +88,148 @@ class Allitems extends Component {
     const isAdmin = this.props.isAdmin
     return (
       <div>
-        <div className="mappedObject">
-          <p>
-            Sort By Price:
-            <select
-              className="form-control"
-              name="price"
-              defaultValue=""
-              onChange={this.handleChange}
-            >
-              <option value="" disabled selected>
-                Select
-              </option>
-              <option value="ASC">Sort Low to High</option>
-              <option value="DESC">Sort High To Low</option>
-              <option value="">Price Sort Off</option>
-            </select>
-            Filter By Categorey:
-            <select
-              className="form-control"
-              name="category"
-              defaultValue=""
-              onChange={this.handleChange}
-            >
-              <option value="" disabled selected>
-                Select
-              </option>
-              <option value="">All</option>
-              <option value="1">TV</option>
-              <option value="2">Mobile Phones</option>
-              <option value="3">Audio</option>
-              <option value="4">Photography</option>
-            </select>
-            Results Per Page:
-            <select
-              className="form-control"
-              name="perPage"
-              defaultValue=""
-              onChange={this.handleChange}
-            >
-              <option value="" disabled selected>
-                Select
-              </option>
-              <option value="">15</option>
-              <option value="20">20</option>
-              <option value="25">25</option>
-            </select>
-            <button type="button" onClick={this.handleClick}>
-              Submit Filters
-            </button>
-          </p>
-          {items.length ? (
-            <div>
-              <h3>All Products View</h3>
-              <div>
-                {items.map(item => {
-                  return (
-                    <div key={item.id}>
-                      <ItemCard item={item} />
-                      {item.inventory ? (
-                        <AddToCart item={item} />
-                      ) : (
-                        <h3>Out of Stock, Check Back Later</h3>
-                      )}
-                      {isAdmin ? (
-                        <div>
-                          <button
-                            type="button"
-                            id={item.id}
-                            onClick={evt => this.handleRemove(evt)}
-                          >
-                            Delete Item
-                          </button>
-                        </div>
-                      ) : (
-                        <div />
-                      )}
-                    </div>
-                  )
-                })}
-                {Number(this.state.offset) ? (
-                  <div>
-                    <button
-                      type="button"
-                      value={Number(this.state.offset) - 1}
-                      onClick={this.pageClick}
-                    >
-                      Previous Page
-                    </button>{' '}
-                    <button
-                      type="button"
-                      value={Number(this.state.offset) + 1}
-                      onClick={this.pageClick}
-                    >
-                      Next Page
-                    </button>
-                    <p> </p>
-                    <br />
-                  </div>
-                ) : (
-                  <div>
-                    {' '}
-                    <button
-                      type="button"
-                      value={Number(this.state.offset) + 1}
-                      onClick={this.pageClick}
-                    >
-                      Next Page
-                    </button>
-                    <p> </p>
-                    <br />
-                  </div>
-                )}
-              </div>
+        <div className="mappedObject flex-wrap">
+          <div className="filter-tab">
+            <div className="filter-element">
+              <p>Price:</p>
+              <select
+                className="form-control"
+                name="price"
+                defaultValue=""
+                onChange={this.handleChange}
+              >
+                <option value="" disabled selected>
+                  Select
+                </option>
+                <option value="ASC">Sort Low to High</option>
+                <option value="DESC">Sort High To Low</option>
+                <option value="">Price Sort Off</option>
+              </select>
             </div>
-          ) : (
-            <h2>No Items Matches</h2>
-          )}
+
+            <div className="filter-element">
+              <p>Category:</p>
+              <select
+                className="form-control"
+                name="category"
+                defaultValue=""
+                onChange={this.handleChange}
+              >
+                <option value="" disabled selected>
+                  Select
+                </option>
+                <option value="">All</option>
+                <option value="1">TV</option>
+                <option value="2">Mobile Phones</option>
+                <option value="3">Audio</option>
+                <option value="4">Photography</option>
+              </select>
+            </div>
+
+            <div className="filter-element">
+              <p>Results Per Page:</p>
+              <select
+                className="form-control"
+                name="perPage"
+                defaultValue=""
+                onChange={this.handleChange}
+              >
+                <option value="" disabled selected>
+                  Select
+                </option>
+                <option value="">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+              </select>
+            </div>
+
+            <div className="filter-element">
+              <button type="button" onClick={this.handleClick}>
+                Apply
+              </button>
+            </div>
+          </div>
+
+          <div className="flex-display all-item-body">
+            <div className="ads">
+              <img src="/macbook-pro-new-ad.jpg" />
+              <img src="/surface-ad.png" />
+              <img src="/macbook-ad.jpg" />
+              <img src="/dell-xp-ad.png" />
+              <img src="/surface-family-ad.png" />
+              <img src="/razer-blade-ad.png" />
+              <img src="/surface-pro4-ad.jpg" />
+              <img src="/lenovo-thinkpad-ad.jpg" />
+              <img src="/macbook-pro-ad.jpg" />
+            </div>
+
+            {items.length ? (
+              <div>
+                <p>
+                  {this.props.search
+                    ? `Search result for ${this.props.search}`
+                    : ''}
+                </p>
+                <div className="items-view">
+                  {items.map(item => {
+                    return (
+                      <div key={item.id} className="single-item-in-view">
+                        <ItemCard item={item} />
+                        {isAdmin ? (
+                          <div>
+                            <button
+                              type="button"
+                              id={item.id}
+                              onClick={evt => this.handleRemove(evt)}
+                            >
+                              Delete Item
+                            </button>
+                          </div>
+                        ) : (
+                          <div />
+                        )}
+                      </div>
+                    )
+                  })}
+                  {Number(this.state.offset) ? (
+                    <div>
+                      <button
+                        type="button"
+                        value={Number(this.state.offset) - 1}
+                        onClick={this.pageClick}
+                      >
+                        Previous Page
+                      </button>{' '}
+                      <button
+                        type="button"
+                        value={Number(this.state.offset) + 1}
+                        onClick={this.pageClick}
+                      >
+                        Next Page
+                      </button>
+                      <p> </p>
+                      <br />
+                    </div>
+                  ) : (
+                    <div>
+                      {' '}
+                      <button
+                        type="button"
+                        value={Number(this.state.offset) + 1}
+                        onClick={this.pageClick}
+                      >
+                        Next Page
+                      </button>
+                      <p> </p>
+                      <br />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <h2>No Items Matches</h2>
+            )}
+          </div>
         </div>
       </div>
     )

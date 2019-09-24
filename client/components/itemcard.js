@@ -9,16 +9,20 @@ const ItemCard = props => {
         <img src={item.photo} className="itemPhoto" />
       </Link>
       <ul>
-        <li>Name:{item.name}</li>
-        <li>Price: {item.price}</li>
+        <li>
+          <h3>{item.name}</h3>
+        </li>
+        <li>
+          <h4>${item.price}</h4>
+        </li>
         {item.inventory ? (
           item.inventory < 10 ? (
-            <li>Left in Stock: {item.inventory}</li>
+            <li className="orange small">Almost out of stock</li>
           ) : (
-            <li>Currently in Stock</li>
+            <li className="green small">Currently in Stock</li>
           )
         ) : (
-          <li>Out of Stock, Check Back Later</li>
+          <li className="red small">Out of Stock, Check Back Later</li>
         )}
       </ul>
     </div>

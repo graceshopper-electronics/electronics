@@ -17,42 +17,40 @@ let reviewSeed = []
 let categorySeed = [
   {
     name: 'TVs',
-    photo: 'https://www.lg.com/us/experience-tvs/oled-tv/i/bg-shopoled.jpg'
+    photo: 'http://getwallpapers.com/wallpaper/full/8/e/2/283694.jpg'
   },
   {
     name: 'Mobile phones',
-    photo:
-      'https://cdn.vox-cdn.com/thumbor/vFbxezqB4fgK1-VirclQI8roaD8=/0x0:2040x1360/1200x675/filters:focal(1398x346:1724x672)/cdn.vox-cdn.com/uploads/chorus_image/image/65253817/akrales_190912_3656_0027.0.jpg'
+    photo: 'https://www.hdwallpapers.in/download/iphone_x_4k-1920x1080.jpg'
   },
   {
     name: 'Audio',
     photo:
-      'https://speaker.ninja/wp-content/uploads/2017/09/What-Causes-Popping-and-Crackling-Sounds-in-Your-Speakers-featured.jpg'
+      'http://getwallpapers.com/wallpaper/full/7/d/e/724905-download-free-bose-wallpapers-1920x1080-free-download.jpg'
   },
   {
     name: 'Photography',
     photo:
-      'https://cdn.thewirecutter.com/wp-content/uploads/2018/04/canon-dslrs-march-2018-2x1-lowres3496.jpg'
+      'https://images.wallpaperscraft.com/image/camera_glare_levitation_130150_1920x1080.jpg'
   },
   {
     name: 'Games',
     photo:
-      'https://d3atagt0rnqk7k.cloudfront.net/wp-content/uploads/2016/09/12150402/best-single-multiplayer-video-games-to-pair-with-cannabis.jpg'
+      'https://i.pinimg.com/originals/d2/be/b7/d2beb74d54ea324f46c6ee4d7b358313.png'
   },
   {
     name: 'Office',
-    photo:
-      'https://www.tds-office.com/wp-content/uploads/2018/10/office-electronics-printers-copiers.jpg'
+    photo: 'https://wallpapercave.com/wp/wp2502942.jpg'
   },
   {
     name: 'Computers',
     photo:
-      'http://hpsuppliesfirstclass.com/newsletter/images/i_essential_01_big_image_tcm245_2268831_tcm245_2193389_tcm245-2268831.jpg'
+      'http://i.dell.com/sites/csimages/Videos_Images/all/inspiron-15-7000-2n1-rollupimage.jpg'
   },
   {
     name: 'Accessories',
     photo:
-      'http://electronicgalaxyandmore.com/wp-content/uploads/2016/01/Computer-Accessories.jpg'
+      'https://cdn.suwalls.com/wallpapers/computers/apple-accessories-41758-1920x1080.jpg'
   }
 ]
 

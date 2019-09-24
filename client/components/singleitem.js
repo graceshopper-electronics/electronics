@@ -28,7 +28,9 @@ class Singleitem extends Component {
 
     return !itemObj.id ? (
       <div>
-        <h1>Loading...</h1>
+        <h1>
+          <i className="fa fa-spinner fa-spin" />Loading...
+        </h1>
       </div>
     ) : (
       <div>
