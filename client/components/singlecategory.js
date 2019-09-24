@@ -5,30 +5,30 @@ import ItemCard from './itemcard'
 
 import {fetchByCategoryThunk} from '../store/singlecategoryitems'
 
-function ascending(a, b) {
-  if (a.price > b.price) {
-    return b
-  } else {
-    return a
-  }
-}
+// function ascending(a, b) {
+//   if (a.price > b.price) {
+//     return b
+//   } else {
+//     return a
+//   }
+// }
 
-function descending(a, b) {
-  if (a.price > b.price) {
-    return a
-  } else {
-    return b
-  }
-}
+// function descending(a, b) {
+//   if (a.price > b.price) {
+//     return a
+//   } else {
+//     return b
+//   }
+// }
 
 class SingleCategory extends Component {
-  constructor(props) {
-    super(props)
-    this.handChange = this.handleChange.bind(this)
-    // this.state = {
-    //   singlecategoryitems: []
-    // }
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.handChange = this.handleChange.bind(this)
+  //   // this.state = {
+  //   //   singlecategoryitems: []
+  //   // }
+  // }
 
   componentDidMount() {
     this.props.getItemsByCat(this.props.match.params.categoryId)

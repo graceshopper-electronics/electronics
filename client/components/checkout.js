@@ -1,13 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {placeOrder, fetchCartItems} from '../store/cart'
+import {placeOrder, fetchCartItems, submitPaymentMethod} from '../store/cart'
 import CartItems from './cartItems'
+import PayWithCard from './payWithCard'
+import StripeCheckout from 'react-stripe-checkout'
+import {toast} from 'react-toastify'
 
 class Checkout extends React.Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
+    this.handleToken = this.handleToken.bind(this)
   }
 
   componentDidMount() {
@@ -17,6 +21,13 @@ class Checkout extends React.Component {
   handleClick() {
     this.props.placeOrder(this.props.cart.id)
     console.log('hit handleClick')
+  }
+
+  async handleToken(token, addresses) {
+    console.log({token, addresses})
+    const items = this.props.cart.items
+    const response = await this.props.submitPayment(token, items)
+    console.log('response: ', response)
   }
 
   render() {
@@ -51,11 +62,15 @@ class Checkout extends React.Component {
         <div className="payment-method">
           <h3>2 Payment Method</h3>
           <div className="user-payment-info">
-            <p>
-              Amazon Store Card ending in 7734 <br />
-              Add gift card or promotion code <br />
-              Apply Amazon Store Card reward points
-            </p>
+            <h4>Pay with card</h4>
+            <StripeCheckout
+              stripeKey="pk_test_CadsqXgAmTJA8CmCoP85Lgfb00TiYRdM5j"
+              token={this.handleToken}
+              billingAddress
+              shippingAddress
+              amount={100}
+              name="testing item"
+            />
           </div>
           <button className="change">Change</button>
         </div>
@@ -140,7 +155,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     placeOrder: orderId => dispatch(placeOrder(orderId)),
-    loadCartItems: () => dispatch(fetchCartItems())
+    loadCartItems: () => dispatch(fetchCartItems()),
+    submitPayment: (token, items) => dispatch(submitPaymentMethod(token, items))
   }
 }
 

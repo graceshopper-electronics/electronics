@@ -33,6 +33,32 @@ form div {
   border-left: 1px solid rgb(73, 73, 73);
 }
 
+.account div {
+  width: 31%;
+  border: 0.5px solid rgb(212, 212, 212);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 36px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.account div:hover {
+  background-color: rgb(223, 223, 223);
+}
+
+.account div button {
+  border-style: none;
+  background-color: transparent;
+  font-size: 18px;
+  padding: 8px;
+  color: rgb(64, 124, 255);
+}
+
+.account div button:hover {
+  text-decoration: underline;
+}
+
 .add-to-cart {
   width: 80px;
   height: 50px;
@@ -41,6 +67,40 @@ form div {
 
 .add-to-cart:hover {
   background-color: rgb(228, 170, 13);
+}
+
+.admin-manage button {
+  border-style: none;
+  background-color: transparent;
+  font-size: 18px;
+  padding: 8px;
+}
+
+.ads {
+  height: 260vh;
+  width: 20vw;
+  border-right: 0.5px solid rgb(212, 212, 212);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ads img {
+  width: 96%;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.ads img:hover {
+  opacity: 0.8;
+}
+
+.all-item-body {
+  padding: 10px;
+}
+
+.all-item-body > div {
+  margin-right: 20px;
+  margin-left: 10px;
 }
 
 .back-btn {
@@ -73,6 +133,52 @@ form div {
   background-color: rgb(231, 230, 230);
 }
 
+.category-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category-card {
+  height: auto;
+  text-align: center;
+  color: black;
+}
+
+.category-card:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.category-card p {
+  color: black;
+  margin-top: 3px;
+}
+
+.category-view {
+  padding-top: 10px;
+  background: linear-gradient(rgb(177, 228, 235), white);
+  font-size: 20px;
+}
+
+.category-image {
+  width: 50vw;
+  padding-top: 0px;
+}
+
+.center {
+  text-align: center;
+}
+
+.change {
+  border-style: none;
+  background-color: transparent;
+  color: rgb(7, 119, 247);
+}
+
+.change:hover {
+  text-decoration: underline;
+}
+
 .checkout {
   background-color: rgb(255, 187, 0);
   font-size: 16px;
@@ -82,6 +188,30 @@ form div {
 
 .checkout:hover {
   background-color: rgba(199, 154, 6, 0.973);
+}
+
+.checkout-view {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.clean-category {
+  color: black;
+  text-decoration: none;
+}
+
+.clean-link {
+  color: rgb(64, 124, 255);
+  text-decoration: none;
+}
+
+.clean-link:hover {
+  text-decoration: underline;
+}
+
+.contact-us {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .delete {
@@ -103,8 +233,59 @@ form div {
   display: flex;
 }
 
+.filter-tab {
+  width: 100vw;
+  display: flex;
+  border-bottom: 0.5px solid rgb(212, 212, 212);
+  height: 7vh;
+  font-size: 16px;
+  padding: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.filter-tab p {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.filter-tab .filter-element {
+  margin: auto;
+  font-size: 16px;
+  display: flex;
+}
+
+.filter-tab select {
+  margin-left: 16px;
+  font-size: 16px;
+  height: 30px;
+}
+
+.filter-tab select:hover {
+  background-color: rgb(224, 222, 222);
+}
+
+.filter-tab button {
+  font-size: 16px;
+  width: 80px;
+  height: 30px;
+  margin-right: 40px;
+  background-color: rgb(255, 187, 0);
+  border-radius: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.filter-tab button:hover {
+  background-color: rgb(206, 152, 4);
+}
+
 .flex-display {
   display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .green {
@@ -154,6 +335,10 @@ form div {
   align-items: center;
 }
 
+.orange {
+  color: rgb(207, 140, 14);
+}
+
 .order-confirmation-view {
   padding: 20px;
   font-size: 18px;
@@ -192,6 +377,10 @@ form div {
   color: rgb(231, 138, 17);
 }
 
+.red {
+  color: rgb(214, 32, 32);
+}
+
 .remove-decoration {
   color: black;
   text-decoration: none;
@@ -219,6 +408,14 @@ form div {
   background-color: rgba(199, 154, 6, 0.973);
 }
 
+.small {
+  font-size: 14px;
+}
+
+.vertical-center {
+  vertical-align: center;
+}
+
 .wrap {
   display: table;
 }
@@ -236,6 +433,16 @@ form div {
   width: 250px;
 }
 
+.single-item-in-view {
+  border-bottom: 0.5px solid rgb(212, 212, 212);
+  font-size: 18px;
+  padding-bottom: 8px;
+}
+
+.single-item-in-view:hover {
+  color: rgba(221, 172, 10, 0.973);
+}
+
 ul {
   background-position: left center;
   background-repeat: no-repeat;
@@ -244,16 +451,6 @@ ul {
   vertical-align: middle;
   display: table-cell;
   list-style-type: none;
-}
-
-img {
-  max-height: 225px;
-  max-width: 225px;
-  border-radius: 5px;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 .dropbtn {

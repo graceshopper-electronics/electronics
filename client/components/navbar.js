@@ -49,7 +49,7 @@ class Navbar extends React.Component {
         </div>
 
         <div className="title link">
-          <Link to="/" className="link">
+          <Link to="/categories" className="link">
             <i className="fa fa-amazon fa-2x logo" />
           </Link>
         </div>
