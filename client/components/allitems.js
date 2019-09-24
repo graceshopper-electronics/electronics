@@ -14,10 +14,7 @@ import ItemCard from './itemcard'
 
 let defaultState = {
   price: '',
-  category: 0,
-  perPage: 0,
-  lowestResult: 0,
-  highestResult: 0,
+  perPage: 15,
   offset: 0
 }
 
@@ -29,6 +26,12 @@ class Allitems extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.pageClick = this.pageClick.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.search) {
+      this.handleClick({})
+    }
   }
 
   pageClick(evt) {
@@ -54,14 +57,11 @@ class Allitems extends Component {
 
   async handleClick(evt) {
     console.log(this.props.search, typeof this.props.search)
-    let limit = !this.state.perPage ? 15 : Number(this.state.perPage)
+    let limit = Number(this.state.perPage)
     let offset = !evt.offset ? 0 : Number(Number(evt.offset) * limit)
     let whereConditions = ''
     if (this.props.search) {
       whereConditions += `&search=${this.props.search}`
-    }
-    if (this.state.category) {
-      whereConditions += `&categoryid=${this.state.category}`
     }
     if (this.state.price) {
       whereConditions += `&price=${this.state.price}`
@@ -102,22 +102,6 @@ class Allitems extends Component {
               <option value="ASC">Sort Low to High</option>
               <option value="DESC">Sort High To Low</option>
               <option value="">Price Sort Off</option>
-            </select>
-            Filter By Categorey:
-            <select
-              className="form-control"
-              name="category"
-              defaultValue=""
-              onChange={this.handleChange}
-            >
-              <option value="" disabled selected>
-                Select
-              </option>
-              <option value="">All</option>
-              <option value="1">TV</option>
-              <option value="2">Mobile Phones</option>
-              <option value="3">Audio</option>
-              <option value="4">Photography</option>
             </select>
             Results Per Page:
             <select
@@ -175,17 +159,12 @@ class Allitems extends Component {
                     >
                       Previous Page
                     </button>{' '}
-                    <button
-                      type="button"
-                      value={Number(this.state.offset) + 1}
-                      onClick={this.pageClick}
-                    >
-                      Next Page
-                    </button>
-                    <p> </p>
-                    <br />
                   </div>
                 ) : (
+                  <div />
+                )}
+
+                {items.length === Number(this.state.perPage) ? (
                   <div>
                     {' '}
                     <button
@@ -195,10 +174,12 @@ class Allitems extends Component {
                     >
                       Next Page
                     </button>
-                    <p> </p>
-                    <br />
                   </div>
+                ) : (
+                  <div />
                 )}
+                <p> </p>
+                <br />
               </div>
             </div>
           ) : (

@@ -19,11 +19,13 @@ class Navbar extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault()
     if (this.state.searchValue === 'monitors') {
       window.location.href = `https://www.amazon.com/s?k=$monitors&ref=nb_sb_noss_1`
     } else {
       let search = this.state.searchValue
       this.props.getItems(search)
+      //window.location.href = '/items'
     }
   }
 
@@ -47,7 +49,9 @@ class Navbar extends React.Component {
         </div>
 
         <div className="title link">
-          <i className="fa fa-amazon fa-2x logo" />
+          <Link to="/" className="link">
+            <i className="fa fa-amazon fa-2x logo" />
+          </Link>
         </div>
 
         <div>
@@ -65,7 +69,9 @@ class Navbar extends React.Component {
             onChange={this.handleChange}
           />
           <button className="search-button" onClick={this.handleSubmit}>
-            <i className="fa fa-search fa-3x" />
+            <Link to="/items" className="fa">
+              <i className="fa fa-search fa-3x" />
+            </Link>
           </button>
         </div>
 

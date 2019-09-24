@@ -10,9 +10,6 @@ router.get('/', async (req, res, next) => {
   let orderConditions = []
   let limit = req.query.limit ? Number(req.query.limit) : 15
   let offset = req.query.offset ? Number(req.query.offset) : 0
-  if (req.query.categoryid) {
-    whereConditions.categoryId = req.query.categoryid
-  }
   if (req.query.search) {
     let search = req.query.search[0].toUpperCase() + req.query.search.slice(1)
     whereConditions.name = {[Op.substring]: search}

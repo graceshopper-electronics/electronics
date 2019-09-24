@@ -33,6 +33,10 @@ const User = db.define('user', {
   },
   shippingAddress: {
     type: Sequelize.STRING
+  },
+  resetPassword: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

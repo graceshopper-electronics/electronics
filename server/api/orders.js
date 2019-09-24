@@ -16,8 +16,27 @@ const onlyAdmins = (req, res, next) => {
 }
 
 router.get('/', onlyAdmins, async (req, res, next) => {
+  console.log('going')
+  let whereConditions = {}
+  let orderConditions = []
+  let limit = req.query.limit ? Number(req.query.limit) : 15
+  let offset = req.query.offset ? Number(req.query.offset) : 0
+  if (req.query.status) {
+    whereConditions.status = req.query.status
+  }
+  if (req.query.user) {
+    whereConditions.userId = req.query.user
+  }
+  if (req.query.date) {
+    orderConditions.push(['submissionDate', req.query.date])
+  }
   try {
+    console.log('a try')
     const orders = await Order.findAll({
+      limit,
+      offset,
+      order: orderConditions,
+      where: whereConditions,
       include: [{all: true}]
     })
     res.json(orders)
@@ -25,3 +44,26 @@ router.get('/', onlyAdmins, async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:orderid', async (req, res, next) => {
+  try {
+    Order.findByPk(req.params.orderid)
+      .then(order => order.update({status: req.body.status}))
+      .then(order => res.json(order))
+      .catch(next)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// const orders = await Order.findAll({
+//   include: [
+//     {
+//       model: User
+//     },
+//     {
+//       model: Item,
+//       through: {attributes: []}
+//     }
+//   ]
+// })
