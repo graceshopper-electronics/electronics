@@ -30,7 +30,19 @@ router.get('/:categoryid', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+const onlyAdmins = (req, res, next) => {
+  if (!req.user) {
+    console.log('USER IS NOT LOGGED IN!')
+    return res.sendStatus(401)
+  }
+  if (!req.user.isAdmin) {
+    console.log('USER LOGGED IN BUT NOT AN ADMIN!')
+    return res.sendStatus(401)
+  }
+  next()
+}
+
+router.post('/', onlyAdmins, async (req, res, next) => {
   try {
     const ctg = await Category.create(req.body)
     res.json(ctg)
@@ -39,7 +51,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:categoryid', async (req, res, next) => {
+router.put('/:categoryid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.categoryid
     const category = await Category.findByPk(id)
@@ -50,7 +62,7 @@ router.put('/:categoryid', async (req, res, next) => {
   }
 })
 
-router.delete('/:categoryid', async (req, res, next) => {
+router.delete('/:categoryid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.categoryid
     await Category.destroy({
