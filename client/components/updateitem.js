@@ -25,6 +25,7 @@ class UpdateItem extends Component {
       [evt.target.name]: evt.target.value
     })
   }
+
   handleAssign(evt) {
     evt.preventDefault()
     let obj = {}

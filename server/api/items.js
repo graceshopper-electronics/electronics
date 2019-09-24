@@ -31,7 +31,42 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.get('/categories/:categoryId', async (req, res, next) => {
+  try {
+    const ID = Number(req.params.categoryId)
+
+    const items = await Item.findAll({
+      include: [{model: Category, through: {attributes: []}}]
+    })
+    const categoryItems = items.reduce((accumulator, curr) => {
+      const result = curr.categories.find(element => {
+        return element.dataValues.id === ID
+      })
+
+      if (result) {
+        accumulator.push(curr)
+      }
+      return accumulator
+    }, [])
+    res.json(categoryItems)
+  } catch (err) {
+    next(err)
+  }
+})
+
+const onlyAdmins = (req, res, next) => {
+  if (!req.user) {
+    console.log('USER IS NOT LOGGED IN!')
+    return res.sendStatus(401)
+  }
+  if (!req.user.isAdmin) {
+    console.log('USER LOGGED IN BUT NOT AN ADMIN!')
+    return res.sendStatus(401)
+  }
+  next()
+}
+
+router.post('/', onlyAdmins, async (req, res, next) => {
   try {
     const items = await Item.create(req.body)
     res.json(items)
@@ -55,7 +90,7 @@ router.get('/:itemid', async (req, res, next) => {
   }
 })
 
-router.put('/:itemid', async (req, res, next) => {
+router.put('/:itemid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.itemid
     const item = await Item.findByPk(id)
@@ -67,7 +102,7 @@ router.put('/:itemid', async (req, res, next) => {
 })
 
 //creating category assignments
-router.put('/assign/:itemid', async (req, res, next) => {
+router.put('/assign/:itemid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.itemid
     const catName = req.body.category
@@ -90,7 +125,7 @@ router.put('/assign/:itemid', async (req, res, next) => {
   }
 })
 
-router.put('/unassign/:itemid', async (req, res, next) => {
+router.put('/unassign/:itemid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.itemid
     const categoryid = req.body.id
@@ -113,30 +148,7 @@ router.put('/unassign/:itemid', async (req, res, next) => {
   }
 })
 
-// const onlyAdmins = (req, res, next) => {
-//   if (!req.user) {
-//     console.log('USER IS NOT LOGGED IN!')
-//     return res.sendStatus(401)
-//   }
-//   if (!req.user.isAdmin) {
-//     console.log('USER LOGEED IN BUT NOT AN ADMIN!')
-//     return res.sendStatus(401)
-//   }
-//   next()
-// }
-
-// router.param('id', (req, res, next, id) => {
-//   User.findById(id)
-//     .then(user => {
-//       if (!user) throw HttpError(404)
-//       req.requestedUser = user
-//       next()
-//       return null
-//     })
-//     .catch(next)
-// })
-
-router.delete('/:itemid', async (req, res, next) => {
+router.delete('/:itemid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.itemid
     await Item.destroy({

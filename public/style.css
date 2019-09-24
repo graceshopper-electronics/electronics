@@ -321,11 +321,13 @@ img {
 }
 
 ul.allorders {
-  vertical-align: middle;
-  display: block;
+  display: inline-block;
+  float: left;
+  height: auto;
 }
 
 ul.allordersdetails {
-  vertical-align: text-top;
-  display: block;
+  display: inline-block;
+  float: left;
+  height: auto;
 }

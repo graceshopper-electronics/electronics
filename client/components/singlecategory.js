@@ -2,44 +2,78 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import ItemCard from './itemcard'
-import axios from 'axios'
 
-let defaultState = {
-  items: [],
-  catName: ''
+import {fetchByCategoryThunk} from '../store/singlecategoryitems'
+
+function ascending(a, b) {
+  if (a.price > b.price) {
+    return b
+  } else {
+    return a
+  }
+}
+
+function descending(a, b) {
+  if (a.price > b.price) {
+    return a
+  } else {
+    return b
+  }
 }
 
 class SingleCategory extends Component {
-  constructor() {
-    super()
-    this.state = defaultState
+  constructor(props) {
+    super(props)
+    this.handChange = this.handleChange.bind(this)
+    // this.state = {
+    //   singlecategoryitems: []
+    // }
   }
 
-  async componentDidMount() {
-    const res = await axios.get(
-      `/api/categories/${this.props.match.params.categoryId}`
-    )
-    this.setState({
-      items: res.data,
-      catName: res.data[0].category.name
-    })
+  componentDidMount() {
+    this.props.getItemsByCat(this.props.match.params.categoryId)
   }
+
+  // handleChange(evt) {
+  //   if (evt.target.value === 'ASC') {
+  //   }
+  // }
 
   render() {
-    let category = Number(this.props.match.params.categoryId)
-    let allItems = this.state.items
-    let catItems = allItems.reduce((accumulator, curr) => {
-      if (curr.categoryId === category) {
-        accumulator.push(curr)
+    const catName = this.props.categories.reduce((accum, curr) => {
+      if (curr.id === Number(this.props.match.params.categoryId)) {
+        accum = curr.name
       }
-      return accumulator
-    }, [])
+      return accum
+    }, '')
 
+    const items = this.props.singlecategoryitems
     return (
       <div>
-        <h3>{this.state.catName}</h3>
+        <h3>{catName}</h3>
         <div>
-          {catItems.map(item => <ItemCard item={item} key={item.id} />)}
+          Sort By Price:
+          <select
+            htmlFor="pricesort"
+            name="price"
+            defaultValue="none"
+            onChange={this.handleChange}
+          >
+            <option defaultValue="none" disabled selected>
+              Select
+            </option>
+            <option value="ASC">Sort Low to High</option>
+            <option value="DESC">Sort High To Low</option>
+          </select>
+          <button type="button">Sort</button>
+        </div>
+
+        <div>
+          {items.length > 0 ? (
+            items.map(item => <ItemCard item={item} key={item.id} />)
+          ) : (
+            <h1>No items in this category </h1>
+          )}
         </div>
       </div>
     )
@@ -48,8 +82,17 @@ class SingleCategory extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    singlecategoryitems: state.singlecategoryitems
   }
 }
 
-export default withRouter(connect(mapStateToProps)(SingleCategory))
+const mapDispatchToProps = dispatch => {
+  return {
+    getItemsByCat: id => dispatch(fetchByCategoryThunk(id))
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SingleCategory)
+)

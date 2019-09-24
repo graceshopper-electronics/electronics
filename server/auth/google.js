@@ -5,6 +5,16 @@ const {User} = require('../db/models')
 module.exports = router
 
 /**
+ * OATH ClientID
+ * 102569396897-sm9f38hfoa2en10vmb2qn275r1lagh21.apps.googleusercontent.com
+ *client secret
+ *E9y5zAov9rOHX5OANYi7Ovtz
+ *
+ *
+ *
+ */
+
+/**
  * For OAuth keys and other secrets, your Node process will search
  * process.env to find environment variables. On your production server,
  * you will be able to set these environment variables with the appropriate

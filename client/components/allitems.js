@@ -83,7 +83,6 @@ class Allitems extends Component {
   }
 
   render() {
-    console.log(this.state.perPage)
     const items = this.props.items
     const isAdmin = this.props.isAdmin
     return (
