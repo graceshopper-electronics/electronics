@@ -107,25 +107,6 @@ class Allitems extends Component {
               </select>
             </div>
 
-            {/* <div className="filter-element">
-              <p>Category:</p>
-              <select
-                className="form-control"
-                name="category"
-                defaultValue=""
-                onChange={this.handleChange}
-              >
-                <option value="" disabled selected>
-                  Select
-                </option>
-                <option value="">All</option>
-                <option value="1">TV</option>
-                <option value="2">Mobile Phones</option>
-                <option value="3">Audio</option>
-                <option value="4">Photography</option>
-              </select>
-            </div> */}
-
             <div className="filter-element">
               <p>Results Per Page:</p>
               <select
