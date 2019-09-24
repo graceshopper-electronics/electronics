@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import ItemCard from './itemcard'
 
-import {fetchByCategoryThunk} from '../store/singlecategory'
+import {fetchByCategoryThunk} from '../store/singlecategoryitems'
 
 class SingleCategory extends Component {
   componentDidMount() {
@@ -11,19 +11,24 @@ class SingleCategory extends Component {
   }
 
   render() {
-    const catName = this.props.categories.reduce((accumulator, curr) => {
+    const catName = this.props.categories.reduce((accum, curr) => {
       if (curr.id === Number(this.props.match.params.categoryId)) {
-        accumulator = curr.name
+        accum = curr.name
       }
-      return accumulator
+      return accum
     }, '')
 
+    const items = this.props.singlecategoryitems
     return (
       <div>
         <h3>{catName}</h3>
-        {/* <div>
-          {this.props.items.map(item => <ItemCard item={item} key={item.id} />)}
-        </div> */}
+        <div>
+          {items.length > 0 ? (
+            items.map(item => <ItemCard item={item} key={item.id} />)
+          ) : (
+            <h1>No items in this category </h1>
+          )}
+        </div>
       </div>
     )
   }
@@ -32,7 +37,7 @@ class SingleCategory extends Component {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    items: state.ctgItems
+    singlecategoryitems: state.singlecategoryitems
   }
 }
 

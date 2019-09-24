@@ -12,7 +12,7 @@ import search from './search'
 import allUsers from './allusers'
 import singleitem from './singleitem'
 import allorders from './allorders'
-import singlecategory from './singlecategory'
+import singlecategoryitems from './singlecategoryitems'
 
 const reducer = combineReducers({
   user,
@@ -25,7 +25,7 @@ const reducer = combineReducers({
   allUsers,
   singleitem,
   allorders,
-  singlecategory
+  singlecategoryitems
 })
 
 const middleware = composeWithDevTools(

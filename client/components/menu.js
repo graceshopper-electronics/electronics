@@ -1,23 +1,36 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {fetchByCategoryThunk, fetchItemsThunk} from '../store/items'
+import {fetchByCategoryThunk} from '../store/singlecategoryitems'
 import history from '../history'
 
-const Menu = props => {
-  const list = props.categories
-  return (
-    <ul>
-      {list.map(ctg => (
-        <Link to={`/categories/${ctg.id}`} key={ctg.id}>
-          <li>{ctg.name}</li>
+class Menu extends Component {
+  constructor(props) {
+    super(props)
+    this.handleClickCategory = this.handleClickCategory.bind(this)
+  }
+
+  handleClickCategory(evt) {
+    console.log('event id', evt.target.id)
+    this.props.getItemsByCat(evt.target.id)
+  }
+
+  render() {
+    return (
+      <ul>
+        {this.props.categories.map(ctg => (
+          <Link to={`/categories/${ctg.id}`} key={ctg.id}>
+            <li id={ctg.id} onClick={this.handleClickCategory}>
+              {ctg.name}
+            </li>
+          </Link>
+        ))}
+        <Link to="/items" onCLick={() => history.push('/items')}>
+          <li>All Producs</li>
         </Link>
-      ))}
-      <Link to="/items" onCLick={() => history.push('/items')}>
-        <li>All Producs</li>
-      </Link>
-    </ul>
-  )
+      </ul>
+    )
+  }
 }
 
 const mapStateToProps = state => {
@@ -28,8 +41,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getItemsByCat: id => dispatch(fetchByCategoryThunk(id)),
-    getItems: () => dispatch(fetchItemsThunk())
+    getItemsByCat: id => dispatch(fetchByCategoryThunk(id))
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu))
