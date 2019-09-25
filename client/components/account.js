@@ -99,8 +99,8 @@ class Account extends Component {
     const isAdmin = this.props.user.isAdmin
     if (!this.props.user.id) {
       return (
-        <div>
-          <h1>You Are Not Logged In!</h1>
+        <div className="login">
+          <h3>Already have an account?</h3>
           <Login />
         </div>
       )
