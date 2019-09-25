@@ -150,7 +150,7 @@ const seed = async () => {
 
     const forLoop3 = async _ => {
       for (let i = 0; i < items.length; i++) {
-        let catNum = Math.floor(Math.random() * 7)
+        let catNum = Math.floor(Math.random() * 8)
         await categories[catNum].addItems(items[i])
       }
     }
