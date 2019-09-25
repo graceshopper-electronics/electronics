@@ -4,7 +4,8 @@ import {withRouter, Link} from 'react-router-dom'
 import {
   deleteUserThunk,
   fetchUsersThunk,
-  promoteUserThunk
+  promoteUserThunk,
+  passResetThunk
 } from '../store/allusers'
 
 class Allusers extends Component {
@@ -12,6 +13,7 @@ class Allusers extends Component {
     super(props)
     this.handleClick = this.handleClick.bind(this)
     this.handlePromote = this.handlePromote.bind(this)
+    this.resetPassword = this.resetPassword.bind(this)
   }
   componentDidMount() {
     this.props.fetchUsers()
@@ -21,6 +23,13 @@ class Allusers extends Component {
     evt.preventDefault()
     if (evt.target.id) {
       this.props.deleteUser(evt.target.id)
+    }
+  }
+
+  resetPassword = evt => {
+    evt.preventDefault()
+    if (evt.target.id) {
+      this.props.passResetUser(evt.target.id)
     }
   }
 
@@ -45,7 +54,7 @@ class Allusers extends Component {
                 id={user.id}
                 onClick={evt => this.handleClick(evt)}
               />
-              <button type="button" id={user.id}>
+              <button type="button" id={user.id} onClick={this.resetPassword}>
                 Reset Password
               </button>
               <button type="button" id={user.id} onClick={this.handlePromote}>
@@ -71,7 +80,8 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteUser: id => dispatch(deleteUserThunk(id)),
     fetchUsers: () => dispatch(fetchUsersThunk()),
-    promoteUser: id => dispatch(promoteUserThunk(id))
+    promoteUser: id => dispatch(promoteUserThunk(id)),
+    passResetUser: id => dispatch(passResetThunk(id))
   }
 }
 

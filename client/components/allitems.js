@@ -57,7 +57,6 @@ class Allitems extends Component {
   }
 
   async handleClick(evt) {
-    console.log(this.props.search, typeof this.props.search)
     let limit = Number(this.state.perPage)
     let offset = !evt.offset ? 0 : Number(Number(evt.offset) * limit)
     let whereConditions = ''
@@ -67,7 +66,6 @@ class Allitems extends Component {
     if (this.state.price) {
       whereConditions += `&price=${this.state.price}`
     }
-    console.log(whereConditions)
     try {
       let result = await axios.get(
         `/api/items?limit=${limit}&offset=${offset}${whereConditions}`
@@ -133,7 +131,6 @@ class Allitems extends Component {
 
           <div className="flex-display all-item-body">
             <Advertisements />
-
             {items.length ? (
               <div>
                 <p>
@@ -141,11 +138,17 @@ class Allitems extends Component {
                     ? `Search result for ${this.props.search}`
                     : ''}
                 </p>
-                <div className="items-view">
+
+                <div>
                   {items.map(item => {
                     return (
                       <div key={item.id} className="single-item-in-view">
                         <ItemCard item={item} />
+                        {item.inventory ? (
+                          <AddToCart item={item} />
+                        ) : (
+                          <h3>Out of Stock, Check Back Later</h3>
+                        )}
                         {isAdmin ? (
                           <div>
                             <button
@@ -171,17 +174,12 @@ class Allitems extends Component {
                       >
                         Previous Page
                       </button>{' '}
-                      <button
-                        type="button"
-                        value={Number(this.state.offset) + 1}
-                        onClick={this.pageClick}
-                      >
-                        Next Page
-                      </button>
-                      <p> </p>
-                      <br />
                     </div>
                   ) : (
+                    <div />
+                  )}
+
+                  {items.length === Number(this.state.perPage) ? (
                     <div>
                       {' '}
                       <button
@@ -191,10 +189,12 @@ class Allitems extends Component {
                       >
                         Next Page
                       </button>
-                      <p> </p>
-                      <br />
                     </div>
+                  ) : (
+                    <div />
                   )}
+                  <p> </p>
+                  <br />
                 </div>
               </div>
             ) : (

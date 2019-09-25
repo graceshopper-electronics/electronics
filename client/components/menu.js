@@ -11,7 +11,6 @@ class Menu extends Component {
   }
 
   handleClickCategory(evt) {
-    console.log('event id', evt.target.id)
     this.props.getItemsByCat(evt.target.id)
   }
 
@@ -25,7 +24,7 @@ class Menu extends Component {
             </li>
           </Link>
         ))}
-        <Link to="/items" onCLick={() => history.push('/items')}>
+        <Link to="/items" onClick={() => history.push('/items')}>
           <li>All Producs</li>
         </Link>
       </ul>

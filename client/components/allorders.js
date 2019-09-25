@@ -31,8 +31,6 @@ class AllOrders extends Component {
   }
 
   orderInfoChange(evt) {
-    console.log('is this on')
-    console.log(this.state)
     this.setState({
       orderNo: evt.target.name,
       orderStatus: evt.target.value,
@@ -44,21 +42,6 @@ class AllOrders extends Component {
     let update = {
       status: this.state.orderStatus
     }
-    console.log(this.state)
-    // const send = require('gmail-send')({
-    //   user: 'teamapplegs@gmail.com',
-    //   pass: 'Monitors1',
-    //   to:   `${evt.target.name2}`,
-    //   subject: 'Order Updated',
-    // });
-    // send({
-    //   text: `The Order Status for Order Number ${evt.target.name} has been changed to ${evt.target.value}`,
-    // }, (error, result, fullResult) => {
-    //   console.log("is it trying?")
-    //   if (error) console.error("there was an error", error);
-    //   console.log("here it went", result);
-    // })
-    console.log('anything')
     try {
       await axios.put(`api/orders/${this.state.orderNo}`, update)
       this.props.fetchOrders()
@@ -78,7 +61,6 @@ class AllOrders extends Component {
   }
 
   handleChange(evt) {
-    console.log(this.state)
     this.setState({
       [evt.target.name]: evt.target.value
     })
@@ -210,7 +192,7 @@ class AllOrders extends Component {
                     </option>
                     <option value="Processing">Processing</option>
                     <option value="Shipped">Shipped</option>
-                    <option value="Cancelled">Cancelled</option>
+                    <option value="Canceled">Cancelled</option>
                     <option value="Delivered">Delivered</option>
                   </select>
                   <button onClick={this.orderChange}>apply</button>

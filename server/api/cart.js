@@ -69,7 +69,6 @@ router.delete('/:itemId', async (req, res, next) => {
 router.put('/addItem/:itemId', async (req, res, next) => {
   try {
     const itemId = req.params.itemId
-    console.log('req.user: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const order = await Order.findOneGuestUser('user', userId)

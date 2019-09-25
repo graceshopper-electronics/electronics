@@ -28,7 +28,6 @@ class Reviews extends Component {
   addReview(review) {
     review.user = {}
     review.user.email = this.props.user.email
-    console.log(review)
     this.setState({
       content: '',
       rating: '',
@@ -47,7 +46,7 @@ class Reviews extends Component {
     try {
       const newReview = {
         content: this.state.content,
-        rating: this.state.rating,
+        rating: this.state.rating ? this.state.rating : 1,
         itemId: this.props.id
       }
       const res = await axios.post('/api/reviews/', newReview)

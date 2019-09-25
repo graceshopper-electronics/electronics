@@ -16,7 +16,6 @@ const onlyAdmins = (req, res, next) => {
 }
 
 router.get('/', onlyAdmins, async (req, res, next) => {
-  console.log('going')
   let whereConditions = {}
   let orderConditions = []
   let limit = req.query.limit ? Number(req.query.limit) : 15
@@ -47,8 +46,10 @@ router.get('/', onlyAdmins, async (req, res, next) => {
 
 router.put('/:orderid', async (req, res, next) => {
   try {
-    Order.findByPk(req.params.orderid)
-      .then(order => order.update({status: req.body.status}))
+    Order.update(
+      {status: req.body.status},
+      {returning: true, where: {id: req.params.orderid}}
+    )
       .then(order => res.json(order))
       .catch(next)
   } catch (err) {

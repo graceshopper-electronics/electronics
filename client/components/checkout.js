@@ -20,14 +20,11 @@ class Checkout extends React.Component {
 
   handleClick() {
     this.props.placeOrder(this.props.cart.id)
-    console.log('hit handleClick')
   }
 
   async handleToken(token, addresses) {
-    console.log({token, addresses})
     const items = this.props.cart.items
     const response = await this.props.submitPayment(token, items)
-    console.log('response: ', response)
   }
 
   render() {

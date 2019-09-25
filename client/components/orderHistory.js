@@ -14,13 +14,11 @@ class OrderHistory extends Component {
   }
 
   async componentDidMount() {
-    console.log(this.props)
     const res = await axios.get(`/api/orders/history/${this.props.user.id}`)
     this.setState({orderHistory: res.data})
   }
 
   render() {
-    console.log(this.state)
     let displayOrders = []
     if (!this.state.orderHistory || !this.state.orderHistory) {
       return (
@@ -41,7 +39,6 @@ class OrderHistory extends Component {
           }, 0))
       )
     }
-    console.log('order stuff')
     return (
       <div id="orderhistory">
         <h1>Your Order History</h1>
