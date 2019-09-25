@@ -163,7 +163,7 @@ class Allitems extends Component {
                 <div>
                   {items.map(item => {
                     return (
-                      <div key={item.id}>
+                      <div key={item.id} className="single-item-in-view">
                         <ItemCard item={item} />
                         {item.inventory ? (
                           <AddToCart item={item} />
