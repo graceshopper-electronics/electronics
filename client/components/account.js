@@ -194,7 +194,7 @@ class Account extends Component {
                   </Link>
                 </button>
                 <button type="button">
-                  <Link to="/orders" className="clean-link">
+                  <Link to="/allorders" className="clean-link">
                     Manage Orders
                   </Link>
                 </button>
