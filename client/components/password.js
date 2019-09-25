@@ -39,7 +39,7 @@ class Password extends Component {
         this.setState({
           password1: '',
           password2: '',
-          reset: true
+          reset: false
         })
       } catch (err) {
         this.setState({
