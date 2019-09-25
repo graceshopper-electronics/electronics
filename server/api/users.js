@@ -53,7 +53,6 @@ router.put('/:userid', onlyAdmins, async (req, res, next) => {
   }
   if (req.body.password) {
     try {
-      console.log(req.body.password)
       User.findByPk(req.params.userid)
         .then(user =>
           user.update({password: req.body.password, resetPassword: false})

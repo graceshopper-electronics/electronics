@@ -18,8 +18,6 @@ class UpdateCategory extends Component {
     this.setState({
       [evt.target.name]: evt.target.value
     })
-    console.log(this.state)
-    console.log(this.props.id)
   }
 
   handleSubmit(evt) {

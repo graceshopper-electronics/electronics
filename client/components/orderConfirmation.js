@@ -23,11 +23,9 @@ class OrderConfirmation extends React.Component {
 
   handleCancel() {
     this.props.cancel(this.state.orderId)
-    console.log('canceled!')
     this.setState({
       canceled: true
     })
-    console.log('this.state.canceled: ', this.state.canceled)
   }
 
   render() {

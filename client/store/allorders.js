@@ -31,7 +31,6 @@ export const fetchAllOrdersThunk = () => async dispatch => {
 }
 
 export const setSearchedOrders = orders => dispatch => {
-  console.log(orders)
   dispatch(setOrders(orders))
 }
 

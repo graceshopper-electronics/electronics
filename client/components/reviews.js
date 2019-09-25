@@ -27,7 +27,6 @@ class Reviews extends Component {
   addReview(review) {
     review.user = {}
     review.user.email = this.props.user.email
-    console.log(review)
     this.setState({
       content: '',
       rating: '',

@@ -57,7 +57,6 @@ class Allitems extends Component {
   }
 
   async handleClick(evt) {
-    console.log(this.props.search, typeof this.props.search)
     let limit = Number(this.state.perPage)
     let offset = !evt.offset ? 0 : Number(Number(evt.offset) * limit)
     let whereConditions = ''
@@ -67,7 +66,6 @@ class Allitems extends Component {
     if (this.state.price) {
       whereConditions += `&price=${this.state.price}`
     }
-    console.log(whereConditions)
     try {
       let result = await axios.get(
         `/api/items?limit=${limit}&offset=${offset}${whereConditions}`
