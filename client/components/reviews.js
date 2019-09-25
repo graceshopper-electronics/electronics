@@ -46,7 +46,7 @@ class Reviews extends Component {
     try {
       const newReview = {
         content: this.state.content,
-        rating: this.state.rating,
+        rating: this.state.rating ? this.state.rating : 1,
         itemId: this.props.id
       }
       const res = await axios.post('/api/reviews/', newReview)
