@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const DELETE_USER = 'DELETE_USER'
 const PROMOTE_USER = 'PROMOTE_USER'
+const PASS_RESET = 'PASS_RESET'
 /**
  * INITIAL STATE
  */
@@ -18,6 +19,7 @@ const allUsers = []
 const getAllUsers = users => ({type: GET_ALL_USERS, users})
 const deleteUser = id => ({type: DELETE_USER, id})
 const promoteUser = id => ({type: PROMOTE_USER, id})
+const passReset = id => ({type: PASS_RESET, id})
 /**
  * THUNK CREATORS
  */
@@ -25,6 +27,15 @@ export const fetchUsersThunk = () => async dispatch => {
   try {
     const res = await axios.get('/api/users')
     dispatch(getAllUsers(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const passResetThunk = id => async dispatch => {
+  try {
+    await axios.put(`/api/users/reset/${id}`)
+    dispatch(passReset(id))
   } catch (err) {
     console.error(err)
   }
@@ -47,6 +58,7 @@ export const promoteUserThunk = id => async dispatch => {
     console.error(err)
   }
 }
+
 /**
  * REDUCER
  */
@@ -66,6 +78,14 @@ export default function(state = allUsers, action) {
           } else {
             user.isAdmin = false
           }
+        }
+        return user
+      })
+    }
+    case PASS_RESET: {
+      return state.map(user => {
+        if (user.id === Number(action.id)) {
+          user.resetPassword = true
         }
         return user
       })

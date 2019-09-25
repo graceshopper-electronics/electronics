@@ -210,7 +210,7 @@ class AllOrders extends Component {
                     </option>
                     <option value="Processing">Processing</option>
                     <option value="Shipped">Shipped</option>
-                    <option value="Cancelled">Cancelled</option>
+                    <option value="Canceled">Cancelled</option>
                     <option value="Delivered">Delivered</option>
                   </select>
                   <button onClick={this.orderChange}>apply</button>
