@@ -144,11 +144,7 @@ class Allitems extends Component {
                     return (
                       <div key={item.id} className="single-item-in-view">
                         <ItemCard item={item} />
-                        {item.inventory ? (
-                          <AddToCart item={item} />
-                        ) : (
-                          <h3>Out of Stock, Check Back Later</h3>
-                        )}
+                        {item.inventory && <h3>Out of Stock</h3>}
                         {isAdmin ? (
                           <div>
                             <button
