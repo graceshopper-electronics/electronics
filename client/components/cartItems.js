@@ -25,17 +25,21 @@ class CartItems extends React.Component {
       <div>
         {items[0] ? (
           items.map(item => (
-            <div className="wrap" key={item.id}>
-              <Link to={`/items/${item.id}`} className="wrap">
-                <img src={item.photo} className="itemPhoto" />
+            <div
+              className="flex-display flex-wrap cart-item-containter"
+              key={item.id}
+            >
+              <Link to={`/items/${item.id}`} className="limit">
+                <img src={item.photo} className="cart-photo" />
                 <ul>
                   <li className="item-name">{item.name}</li>
                   <li className="price">
-                    ${item.price * item.orderdetails.itemQuantity}
+                    ${(item.price * item.orderdetails.itemQuantity).toFixed(2)}
                   </li>
                 </ul>
               </Link>
-              <div className="right">
+              <div className="flex-display">
+                <label className="left-quantity">Qty:</label>
                 <input
                   className="cart-quantity"
                   type="number"
@@ -48,15 +52,15 @@ class CartItems extends React.Component {
                   min="1"
                   max="100"
                 />
-                <button
-                  className="delete"
-                  onClick={() => {
-                    this.handleDelete(item.id)
-                  }}
-                >
-                  Delete
-                </button>
               </div>
+              <button
+                className="delete right-delete"
+                onClick={() => {
+                  this.handleDelete(item.id)
+                }}
+              >
+                Delete
+              </button>
             </div>
           ))
         ) : (

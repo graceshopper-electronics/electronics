@@ -28,9 +28,11 @@ class ViewCart extends React.Component {
                 : '0.00'
             }`}
           </p>
-          <button className="checkout">
-            <Link to="/checkout">Proceed to Checkout</Link>
-          </button>
+          {items[0] && (
+            <button className="checkout">
+              <Link to="/checkout">Proceed to Checkout</Link>
+            </button>
+          )}
         </div>
         <CartItems />
       </div>

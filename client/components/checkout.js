@@ -33,11 +33,14 @@ class Checkout extends React.Component {
   render() {
     const items = this.props.cart.items || []
     const orderTotal = items[0]
-      ? items.reduce((acc, item) => {
-          return acc + Number(item.price * item.orderdetails.itemQuantity)
-        }, 0.0)
+      ? items
+          .reduce((acc, item) => {
+            return acc + Number(item.price * item.orderdetails.itemQuantity)
+          }, 0.0)
+          .toFixed(2)
       : '0.00'
 
+    const user = this.props.user || 'guest'
     return (
       <div className="checkout-view">
         <header className="checkout-header">
@@ -51,9 +54,20 @@ class Checkout extends React.Component {
           <h3>1 Shipping Adresss</h3>
           <div className="user-address-info">
             <p>
-              Christopher Choi <br />
-              1149 DeerField Lane <br />
-              Lake Forest, IL 61820-7109
+              {user.email ? (
+                <span>
+                  {user.email}
+                  <br />
+                  {user.shippingAddress}
+                </span>
+              ) : (
+                <span>
+                  Guest
+                  <br />
+                  1149 DeerField Lane <br />
+                  Lake Forest, IL 61820-7109
+                </span>
+              )}
             </p>
           </div>
           <button className="change">Change</button>
@@ -63,14 +77,14 @@ class Checkout extends React.Component {
           <h3>2 Payment Method</h3>
           <div className="user-payment-info">
             <h4>Pay with card</h4>
-            <StripeCheckout
+            {/* <StripeCheckout
               stripeKey="pk_test_CadsqXgAmTJA8CmCoP85Lgfb00TiYRdM5j"
               token={this.handleToken}
               billingAddress
               shippingAddress
               amount={100}
               name="testing item"
-            />
+            /> */}
           </div>
           <button className="change">Change</button>
         </div>
@@ -148,7 +162,8 @@ class Checkout extends React.Component {
 
 const mapState = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 

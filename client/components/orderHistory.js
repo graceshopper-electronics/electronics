@@ -58,7 +58,7 @@ class OrderHistory extends Component {
               {order.items.map(item => (
                 <Link to={`items/${item.id}`} key={item.id}>
                   <div className="wrap" key={item.id}>
-                    <img src={item.photo} className="itemPhoto" />
+                    <img src={item.photo} className="item-photo" />
                     <ul>
                       <li>{item.name}</li>
                       <li>{item.description}</li>
