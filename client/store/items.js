@@ -32,7 +32,6 @@ export const fetchItemsThunk = () => async dispatch => {
 }
 
 export const fetchSearchItems = search => async dispatch => {
-  console.log(search)
   try {
     const res = await axios.get(`/api/items?search=${search}`)
     dispatch(setSearch(search))

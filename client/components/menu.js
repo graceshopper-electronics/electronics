@@ -11,7 +11,6 @@ class Menu extends Component {
   }
 
   handleClickCategory(evt) {
-    console.log('event id', evt.target.id)
     this.props.getItemsByCat(evt.target.id)
   }
 

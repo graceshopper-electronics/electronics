@@ -3,41 +3,35 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import ItemCard from './itemcard'
 
-import {fetchByCategoryThunk} from '../store/singlecategoryitems'
-
-// function ascending(a, b) {
-//   if (a.price > b.price) {
-//     return b
-//   } else {
-//     return a
-//   }
-// }
-
-// function descending(a, b) {
-//   if (a.price > b.price) {
-//     return a
-//   } else {
-//     return b
-//   }
-// }
+import {
+  fetchByCategoryThunk,
+  sortAscThunk,
+  sortDescThunk
+} from '../store/singlecategoryitems'
 
 class SingleCategory extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.handChange = this.handleChange.bind(this)
-  //   // this.state = {
-  //   //   singlecategoryitems: []
-  //   // }
-  // }
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.state = {}
+  }
 
   componentDidMount() {
     this.props.getItemsByCat(this.props.match.params.categoryId)
   }
 
-  // handleChange(evt) {
-  //   if (evt.target.value === 'ASC') {
-  //   }
-  // }
+  handleChange(evt) {
+    if (evt.target.value === 'ASC') {
+      this.props.sortAsc(this.props.singlecategoryitems)
+      this.setState({})
+    } else if (evt.target.value === 'DESC') {
+      this.props.sortDesc(this.props.singlecategoryitems)
+      this.setState({})
+    } else {
+      this.props.getItemsByCat(this.props.match.params.categoryId)
+      this.setState({})
+    }
+  }
 
   render() {
     const catName = this.props.categories.reduce((accum, curr) => {
@@ -59,13 +53,10 @@ class SingleCategory extends Component {
             defaultValue="none"
             onChange={this.handleChange}
           >
-            <option defaultValue="none" disabled selected>
-              Select
-            </option>
+            <option defaultValue="none">Select</option>
             <option value="ASC">Sort Low to High</option>
             <option value="DESC">Sort High To Low</option>
           </select>
-          <button type="button">Sort</button>
         </div>
 
         <div>
@@ -89,7 +80,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getItemsByCat: id => dispatch(fetchByCategoryThunk(id))
+    getItemsByCat: id => dispatch(fetchByCategoryThunk(id)),
+    sortAsc: items => dispatch(sortAscThunk(items)),
+    sortDesc: items => dispatch(sortDescThunk(items))
   }
 }
 

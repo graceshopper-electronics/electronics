@@ -16,7 +16,6 @@ const onlyAdmins = (req, res, next) => {
 }
 
 router.get('/', onlyAdmins, async (req, res, next) => {
-  console.log('going')
   let whereConditions = {}
   let orderConditions = []
   let limit = req.query.limit ? Number(req.query.limit) : 15

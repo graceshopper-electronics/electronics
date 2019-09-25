@@ -5,7 +5,6 @@ const Op = Sequelize.Op
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  console.log(req.query)
   let whereConditions = {}
   let orderConditions = []
   let limit = req.query.limit ? Number(req.query.limit) : 15

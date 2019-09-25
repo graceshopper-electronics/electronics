@@ -36,7 +36,6 @@ class Password extends Component {
       let update = {password: this.state.password1}
       try {
         let result = await axios.put(`/api/users/${this.props.user.id}`, update)
-        console.log(result)
         this.setState({
           password1: '',
           password2: '',
@@ -57,7 +56,6 @@ class Password extends Component {
   }
 
   render() {
-    console.log('is this thing on', this.state)
     return (
       <div>
         {this.props.user.resetPassword ? (

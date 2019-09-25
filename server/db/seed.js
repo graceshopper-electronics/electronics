@@ -54,14 +54,13 @@ let categorySeed = [
   }
 ]
 
-for (let i = 0; i < 32; i++) {
+for (let i = 0; i < 100; i++) {
   itemSeed.push({
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
     inventory: Math.floor(Math.random() * 14),
     photo: faker.image.technics(150, 150, true),
-    description: faker.lorem.sentence(),
-    categoryId: Math.floor(Math.random() * 4) + 1
+    description: faker.lorem.sentence()
   })
 }
 
@@ -129,26 +128,35 @@ const seed = async () => {
       isAdmin: true,
       shippingAddress: faker.address.streetAddress()
     })
-    const cat = await Category.create(categorySeed[0])
-    const cat2 = await Category.create(categorySeed[1])
-    const cat3 = await Category.create(categorySeed[2])
-    const cat4 = await Category.create(categorySeed[3])
 
-    const itm = await Item.create(itemSeed[0])
-    const itm2 = await Item.create(itemSeed[1])
-    const itm3 = await Item.create(itemSeed[2])
-    const itm4 = await Item.create(itemSeed[3])
+    let categories = []
+    const forLoop = async _ => {
+      for (let i = 0; i < categorySeed.length; i++) {
+        let ctg = await Category.create(categorySeed[i])
+        categories.push(ctg)
+      }
+    }
+    await forLoop()
 
-    cat2.addItems(itm3)
-    cat2.addItems(itm4)
+    let items = []
+    const forLoop2 = async _ => {
+      for (let i = 0; i < itemSeed.length; i++) {
+        let itm = await Item.create(itemSeed[i])
 
-    itm.addCategories(cat)
-    itm.addCategories(cat3)
-    itm.addCategories(cat4)
-    itm2.addCategories(cat2)
+        items.push(itm)
+      }
+    }
+    await forLoop2()
 
-    await Category.bulkCreate(categorySeed)
-    await Item.bulkCreate(itemSeed)
+    const forLoop3 = async _ => {
+      for (let i = 0; i < items.length; i++) {
+        let catNum = Math.floor(Math.random() * 8)
+        await categories[catNum].addItems(items[i])
+      }
+    }
+
+    await forLoop3()
+
     await User.bulkCreate(userSeed)
     await Order.bulkCreate(orderSeed)
     await OrderDetails.bulkCreate(orderDetailSeed)
