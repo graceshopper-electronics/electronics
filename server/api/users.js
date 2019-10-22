@@ -16,6 +16,41 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.put('/:userid', async (req, res, next) => {
+  if (!req.params.userid === req.user.id && !req.user.isAdmin)
+    if (req.body.email) {
+      try {
+        User.findByPk(req.params.userid)
+          .then(user => user.update({email: req.body.email}))
+          .then(user => res.json(user))
+          .catch(next)
+      } catch (err) {
+        next(err)
+      }
+    }
+  if (req.body.password) {
+    try {
+      User.findByPk(req.params.userid)
+        .then(user =>
+          user.update({password: req.body.password, resetPassword: false})
+        )
+        .then(user => res.json(user))
+        .catch(next)
+    } catch (err) {
+      next(err)
+    }
+  } else if (req.body.shippingAddress) {
+    try {
+      User.findByPk(req.params.userid)
+        .then(user => user.update({shippingAddress: req.body.shippingAddress}))
+        .then(user => res.json(user))
+        .catch(next)
+    } catch (err) {
+      next(err)
+    }
+  }
+})
+
 const onlyAdmins = (req, res, next) => {
   if (!req.user) {
     console.log('USER IS NOT LOGGED IN!')
@@ -40,40 +75,6 @@ router.delete('/:id', onlyAdmins, async (req, res, next) => {
   }
 })
 
-router.put('/:userid', onlyAdmins, async (req, res, next) => {
-  if (req.body.email) {
-    try {
-      User.findByPk(req.params.userid)
-        .then(user => user.update({email: req.body.email}))
-        .then(user => res.json(user))
-        .catch(next)
-    } catch (err) {
-      next(err)
-    }
-  }
-  if (req.body.password) {
-    try {
-      User.findByPk(req.params.userid)
-        .then(user =>
-          user.update({password: req.body.password, resetPassword: false})
-        )
-        .then(user => res.json(user))
-        .catch(next)
-    } catch (err) {
-      next(err)
-    }
-  } else if (req.body.shippingAddress) {
-    try {
-      User.findByPk(req.params.userid)
-        .then(user => user.update({shippingAddress: req.body.shippingAddress}))
-        .then(user => res.json(user))
-        .catch(next)
-    } catch (err) {
-      next(err)
-    }
-  }
-})
-
 router.put('/admin/:userid', onlyAdmins, async (req, res, next) => {
   try {
     const id = req.params.userid
@@ -85,6 +86,17 @@ router.put('/admin/:userid', onlyAdmins, async (req, res, next) => {
       adminStatus = false
     }
     await user.update({isAdmin: adminStatus})
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/reset/:userid', onlyAdmins, async (req, res, next) => {
+  try {
+    const id = req.params.userid
+    const user = await User.findByPk(id)
+    await user.update({resetPassword: true})
     res.status(204).end()
   } catch (err) {
     next(err)

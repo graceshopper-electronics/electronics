@@ -17,6 +17,7 @@ class Reviews extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.addReview = this.addReview.bind(this)
+    this.calculateStars = this.calculateStars.bind(this)
   }
 
   async componentDidMount() {
@@ -45,7 +46,7 @@ class Reviews extends Component {
     try {
       const newReview = {
         content: this.state.content,
-        rating: this.state.rating,
+        rating: this.state.rating ? this.state.rating : 1,
         itemId: this.props.id
       }
       const res = await axios.post('/api/reviews/', newReview)
@@ -57,10 +58,24 @@ class Reviews extends Component {
     }
   }
 
+  calculateStars(rating) {
+    let stars = [
+      'fa-star-o',
+      'fa-star-o',
+      'fa-star-o',
+      'fa-star-o',
+      'fa-star-o'
+    ]
+    for (let i = 0; i <= Math.round(rating - 1); i++) {
+      stars[i] = 'fa-star'
+    }
+    return stars
+  }
+
   render() {
     if (!this.state.reviews.length) {
       return (
-        <div>
+        <div className="reviews">
           <h2>No Reviews Yet!</h2>
         </div>
       )
@@ -69,16 +84,29 @@ class Reviews extends Component {
       this.state.reviews.reduce(function(acc, review) {
         return acc + Number(review.rating)
       }, 0) / this.state.reviews.length
+
+    const starRating = this.calculateStars(average)
+
     return (
-      <div>
-        <h3>Average Rating: {average.toFixed(2)} / 5 </h3>
+      <div className="reviews">
+        <h3 className="flex-display">
+          Average Rating:
+          <div className="star-rating">
+            <i className={`fa ${starRating[0]}`} />
+            <i className={`fa ${starRating[1]}`} />
+            <i className={`fa ${starRating[2]}`} />
+            <i className={`fa ${starRating[3]}`} />
+            <i className={`fa ${starRating[4]}`} />
+          </div>
+          ({average.toFixed(2)} / 5)
+        </h3>
         {this.state.reviews.map(review => (
           <div key={review.id}>
             <p>
-              Review by {review.user.email} on{' '}
+              <i className="fa fa-user fa-2x user" /> {review.user.email} on{' '}
               {review.submissionDate.slice(0, 10)}
             </p>
-            <h4>Rating: {review.rating} / 5</h4>
+            <h4>{review.rating} / 5</h4>
             <p>{review.content}</p>
           </div>
         ))}

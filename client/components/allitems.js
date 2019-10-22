@@ -105,25 +105,6 @@ class Allitems extends Component {
               </select>
             </div>
 
-            {/* <div className="filter-element">
-              <p>Category:</p>
-              <select
-                className="form-control"
-                name="category"
-                defaultValue=""
-                onChange={this.handleChange}
-              >
-                <option value="" disabled selected>
-                  Select
-                </option>
-                <option value="">All</option>
-                <option value="1">TV</option>
-                <option value="2">Mobile Phones</option>
-                <option value="3">Audio</option>
-                <option value="4">Photography</option>
-              </select>
-            </div> */}
-
             <div className="filter-element">
               <p>Results Per Page:</p>
               <select
@@ -150,7 +131,6 @@ class Allitems extends Component {
 
           <div className="flex-display all-item-body">
             <Advertisements />
-
             {items.length ? (
               <div>
                 <p>
@@ -158,11 +138,13 @@ class Allitems extends Component {
                     ? `Search result for ${this.props.search}`
                     : ''}
                 </p>
-                <div className="items-view">
+
+                <div>
                   {items.map(item => {
                     return (
                       <div key={item.id} className="single-item-in-view">
                         <ItemCard item={item} />
+                        {item.inventory && <h3>Out of Stock</h3>}
                         {isAdmin ? (
                           <div>
                             <button
@@ -188,17 +170,12 @@ class Allitems extends Component {
                       >
                         Previous Page
                       </button>{' '}
-                      <button
-                        type="button"
-                        value={Number(this.state.offset) + 1}
-                        onClick={this.pageClick}
-                      >
-                        Next Page
-                      </button>
-                      <p> </p>
-                      <br />
                     </div>
                   ) : (
+                    <div />
+                  )}
+
+                  {items.length === Number(this.state.perPage) ? (
                     <div>
                       {' '}
                       <button
@@ -208,10 +185,12 @@ class Allitems extends Component {
                       >
                         Next Page
                       </button>
-                      <p> </p>
-                      <br />
                     </div>
+                  ) : (
+                    <div />
                   )}
+                  <p> </p>
+                  <br />
                 </div>
               </div>
             ) : (

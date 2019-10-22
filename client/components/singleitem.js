@@ -33,22 +33,32 @@ class Singleitem extends Component {
         </h1>
       </div>
     ) : (
-      <div>
-        <div>
-          <h3>{itemObj.name}</h3>
+      <div className="single-item-page">
+        <div className="flex-display item-info">
+          <div className="photo-sidebar">
+            <img src={itemObj.photo} />
+            <img src={itemObj.photo} />
+            <img src={itemObj.photo} />
+            <img src={itemObj.photo} />
+          </div>
+          <div>
+            <img src={itemObj.photo} className="single-item-photo" />
+          </div>
           <ul>
             <li>
-              <img src={itemObj.photo} className="singleItemPhoto" />
+              <h3>{itemObj.name}</h3>
             </li>
-            <li>Price: {itemObj.price} </li>
+            <li className="single-price">${itemObj.price} </li>
             {itemObj.inventory ? (
               itemObj.inventory < 10 ? (
-                <li>Left in Stock: {itemObj.inventory}</li>
+                <li className="orange">
+                  Only {itemObj.inventory} left in stock
+                </li>
               ) : (
-                <li>Currently in Stock</li>
+                <li className="green">Currently in Stock</li>
               )
             ) : (
-              <li>Out of Stock, Check Back Later</li>
+              <li className="red">Out of Stock</li>
             )}
             <li>Description: {itemObj.description}</li>
             <li>
@@ -82,9 +92,9 @@ class Singleitem extends Component {
               <h3>Unavailable for Cart</h3>
             )}
           </ul>
-
-          <Reviews id={itemObj.id} />
         </div>
+
+        <Reviews id={itemObj.id} />
         <div>
           {' '}
           {isAdmin ? (

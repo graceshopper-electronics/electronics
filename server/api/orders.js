@@ -46,8 +46,10 @@ router.get('/', onlyAdmins, async (req, res, next) => {
 
 router.put('/:orderid', async (req, res, next) => {
   try {
-    Order.findByPk(req.params.orderid)
-      .then(order => order.update({status: req.body.status}))
+    Order.update(
+      {status: req.body.status},
+      {returning: true, where: {id: req.params.orderid}}
+    )
       .then(order => res.json(order))
       .catch(next)
   } catch (err) {

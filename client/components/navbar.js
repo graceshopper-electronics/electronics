@@ -37,6 +37,7 @@ class Navbar extends React.Component {
 
   render() {
     const isLoggedIn = this.props.isLoggedIn
+    const items = this.props.items || []
     return (
       <div className="nav">
         <div className="dropdown">
@@ -60,16 +61,19 @@ class Navbar extends React.Component {
           </Link>
         </div>
 
-        <div className="link">
+        <div className="link search-container">
           <input
-            className="search"
+            className="search search-element"
             name="searchValue"
             type="text"
             value={this.state.searchValue}
             onChange={this.handleChange}
           />
-          <button className="search-button" onClick={this.handleSubmit}>
-            <Link to="/items" className="fa">
+          <button
+            className="search-button search-element"
+            onClick={this.handleSubmit}
+          >
+            <Link to="/items" className="link fa">
               <i className="fa fa-search fa-3x" />
             </Link>
           </button>
@@ -91,7 +95,8 @@ class Navbar extends React.Component {
           <div />
         )}
         <Link to="/cart" className="link">
-          <div className="fa fa-shopping-cart fa-lg" />
+          <span className="cart-number">{items[0] ? items.length : ''}</span>
+          <div className="fa fa-shopping-cart fa-2x" />
         </Link>
       </div>
     )
@@ -103,7 +108,8 @@ class Navbar extends React.Component {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    items: state.cart.items
   }
 }
 
