@@ -1,20 +1,33 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Password from './password'
-
+import {withRouter} from 'react-router-dom'
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
 
-  return (
-    <div>
-      <h1>Welcome, {email}</h1>
-      <Password />
-    </div>
-  )
+class UserHome extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+  componentDidMount() {
+    this.setState({})
+  }
+
+  render() {
+    console.log(this.props)
+    const email = this.props.email || ''
+
+    return (
+      <div>
+        <h1>Welcome, {email}</h1>
+        <Password />
+      </div>
+    )
+  }
 }
 
 /**
@@ -26,7 +39,7 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserHome)
+export default withRouter(connect(mapState)(UserHome))
 
 /**
  * PROP TYPES

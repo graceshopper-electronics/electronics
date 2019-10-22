@@ -24,7 +24,7 @@ class Menu extends Component {
             </li>
           </Link>
         ))}
-        <Link to="/items" onCLick={() => history.push('/items')}>
+        <Link to="/items" onClick={() => history.push('/items')}>
           <li>All Producs</li>
         </Link>
       </ul>
