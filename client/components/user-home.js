@@ -8,17 +8,17 @@ import {withRouter} from 'react-router-dom'
  */
 
 class UserHome extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {}
+  // }
 
-  componentDidMount() {
-    this.setState({})
-  }
+  // componentDidMount() {
+  //   this.setState({})
+  // }
 
   render() {
-    console.log(this.props)
+    console.log('INSIDE USER HOME', this.props)
     const email = this.props.email || ''
 
     return (

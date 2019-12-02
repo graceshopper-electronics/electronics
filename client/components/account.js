@@ -28,7 +28,7 @@ class Account extends Component {
   }
 
   handleLogout() {
-    this.props.handleClick()
+    this.props.handleLogout()
   }
 
   async handleEmail(evt) {
@@ -227,7 +227,7 @@ const mapStateToProps = state => {
 const mapDispatch = dispatch => {
   return {
     fetchUsers: () => dispatch(fetchUsersThunk()),
-    handleClick: () => dispatch(logout()),
+    handleLogout: () => dispatch(logout()),
     fetchOrders: () => dispatch(fetchAllOrdersThunk())
   }
 }

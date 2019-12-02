@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, me} from '../store'
 import Menu from './menu'
 import {fetchSearchItems} from '../../client/store/items'
 
@@ -115,9 +115,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
-    },
     getItems: search => dispatch(fetchSearchItems(search))
   }
 }

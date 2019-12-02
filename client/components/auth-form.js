@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -72,9 +73,6 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      console.log(evt.target.name)
-      console.log(evt.target.email.value)
-      console.log(evt.target.password.value)
       const formName = 'login'
       const email = evt.target.email.value
       const password = evt.target.password.value
@@ -82,9 +80,6 @@ const mapDispatch = dispatch => {
     },
     handleReset(evt) {
       evt.preventDefault()
-      console.log(evt.target.name)
-      console.log(evt.target.email.value)
-      console.log(evt.target.password.value)
       const formName = 'signup'
       const email = evt.target.email.value
       const password = evt.target.password.value
