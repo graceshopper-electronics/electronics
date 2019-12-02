@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {Login} from './auth-form'
+import {Login, Signup} from './auth-form'
 import {fetchUsersThunk} from '../store/allusers'
 import {logout} from '../store'
 import axios from 'axios'

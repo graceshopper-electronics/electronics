@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Password from './password'
+//import Password from './password'
 import {withRouter} from 'react-router-dom'
 /**
  * COMPONENT
@@ -24,7 +24,7 @@ class UserHome extends Component {
     return (
       <div>
         <h1>Welcome, {email}</h1>
-        <Password />
+        {/* <Password /> */}
       </div>
     )
   }

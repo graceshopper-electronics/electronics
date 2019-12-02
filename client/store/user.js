@@ -25,6 +25,8 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
+    console.log('INSIDE ME THUNK')
+    console.log(res)
     dispatch(getUser(res.data))
     history.push('/home')
   } catch (err) {
@@ -33,17 +35,22 @@ export const me = () => async dispatch => {
 }
 
 export const auth = (email, password, method) => async dispatch => {
-  let res
-  try {
-    res = await axios.post(`/auth/${method}`, {email, password})
-    const guestId = res.data.guestId
-    const userId = res.data.user.id
-    dispatch(mergeToUser(guestId, userId))
-  } catch (authError) {
-    return dispatch(getUser({error: authError}))
-  }
+  //let res
+  // try {
+  //   res = await axios.post(`/auth/${method}`, {email, password})
+  //   console.log("INSIDE AUTH THUNK")
+
+  //   const guestId = res.data.guestId
+  //   const userId = res.data.user.id
+  //   dispatch(mergeToUser(guestId, userId))
+  // } catch (authError) {
+  //   return dispatch(getUser({error: authError}))
+  // }
 
   try {
+    console.log('INSIDE AUTH THUNK')
+    let res = await axios.post(`/auth/${method}`, {email, password})
+    console.log('INSIDE AUTH THUNK')
     dispatch(getUser(res.data))
     console.log('here is the attempt')
     history.push('/home')
