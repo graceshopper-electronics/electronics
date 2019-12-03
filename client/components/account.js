@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {Login} from './auth-form'
+import {Login, Signup} from './auth-form'
 import {fetchUsersThunk} from '../store/allusers'
 import {logout} from '../store'
 import axios from 'axios'
@@ -28,7 +28,7 @@ class Account extends Component {
   }
 
   handleLogout() {
-    this.props.handleClick()
+    this.props.handleLogout()
   }
 
   async handleEmail(evt) {
@@ -227,7 +227,7 @@ const mapStateToProps = state => {
 const mapDispatch = dispatch => {
   return {
     fetchUsers: () => dispatch(fetchUsersThunk()),
-    handleClick: () => dispatch(logout()),
+    handleLogout: () => dispatch(logout()),
     fetchOrders: () => dispatch(fetchAllOrdersThunk())
   }
 }

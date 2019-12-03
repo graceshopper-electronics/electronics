@@ -2,15 +2,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, handleReset, error} = props
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={handleSubmit} onReset={handleReset} name={name}>
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -26,7 +27,12 @@ const AuthForm = props => {
         </div>
         <br />
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit" id="login">
+            Login
+          </button>
+          <button type="reset" id="signup">
+            Signup
+          </button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -65,8 +71,20 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    auth: (email, password, formName) =>
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const formName = 'login'
+      const email = evt.target.email.value
+      const password = evt.target.password.value
       dispatch(auth(email, password, formName))
+    },
+    handleReset(evt) {
+      evt.preventDefault()
+      const formName = 'signup'
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      dispatch(auth(email, password, formName))
+    }
   }
 }
 

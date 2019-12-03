@@ -1,30 +1,30 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Password from './password'
+//import Password from './password'
 import {withRouter} from 'react-router-dom'
 /**
  * COMPONENT
  */
 
 class UserHome extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {}
+  // }
 
-  componentDidMount() {
-    this.setState({})
-  }
+  // componentDidMount() {
+  //   this.setState({})
+  // }
 
   render() {
-    console.log(this.props)
+    console.log('INSIDE USER HOME', this.props)
     const email = this.props.email || ''
 
     return (
       <div>
         <h1>Welcome, {email}</h1>
-        <Password />
+        {/* <Password /> */}
       </div>
     )
   }

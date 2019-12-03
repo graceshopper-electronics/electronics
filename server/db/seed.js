@@ -166,6 +166,12 @@ const seed = async () => {
       isAdmin: true,
       shippingAddress: faker.address.streetAddress()
     })
+    await User.create({
+      email: 'tim@email.com',
+      password: '1234',
+      isAdmin: true,
+      shippingAddress: faker.address.streetAddress()
+    })
 
     let categories = []
     const forLoop = async _ => {

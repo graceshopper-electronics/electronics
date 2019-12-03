@@ -25,6 +25,8 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
+    console.log('INSIDE ME THUNK')
+    console.log(res.data)
     dispatch(getUser(res.data))
     history.push('/home')
   } catch (err) {
@@ -36,6 +38,8 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    console.log('INSIDE AUTH THUNK')
+
     const guestId = res.data.guestId
     const userId = res.data.user.id
     dispatch(mergeToUser(guestId, userId))
@@ -44,8 +48,10 @@ export const auth = (email, password, method) => async dispatch => {
   }
 
   try {
-    dispatch(getUser(res.data))
-    console.log('here is the attempt')
+    res = await axios.post(`/auth/${method}`, {email, password})
+    console.log('here is the attempt', res.data.user)
+    dispatch(getUser(res.data.user))
+
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
